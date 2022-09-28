@@ -51,7 +51,6 @@ const functionalWay = (array: any[]): number[] => {
   return array.reduce((a: number[], b: number[]) => {
     return [...a, ...b]
   }, [])
-
 }
 console.log(functionalWay(arr))
 

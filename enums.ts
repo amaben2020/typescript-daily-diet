@@ -72,3 +72,29 @@ const getReward = (grade: number) => {
 };
 
 console.log(getReward(Grade.fail));
+
+
+// Enumerations as objet keys
+
+//https://stackoverflow.com/questions/52296113/using-enum-as-object-keys
+
+export enum CTA_TYPE {
+  DEFAULT = "default",
+  IMAGE = "withImage",
+  HEADING = "withHeading",
+}
+
+// you have to first evaluate the value of the enum in the object to be used as a key i.e [Enum.Key]
+
+// const getCtaComponent = props => {
+//   const ctaComponent = {
+//     [CTA_TYPE.DEFAULT]: <Default {...props} />,
+//     [CTA_TYPE.IMAGE]: <WithButtonsCTA {...props} />,
+//     [CTA_TYPE.HEADING]: <HeadingWithCTA {...props} />,
+//   };
+
+//   const CtaComponent = ctaComponent[props.type];
+
+//   return CtaComponent;
+// };
+// This is much better than a switch statement and simpler to read
