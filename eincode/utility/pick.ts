@@ -24,3 +24,47 @@ let customerAge: UserAge = {
 }
 
 // As you can see, the Pick type is very useful in creating custom types based on already existing ones. Now that you've mastered it, you can simplify your type declarations.
+
+export type TUser = {
+  id: number,
+  info?: string
+  name: string,
+  kills: number
+  body?: string
+}
+// keep track of largest occuring elem in an array
+const users = [
+  { name: "John", id: 0, kills: 33 },
+  { name: "Ben", id: 1, kills: 83 },
+  { name: "Kate", id: 0, kills: 133 },
+  { name: "Nate", id: 0, kills: 3 },
+]
+
+const getHighestKill = (users: TUser[]): string => {
+
+  let hightstKills = 0;
+  let highestKiller = ''
+
+  for (let i = 0; i < users.length; i++) {
+    const userInfo = users[i]
+
+    if (userInfo.kills > hightstKills) {
+
+      hightstKills = userInfo.kills
+
+      highestKiller = userInfo.name
+    }
+  }
+  return highestKiller
+}
+
+console.log(getHighestKill(users))
+
+
+function firstElement<Type>(arr: Type[]): Type {
+  return arr[0];
+}
+// s is of type 'string'
+const s = firstElement(["a", "b", "c"]);
+// n is of type 'number'
+const n = firstElement([1, 2, 3]);
