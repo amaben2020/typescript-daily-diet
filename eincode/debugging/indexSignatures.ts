@@ -119,4 +119,5 @@ const programmer: IProgrammer = {
   name: 'Programmer',
   age: 30,
   sex: 'male',
+  advanced: true,
 }
