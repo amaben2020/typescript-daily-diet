@@ -1,0 +1,1 @@
+// The TypeScript Pick type is a utility type which is used to create a new custom Type, based off an already existing one. It is the opposite of the Omit Type. Let's look at how it works.

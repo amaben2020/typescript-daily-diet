@@ -29,8 +29,3 @@ const logCarInfo = (car: CarData) => {
 // console.log(printInfo(car))
 
 
-//unknown
-
-function printInfo(someObject: { [key: string]: any }) {
-  someObject.age.\
-}
