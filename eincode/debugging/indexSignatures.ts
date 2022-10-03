@@ -102,3 +102,11 @@ const options: Options = {
   timeoutMessage: 'The request timed out!',
   isFileUpload: false
 };
+
+//Record: This behavior suggests that the index signature is meant to be generic in regards to keys, records must be SPECIFIC about the keys
+type SpecificSalary = Record<'yearlySalary' | 'yearlyBonus', number>
+
+const salary4: SpecificSalary = {
+  'yearlySalary': 120_000,
+  'yearlyBonus': 10_000
+}; 
