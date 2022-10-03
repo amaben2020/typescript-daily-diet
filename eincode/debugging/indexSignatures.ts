@@ -103,10 +103,20 @@ const options: Options = {
   isFileUpload: false
 };
 
-//Record: This behavior suggests that the index signature is meant to be generic in regards to keys, records must be SPECIFIC about the keys
+//Record: This behavior suggests that the index signature is meant to be generic in regards to keys, records must be SPECIFIC about the keys which are strings.
 type SpecificSalary = Record<'yearlySalary' | 'yearlyBonus', number>
 
 const salary4: SpecificSalary = {
   'yearlySalary': 120_000,
   'yearlyBonus': 10_000
-}; 
+};
+
+interface IProgrammer {
+  [key: string]: string | number | boolean
+}
+
+const programmer: IProgrammer = {
+  name: 'Programmer',
+  age: 30,
+  sex: 'male',
+}
