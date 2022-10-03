@@ -121,3 +121,16 @@ const programmer: IProgrammer = {
   sex: 'male',
   advanced: true,
 }
+
+// Yes, you want to use specific keys, then keyof is useful.
+type Indexed<K extends string, V> = {
+  [key in K]: V;
+};
+type Config<T extends string | number | symbol> = Record<T, number>
+type Colors = Config<'Red' | 'Green' | 'Blue'>;
+
+const colors: Colors = {
+  Red: 5,
+  Green: 5,
+  Blue: 5,
+};
