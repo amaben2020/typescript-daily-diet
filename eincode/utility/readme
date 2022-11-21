@@ -1,1 +1,3 @@
 https://www.typescriptlang.org/docs/handbook/utility-types.html
+
+npx ts-node promises

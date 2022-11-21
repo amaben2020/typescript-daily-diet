@@ -51,4 +51,13 @@ const morseCode = (morse: string) => {
 
 console.log(morseCode('.-- --- .-. -..   .-- --- .-. -..   .-- --- .-. -..   .-. -..'))
 
+const loggers = (props: string) => console.log(props)
 
+const withUser = (fx, 'id') => {
+
+  // do crazy stuff
+
+  return () => {
+
+  }
+}

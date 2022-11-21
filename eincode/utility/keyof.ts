@@ -23,10 +23,16 @@ interface EventMap {
   checkout: BaseEvent
 }
 
-function sendEvent<Name extends keyof EventMap>(name: Name, data: EventMap[Name]): void {
-  console.log([name, data])
+
+interface MovieChar {
+  firstName: string;
+  name: string;
+  lastName: string
 }
 
-console.log(sendEvent("addToCart1", { productId: "1", quantity: 1, time: 0, user: "Mimi" }))
+const movieChar = {
+  firstName: "", name: "", lastName: ""
+}
+type characterProps = keyof MovieChar
 
-console.log(sendEvent("checkout", { time: 0, user: "Mimi" }))
+console.log(first)
