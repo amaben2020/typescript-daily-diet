@@ -109,6 +109,7 @@ const val = runTimeout().then(v => console.log(v))
 
 //Power of promises
 function loadScript(src: any) {
+
   return new Promise(function (resolve, reject) {
     let script = document.createElement('script');
     script.src = src;
@@ -149,6 +150,7 @@ const inventory2 = {
   bags: 1344
 };
 
+//@ts-ignore
 const inventoryInfo = new Promise((resolve, reject) => {
   if (inventory2.sunglasses) {
     resolve(inventory2.sunglasses = 2000)
@@ -157,9 +159,9 @@ const inventoryInfo = new Promise((resolve, reject) => {
 })
 
 const dataInfo = inventoryInfo.then((inventory) => {
-  console.log(inventory)
+  console.log('Inventory', inventory)
 }).catch((error) => {
   console.log(error)
 })
 
-console.log(dataInfo)
+console.log('Result of inventory', dataInfo)
