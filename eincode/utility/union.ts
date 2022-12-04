@@ -42,3 +42,6 @@ type NewSingleFruitCount = {
 const singleFruitCount: NewSingleFruitCount = {
   apple: 2,
 }
+
+// keyof, in
+

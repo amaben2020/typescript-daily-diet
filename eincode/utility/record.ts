@@ -1,3 +1,4 @@
+// Record: Record<key, value>
 interface CatInfo {
   age: number;
   breed: string;
@@ -13,9 +14,6 @@ const cats: Record<CatName, CatInfo> = {
 
 cats.boris;
 
-type Indexed<K extends string, V> = {
-  [key in K]: V;
-};
 // Record<Type,value>
 type Config<T extends string | number | symbol> = Record<T, number>
 type Colors = Config<'Red' | 'Green' | 'Blue'>;
@@ -25,9 +23,6 @@ const colors: Colors = {
   Green: 5,
   Blue: 5,
 };
-
-
-
 
 type User = {
   name: string
@@ -40,7 +35,3 @@ const userInfo: UserRecord = {
   "miffy": { name: "Miffy", age: 40 },
   "ben": { name: "Miffy", age: 40 },
 }
-
-
-
-
