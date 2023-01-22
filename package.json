@@ -7,5 +7,8 @@
     "dev": "tsc --watch --preserveWatchOutput",
     "start": "npx ts-node",
     "run": "npx ts-node src/"
+  },
+  "dependencies": {
+    "vitest": "^0.27.3"
   }
 }
