@@ -242,11 +242,51 @@ const object = {
 
 console.log(object)
 
-//   type Route = { path: string; children?: Routes }
-// type Routes = Record<string, Route>
+type Route = { path: string; children?: Routes }
+type Routes = Record<string, Route>
 
-// const routes = {
-//   AUTH: {
-//     path: "/auth",
-//   },
-// } satisfies Routes; // 😍
+const routes = {
+  AUTH: {
+    path: "/auth",
+  },
+} satisfies Routes
+
+console.log(routes.AUTH.path)
+type NestedObjectProps = {
+  name: string,
+  sex: string
+}
+
+type NestedObject = Record<"amaben", NestedObjectProps>
+
+const nestedObject = {
+  amaben: {
+    name: "amaben",
+    sex: " male",
+  }
+} satisfies NestedObject
+
+console.log(nestedObject.amaben);
+
+
+type Smth = Record<"name" | "sex", string>
+
+
+
+const multiArray: Smth[] = [{ name: "amaben", sex: "male" }, { name: "ben", sex: "female" }]
+
+type TScores = {
+  inputs: [string, number, number]
+}
+
+type TPhoneBoth = Record<"name" | "phoneNumber" | "scores", string | TScores>
+
+const phoneBooth: TPhoneBoth = {
+  name: "Amaben",
+  phoneNumber: "+234",
+  scores: {
+    inputs: ["First", 33, 3311]
+  }
+}
+
+console.log('phoneBooth', phoneBooth)
