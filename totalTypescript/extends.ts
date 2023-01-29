@@ -1,4 +1,6 @@
 
+// Inheriting Interface Properties
+
 // extends creates a new type with the properties of the previous one
 //TypeScript allows an interface to extend a class. In this case, the interface inherits the properties and methods of the class.
 
@@ -135,3 +137,53 @@ const recreateGetCountry = <TUser, K extends keyof TUser, U extends keyof TUser[
 console.log(recreateGetCountry(userInfo, "location", "country"))
 
 console.log(userInfo['location']['country'])
+
+// compose User, Base
+
+interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface Post extends User {
+  title: string;
+  body: string;
+}
+
+interface Comment extends Post {
+  comment: string;
+}
+
+
+
+
+interface Base {
+  id: string;
+}
+
+interface User extends Base {
+  firstName: string;
+  lastName: string;
+}
+
+interface Post extends Base {
+  title: string;
+  body: string;
+}
+
+interface Comment extends Base {
+  comment: string;
+}
+
+// interface Comment extends Base, User {
+//   comment: string;
+// } extending 2 interfaces at the same time.
+
+type TuserAndPost = {
+  id: string
+  firstName: string
+  lastName: string
+  posts: Post[];
+}
+

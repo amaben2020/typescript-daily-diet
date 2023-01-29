@@ -11,6 +11,7 @@ interface Post {
   title: string;
 }
 
+// quickly check here before proceeding in the app
 export const defaultUser: User = {
   id: 1,
   firstName: "Matt",
