@@ -1,4 +1,3 @@
-
 // Inheriting Interface Properties
 
 // extends creates a new type with the properties of the previous one
@@ -9,84 +8,86 @@
 // medium code formatter: cmd+option+6
 
 interface CartItem {
-  name: string
-  person: string
+  name: string;
+  person: string;
 }
 
 interface City extends CartItem {
-  city: string
+  city: string;
 }
 
 const cartItem: City = {
-  name: '',
-  person: '',
-  city: ''
-}
+  name: "",
+  person: "",
+  city: "",
+};
 
 // Use 'extends' keyword to narrow the value of a generic]
 
 const obj = {
   foo: {
     a: true,
-    b: 2
+    b: 2,
   },
   bar: {
     c: "cool",
-    d: 2
-  }
-}
+    d: 2,
+  },
+};
 
 export const getDeepValue = <
   Obj,
   FirstKey extends keyof Obj,
-  SecondKey extends keyof Obj[FirstKey]
+  SecondKey extends keyof Obj[FirstKey],
 >(
   obj: Obj,
   firstKey: FirstKey,
-  secondKey: SecondKey
+  secondKey: SecondKey,
 ): Obj[FirstKey][SecondKey] => {
-  return {} as any
-}
+  return {} as any;
+};
 
-const result = getDeepValue(obj, "bar", "d")
+const result = getDeepValue(obj, "bar", "d");
 
-
-const nestedObj = <Obj, Info extends keyof Obj, TInfo extends keyof Obj[Info]>(obj: Obj, a: Info, b: TInfo): Obj[Info][TInfo] => {
-  return obj[a][b] as Obj[Info][TInfo]
-}
-console.log('value', nestedObj(obj, "bar", "d"))
+const nestedObj = <Obj, Info extends keyof Obj, TInfo extends keyof Obj[Info]>(
+  obj: Obj,
+  a: Info,
+  b: TInfo,
+): Obj[Info][TInfo] => {
+  return obj[a][b] as Obj[Info][TInfo];
+};
+console.log("value", nestedObj(obj, "bar", "d"));
 
 // keys are vital in objects which are extremely dynamic
 
-
 interface ILocation {
-  city: string
-  country: string
+  city: string;
+  country: string;
 }
 
 interface IInterest {
-  hobbies: string[]
-  politics: string[]
+  hobbies: string[];
+  politics: string[];
 }
 
 interface IUser {
   name: string;
   phone: number;
   location: ILocation;
-  interests: IInterest
+  interests: IInterest;
 }
 
 const user: IUser = {
-  name: 'Benneth',
+  name: "Benneth",
   phone: 123456789,
   location: {
-    city: 'Abuja',
-    country: 'Nigeria',
+    city: "Abuja",
+    country: "Nigeria",
   },
   interests: {
     hobbies: ["Cycling", "Reading"],
-    politics: ["Ancient Civilization", "Roman empire"]
-  }
+    politics: ["Ancient Civilization", "Roman empire"],
+  },
 };
 
 // const getCountry = (user: IUser, key: "location", otherKey: "country"): IUser["location"]["country"] => {
@@ -97,46 +98,61 @@ const user: IUser = {
 //   return user[a][b]
 // }
 
-const getCountry = <UserType, LocationType extends keyof UserType, CountryType extends keyof UserType[LocationType]>(user: UserType, a: LocationType, b: CountryType) => user[a][b]
+const getCountry = <
+  UserType,
+  LocationType extends keyof UserType,
+  CountryType extends keyof UserType[LocationType],
+>(
+  user: UserType,
+  a: LocationType,
+  b: CountryType,
+) => user[a][b];
 
-console.log(getCountry(user, "location", "country"))
-
+console.log(getCountry(user, "location", "country"));
 
 const userInfo = {
-  name: 'Benny',
+  name: "Benny",
   phone: 123456789,
   location: {
-    city: 'Abuja',
-    country: 'Nigeria',
+    city: "Abuja",
+    country: "Nigeria",
   },
   interests: {
     hobbies: ["Cycling", "Reading"],
-    politics: ["Ancient Civilization", "Roman empire"]
-  }
-}
+    politics: ["Ancient Civilization", "Roman empire"],
+  },
+};
 type TLocation = {
-  city: string
-  country: string
-}
+  city: string;
+  country: string;
+};
 
 type TInterests = {
-  hobbies: string[]
-  politics: string[]
-}
+  hobbies: string[];
+  politics: string[];
+};
 type TUser = {
-  name: string,
-  phone: string,
-  location: TLocation,
-  interests: TInterests
-}
+  name: string;
+  phone: string;
+  location: TLocation;
+  interests: TInterests;
+};
 
-const recreateGetCountry = <TUser, K extends keyof TUser, U extends keyof TUser[K]>(object: TUser, key: K, value: U) => {
-  return object[key][value]
-}
+const recreateGetCountry = <
+  TUser,
+  K extends keyof TUser,
+  U extends keyof TUser[K],
+>(
+  object: TUser,
+  key: K,
+  value: U,
+) => {
+  return object[key][value];
+};
 
-console.log(recreateGetCountry(userInfo, "location", "country"))
+console.log(recreateGetCountry(userInfo, "location", "country"));
 
-console.log(userInfo['location']['country'])
+console.log(userInfo["location"]["country"]);
 
 // compose User, Base
 
@@ -154,9 +170,6 @@ interface Post extends User {
 interface Comment extends Post {
   comment: string;
 }
-
-
-
 
 interface Base {
   id: string;
@@ -181,9 +194,8 @@ interface Comment extends Base {
 // } extending 2 interfaces at the same time.
 
 type TuserAndPost = {
-  id: string
-  firstName: string
-  lastName: string
+  id: string;
+  firstName: string;
+  lastName: string;
   posts: Post[];
-}
-
+};

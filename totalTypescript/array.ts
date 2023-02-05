@@ -28,3 +28,24 @@ export const defaultUser: User = {
     },
   ],
 };
+
+type TUserInfo<S> = {
+  [key: string | number]: S | Post[] | number;
+};
+
+const userInfo: TUserInfo<string> = {
+  id: 1,
+  firstName: "Matt",
+  lastName: "Pocock",
+  role: "admin",
+  posts: [
+    {
+      id: 1,
+      title: "How I eat so much cheese",
+    },
+    {
+      id: 2,
+      title: "Why I don't eat more vegetables",
+    },
+  ],
+};
