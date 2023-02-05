@@ -33,7 +33,7 @@ type TUserInfo<S> = {
   [key: string | number]: S | Post[] | number;
 };
 
-const userInfo: TUserInfo<string> = {
+const userInfo = {
   id: 1,
   firstName: "Matt",
   lastName: "Pocock",
@@ -48,4 +48,6 @@ const userInfo: TUserInfo<string> = {
       title: "Why I don't eat more vegetables",
     },
   ],
-};
+} satisfies TUserInfo<string>;
+
+console.log(userInfo);
