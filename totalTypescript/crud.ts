@@ -9,6 +9,7 @@ type TUProp = {
 
 type IData = TUProp[];
 
+// always start your contract early to prevent complicated errors
 const DATA: IData = [
   {
     id: 1,
@@ -78,4 +79,16 @@ const updated = updateUser(6, {
   email: "amaben2020@gmail.com",
 });
 
-console.log("UPDATED RESULT ARRAY", updated);
+// console.log("UPDATED RESULT ARRAY", updated);
+
+const checkPhoneProperty = (array: TUProp[]) => {
+  if (array.every((elem) => typeof elem.email === "string")) {
+    console.log("yeah");
+  } else {
+    return "Not at all";
+  }
+};
+
+console.log(checkPhoneProperty(DATA));
+
+console.log(new Date().getMonth() + 1);

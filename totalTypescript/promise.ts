@@ -1,9 +1,12 @@
 // using the promise generics
 
+// how to type return type of async function: we can use the Awaited type to unwrap the promise and get the type of what the promise resolves to:
+type Response = Awaited<ReturnType<typeof getArr>>;
+
 async function getArr(a: number, b: number): Promise<[number, string]> {
-  const result = await Promise.all([
+  const result: Response = await Promise.all([
     Promise.resolve(5),
-    Promise.resolve('hello'),
+    Promise.resolve("hello"),
   ]);
 
   return result;
@@ -24,11 +27,13 @@ interface LukeSkywalker {
 }
 
 export const fetchLukeSkywalker = async (): Promise<LukeSkywalker> => {
-  const data: LukeSkywalker = await fetch("<https://swapi.dev/api/people/1>").then((res) => {
+  const data: LukeSkywalker = await fetch(
+    "<https://swapi.dev/api/people/1>",
+  ).then((res) => {
     return res.json();
   });
 
   return data;
 };
 
-console.log(fetchLukeSkywalker())
+console.log(fetchLukeSkywalker());
