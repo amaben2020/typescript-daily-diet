@@ -1,6 +1,6 @@
 // Typing Functions
 
-type OnFocusChange = (isFocused: boolean) => void;
+type OnFocusChange = (v: boolean) => void;
 
 const addListener = (onFocusChange: OnFocusChange) => {
   window.addEventListener("focus", () => {
