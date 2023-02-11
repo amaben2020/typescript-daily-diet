@@ -9,6 +9,7 @@ interface User {
    * - 'super-admin'
    */
   role: "admin" | "super-admin" | "user";
+  sex?: "m" | "f";
 }
 
 export const defaultUser: User = {
@@ -19,12 +20,13 @@ export const defaultUser: User = {
   role: "I_SHOULD_NOT_BE_ALLOWED",
 };
 
-const updateUser = (user: User, key: string): User => {
-  return {
-    ...user,
-    [key]: "Benneth",
-  };
-};
+const update = (user: User, key: "firstName") => {
+  let newObject;
 
-const updatedUser = updateUser(defaultUser, "firstName");
-console.log("Updated", updatedUser);
+  newObject = {
+    ...user,
+    [key]: "New stuff",
+  };
+
+  return newObject;
+};

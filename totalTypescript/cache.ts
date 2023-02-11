@@ -24,22 +24,22 @@ const createCache = () => {
   };
 };
 
-console.log(createCache().add("a", "b"))
-console.log(createCache().cache)
+console.log(createCache().add("a", "b"));
+console.log(createCache().cache);
 
 //("Matt")
 
 const adder = (a: string, b: number) => {
-  const object: Record<string, number> = {}
-  return object[a] = b;
-}
-console.log(adder('123', 33))
+  const object: Record<string, number> = {};
+  return (object[a] = b);
+};
+console.log(adder("123", 33));
 
 // I'm using Record because i don't know what age would be
-const mySelf: Record<string, number | string> = {
-  name: "self",
-}
+// const mySelf: Record<string, number | string> = {
+//   name: "self",
+// };
 
-mySelf['age'] = 30
+// mySelf["age"] = 30;
 
-console.log(mySelf)
+// console.log(mySelf);
