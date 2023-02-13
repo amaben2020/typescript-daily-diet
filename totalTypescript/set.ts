@@ -1,3 +1,6 @@
+// understanding Set in JS Array<Manipulation>
+// The JavaScript Set() constructor represents a set that is the collection of unique values. https://linuxhint.com/get-unique-values-from-array-in-javascript/
+
 const REQUIRED_ENVS: string[] = [
   "NEXT_PUBLIC_BUILDER_API_KEY",
   "BUILDER_ADMIN_API_ENDPOINT",
@@ -66,3 +69,30 @@ const showMissingEnv = (
 };
 
 console.log("Missing Environment", showMissingEnv(REQUIRED_ENVS, processEnv));
+
+const evenArray = [2, 6, 8, 12, 18, 4, 2, 18, 4];
+
+const uniqueArray = evenArray.filter(
+  (item, index, array) => array.indexOf(item) === index,
+);
+
+console.log("unique", uniqueArray);
+
+console.log(evenArray.indexOf(12));
+
+const ID_TO_DELETE = "NEXT_PUBLIC_NNOXX_STARTER_ID";
+
+const newArr = [];
+const otherArr = [];
+
+// splice and deletion without filtering
+for (const id of REQUIRED_ENVS) {
+  if (id === ID_TO_DELETE) {
+    newArr.push(REQUIRED_ENVS.splice(REQUIRED_ENVS.indexOf(id), 1));
+  } else {
+    otherArr.push(REQUIRED_ENVS);
+  }
+}
+
+console.log("Deleted", newArr);
+console.log("Remaining", otherArr);

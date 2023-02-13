@@ -21,7 +21,7 @@ export const defaultUser: User = {
 };
 
 const update = (user: User, key: "firstName") => {
-  let newObject;
+  let newObject: Record<string, string | number>;
 
   newObject = {
     ...user,

@@ -43,3 +43,31 @@ console.log(adder("123", 33));
 // mySelf["age"] = 30;
 
 // console.log(mySelf);
+
+const cacher = () => {
+  const cache: { [key: string]: string | number } = {};
+
+  const read = (key: string) => {
+    if (cache[key] !== undefined) {
+      return (cache["undefined"] = "undefined");
+    }
+    return cache[key];
+  };
+
+  const add = (key: string, value: number) => {
+    return (cache[key] = value);
+  };
+
+  const remove = (key: string, value: number) => {
+    return delete cache[key];
+  };
+
+  return {
+    add,
+    remove,
+    read,
+    cache,
+  };
+};
+
+console.log(cacher().cache);
