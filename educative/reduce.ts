@@ -4,35 +4,34 @@
 const sum = [1, 2, 3, 4, 5].reduce((sum, el) => sum + el, 0);
 console.log(sum);
 
-interface Huma{
-    name: string;
-    age?: number;
+interface Huma {
+  name: string;
+  age: number;
 }
 
 const persons: Huma[] = [
-    { name: 'John', age: 30 },
-  { name: 'Alice', age: 45 },
-  { name: 'Bob', age: 25 },
+  { name: "John", age: 30 },
+  { name: "Alice", age: 45 },
+  { name: "Bob", age: 25 },
 ];
 
-const newObjectWithNames = (acc: Huma, elem: Huma): Huma => {
- 
-  return ({
-    ...acc,
-    [elem.name]: elem.age,
-  })
-}
+const newObjectWithNames = (
+  acc: Record<string, number | string>,
+  elem: Huma,
+): Partial<Huma> => {
+  if (!acc[elem.name]) {
+    acc[elem.name] = elem.age;
+  }
 
- 
+  return acc;
+};
 
-//@ts-ignore
-const humanBeingsWithName = persons.reduce( newObjectWithNames, {})
-console.log(humanBeingsWithName)
-
+const humanBeingsWithName = persons.reduce(newObjectWithNames, {});
+console.log(humanBeingsWithName);
 
 // function reduce<TElement, TResult>(
-//     array: TElement[], 
-//     reducer: (result: TResult, el: TElement) => TResult, 
+//     array: TElement[],
+//     reducer: (result: TResult, el: TElement) => TResult,
 //     initialResult: TResult
 // ): TResult {
 //     let result = initialResult;
@@ -45,7 +44,7 @@ console.log(humanBeingsWithName)
 // const totalValue = reduce<number, number>([1, 2, 3, 4, 5], (accumulator, el) => accumulator + el, 0);
 
 // const ageByName = reduce<Huma, Record<string, number>>(
-//     persons, 
+//     persons,
 //     (result, person) => ({
 //         ...result,
 //         [person.name]: person.age
@@ -57,7 +56,7 @@ console.log(humanBeingsWithName)
 
 //typing reducer
 // const reduce = (item, buildingUp) => {
- 
+
 //   for (let item in hash) {
 //     buildingUp = hash
 //   }
@@ -69,24 +68,37 @@ console.log(humanBeingsWithName)
 //   }
 // }
 
+const multiplyVia2 = (x: number) => x * 2;
+const divideVia2 = (x: number) => x / 2;
+const addVia2 = (x: number) => x + 2;
 
-const multiplyVia2 = (x : number ) => x * 2
-const divideVia2 = (x : number ) => x / 2
-const addVia2 = (x : number ) => x + 2
+const reduceInstruction = (value: number, func: (x: number) => void) => {
+  return func(value);
+};
 
-const reduceInstruction = (value : number, func: (x: number) => void) => {
-  return func(value)
-}
-
-const functions = [ multiplyVia2, divideVia2, addVia2]
-const reducerValue = (array:any, instruction:any, initialValue:any) => {
+const functions = [multiplyVia2, divideVia2, addVia2];
+const reducerValue = (array: any, instruction: any, initialValue: any) => {
   let result: number;
   for (let i = 0; i < array.length; i++) {
     if (array[i] !== undefined || null) {
-      result = instruction(initialValue, array[i])
+      result = instruction(initialValue, array[i]);
       return result;
     }
   }
-}
+};
 
-console.log('FINAL RESULT',reducerValue(functions, reduceInstruction, 5))
+console.log("FINAL RESULT", reducerValue(functions, reduceInstruction, 5));
+
+const numbs = [
+  21, 33, 21, 23, 56, 42, 3, 45, 56, 2, 3, 5545, 563, 34, 3,
+].reduce((acc: Record<string, number>, cv: number) => {
+  if (!acc[cv]) {
+    acc[cv] = 1;
+  } else {
+    acc[cv] += 1;
+  }
+
+  return acc;
+}, {});
+
+console.log("Numbers", numbs);

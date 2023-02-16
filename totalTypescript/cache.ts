@@ -71,3 +71,25 @@ const cacher = () => {
 };
 
 console.log(cacher().cache);
+
+type THygraphData = {
+  sidebars: Record<string, string | { id: string }[]>[];
+};
+
+const objectToAlgolia: THygraphData = {
+  sidebars: [
+    { title: "first link", slug: "first-link", icon: [{ id: "" }] },
+    { title: "Third title", slug: "third-title", icon: [{ id: "" }] },
+  ],
+};
+
+// how can we convert this to an array that algolia wants?
+
+const mapDataToAlgolia = (object: THygraphData) => {
+  return [...object.sidebars].map((elem) => ({
+    objectID: String(elem.slug).split("-")[0],
+    ...elem,
+  }));
+};
+
+console.log("Maped", mapDataToAlgolia(objectToAlgolia));
