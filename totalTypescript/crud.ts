@@ -188,10 +188,23 @@ type TArray = {
 };
 
 const normalizeTestimonials = (array: Array<TArray>) => {
-  let result = [];
+  let result: { [key: string]: string | ObjectConstructor[] }[] = [];
   if (Array.isArray(array)) {
-    result = array.map((elem) => {});
+    result = array.map((elem) => {
+      return {
+        id: elem.id,
+        avatar: elem.data.avatar,
+        position: elem.data.position,
+        author: elem.data.author,
+        testimonial: [],
+      };
+    });
   }
+
+  return {
+    count: 4,
+    testimonials: result,
+  };
 };
 
 console.log("isTransformed", normalizeTestimonials(FROM));
