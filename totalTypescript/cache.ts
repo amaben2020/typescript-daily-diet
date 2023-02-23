@@ -93,3 +93,17 @@ const mapDataToAlgolia = (object: THygraphData) => {
 };
 
 console.log("Maped", mapDataToAlgolia(objectToAlgolia));
+
+const paths = [
+  { data: { url: "/" } },
+  { data: { url: "/page-ben" } },
+  { data: { url: "/page-jan" } },
+  { data: { url: "/demo" } },
+  { data: { url: "/qa" } },
+];
+
+const handlePaths = (paths: Array<Record<string, { url: string }>>) => {
+  return paths.map((path) => path.data.url);
+};
+
+console.log(handlePaths(paths));

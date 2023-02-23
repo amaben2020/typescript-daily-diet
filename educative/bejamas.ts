@@ -9,7 +9,6 @@
 
 //  declare type StoryblokPage<T> = StoryblokEntry<T> & { location: Location; pageConfig: PageConfig };
 
-
 // export type DemoPageTypes = {
 //   body: StoryblokRichtext;
 //   logo_heading: StoryblokRichtext;
