@@ -1,9 +1,18 @@
-const list = [
+export const list = [
   {
     name: "Michael Scott",
     company: "Dunder Mufflin",
     designation: "Regional Manager",
     show: "The Office",
+    friends: [
+      {
+        name: "Pato",
+        age: 23,
+        features: {
+          eyes: "blue",
+        },
+      },
+    ],
   },
   {
     name: "Barney Stinson",

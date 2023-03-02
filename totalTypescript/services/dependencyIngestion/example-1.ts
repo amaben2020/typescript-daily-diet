@@ -17,6 +17,7 @@ class SpecialClass {
   }
 }
 
+// the method needed by another class
 const viewCombinedClasses = new ViewMe(new SpecialClass().viewClass);
 
 console.log("Sixty Three", viewCombinedClasses.getV(30, 33));

@@ -91,3 +91,31 @@ const body = {
 
 // jsonService.createTodo(body);
 jsonService.updateTodo(2);
+
+const obj = {
+  name: "Me",
+  age: 30,
+};
+
+const updateMe = (object: { [key: string]: number | string }) => {
+  return {
+    ...object,
+    ["age"]: 31,
+  };
+};
+
+console.log("onClick", updateMe(obj));
+
+const props = {
+  country: "CA",
+  ...obj,
+};
+
+const flags = {
+  CA: "🔥",
+};
+
+if (props.country) {
+  const countryFlag = String(props.country);
+  console.log(flags["CA"]);
+}
