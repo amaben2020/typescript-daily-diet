@@ -1,3 +1,5 @@
+// The keyof type operator returns a union of the keys of the type passed to it
+
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key];
 }
@@ -42,3 +44,13 @@ const fetchUser = <T, U extends keyof T>(user: T, key: U): T[U] => {
 };
 
 console.log(fetchUser(patient, "occupation"));
+
+type UserInfo = {
+  name: string;
+  preferences: {
+    [key: string]: string;
+  };
+};
+
+// returns the preferences key
+type UserPreferenceKey = keyof UserInfo["preferences"];
