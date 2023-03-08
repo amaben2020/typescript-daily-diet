@@ -1,3 +1,6 @@
+// Typeof is used to refer to the type of a value
+// https://www.typescriptlang.org/docs/handbook/2/typeof-types.html
+
 enum ColorsEnum {
   white = "#ffffff",
   black = "#000000",
