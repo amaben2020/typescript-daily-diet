@@ -91,3 +91,23 @@ const normalizer = (array: Images<string, number>): boolean | string[] => {
 };
 
 console.log(normalizer(images));
+
+type TData = { data: Record<string, string | number | string[]>[] };
+const fetchProducts = async (): Promise<
+  Record<string, string | number | string[]>[] | undefined
+> => {
+  try {
+    const { data }: Awaited<TData> = await axios.get(
+      "http://localhost:3004/products",
+    );
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message.includes("404")) {
+        throw new Error("Please check the url");
+      }
+    }
+  }
+};
+
+console.log(fetchProducts());
