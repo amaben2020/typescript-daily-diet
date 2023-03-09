@@ -3,18 +3,6 @@
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key];
 }
-interface Staff {
-  [key: string]: string | number;
-}
-
-const developer: Staff = {
-  name: "Tobias",
-  salary: 100,
-};
-
-const nameType = getProperty(developer, "name"); // string
-// Compiler error
-//const salaryType getProperty(developer, "pay"); //Cannot find name 'pay'.(2304)
 
 type OptionsFlags<T> = {
   [Property in keyof T]: boolean;
@@ -84,3 +72,25 @@ type K2 = keyof Person[]; // "length" | "push" | "pop" | "concat" | ...
 type K3 = keyof { [x: string]: Person }; // string
 
 type PersonProps = keyof Person;
+
+type AppSmith = {
+  name: string;
+  age: {
+    year: Date;
+  };
+};
+
+const AppSmiths = {
+  name: "string",
+  age: {
+    year: "10/20/2020",
+  },
+};
+// nested keyof
+type AppsmithKey = keyof AppSmith["age"];
+
+const showYear = (key: AppsmithKey) => {
+  return AppSmiths["age"][key];
+};
+
+console.log(showYear("year"));

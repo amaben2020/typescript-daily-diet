@@ -62,4 +62,5 @@ const expiryDate = new Date(
 
 type TExpiryDate = typeof expiryDate;
 
-console.log(expiryDate);
+// here, we are using the typeof a variable to infer another value
+const values: typeof cardMonthAndYearValue = ["a", "b"];

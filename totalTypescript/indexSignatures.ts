@@ -13,4 +13,16 @@ const currentUser: User = {
     lang: "en",
   },
 };
+
 const currentLang = currentUser.preferences.lang;
+
+interface Staff {
+  [key: string]: string | number;
+}
+
+const developer: Staff = {
+  name: "Tobias",
+  salary: 100,
+};
+
+const nameType = getProperty(developer, "name");
