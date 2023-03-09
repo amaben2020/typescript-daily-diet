@@ -54,3 +54,21 @@ type UserInfo = {
 
 // returns the preferences key
 type UserPreferenceKey = keyof UserInfo["preferences"];
+
+type AppConfig = {
+  username: string;
+  layout: string;
+};
+
+type AppConfigKey = keyof AppConfig;
+
+const userInfo = {
+  username: "Benneth",
+  layout: "Vertical",
+};
+
+const logUsername = (key: AppConfigKey) => {
+  console.log(userInfo[key]);
+};
+
+console.log(logUsername("username"));
