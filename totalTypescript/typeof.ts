@@ -13,16 +13,6 @@ colorLiteral = "white"; // OK
 colorLiteral = "black"; // OK
 // colorLiteral = "red"; // Error...
 
-interface Person {
-  name: string;
-  age: number;
-  location: string;
-}
-
-type K1 = keyof Person; // "name" | "age" | "location"
-type K2 = keyof Person[]; // "length" | "push" | "pop" | "concat" | ...
-type K3 = keyof { [x: string]: Person }; // string
-
 const accordionObject = {
   id: "76e59c1138d14317845c8799d3374b19",
   title: "FAQ Category 1",
@@ -69,5 +59,7 @@ const expiryDate = new Date(
   Number(cardMonthAndYearValue[0]),
   0,
 );
+
+type TExpiryDate = typeof expiryDate;
 
 console.log(expiryDate);
