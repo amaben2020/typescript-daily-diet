@@ -27,6 +27,7 @@ const patient = {
   occupation: "drug addict",
 };
 
+// Use 'extends' keyword to narrow the value of a generic
 const fetchUser = <T, U extends keyof T>(user: T, key: U): T[U] => {
   return user[key];
 };
@@ -94,3 +95,22 @@ const showYear = (key: AppsmithKey) => {
 };
 
 console.log(showYear("year"));
+
+const nestedData = {
+  foo: {
+    a: true,
+    b: 2,
+  },
+  bar: {
+    c: "cool",
+    d: 2,
+  },
+};
+
+const renderNestedDataValue = <T, U extends keyof T, V extends keyof T[U]>(
+  data: T,
+  key: U,
+  key2: V,
+): T[U][V] => {
+  return data[key][key2];
+};
