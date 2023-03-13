@@ -1,8 +1,8 @@
+// Satisfies keyword understands nested dynamic data than simple inference :IProducts
+
 interface IProducts {
   [key: string]: string | string[] | { [key: string]: string };
 }
-
-// Satisfies keyword understands nested dynamic data than simple inference :IProducts
 
 const products = {
   name: "Book 1",
@@ -12,3 +12,5 @@ const products = {
     zip: "32322",
   },
 } satisfies IProducts;
+
+console.log(products.shipping);
