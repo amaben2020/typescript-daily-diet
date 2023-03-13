@@ -7,6 +7,8 @@
 
 // medium code formatter: cmd+option+6
 
+// https://blog.logrocket.com/understanding-infer-typescript/
+
 interface CartItem {
   name: string;
   person: string;
