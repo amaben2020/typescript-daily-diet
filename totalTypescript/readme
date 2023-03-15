@@ -1,0 +1,5 @@
+https://dev.to/zenstack/11-tips-that-help-you-become-a-better-typescript-programmer-4ca1
+
+Every type is a Set of values
+unknown is a universal Set
+never is an empty Set (no value)
