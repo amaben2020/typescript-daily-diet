@@ -14,14 +14,14 @@ let colorsTheme = {
       main: "orange",
     },
   },
-}
+};
 let ColorsTheme: {
   [key: string]: {
     [key: string]: {
-      [key: string]: string
-    }
-  }
-}
+      [key: string]: string;
+    };
+  };
+};
 
 ColorsTheme = {
   palette: {
@@ -35,16 +35,15 @@ ColorsTheme = {
       main: "1231313",
     },
   },
-}
-
+};
 
 const salary1 = {
   baseSalary: 100_000,
-  yearlyBonus: 20_000
+  yearlyBonus: 20_000,
 };
 
 const salary2 = {
-  contractSalary: 110_000
+  contractSalary: 110_000,
 };
 
 // You want to implement a function that returns the total remuneration based on the salary object:
@@ -53,7 +52,7 @@ const salary2 = {
 function totalSalary(salaryObject: { [key: string]: number }) {
   let total = 0;
   for (const name in salaryObject) {
-    console.log(name)
+    console.log(name);
     total += salaryObject[name];
   }
   return total;
@@ -86,10 +85,9 @@ interface StringByString {
 }
 
 const heroesInBooks: StringByString = {
-  'Gunslinger': 'The Dark Tower',
-  'Jack Torrance': 'The Shining'
+  Gunslinger: "The Dark Tower",
+  "Jack Torrance": "The Shining",
 };
-
 
 // //ex: 5
 interface Options {
@@ -99,37 +97,36 @@ interface Options {
 
 const options: Options = {
   timeout: 1000,
-  timeoutMessage: 'The request timed out!',
-  isFileUpload: false
+  timeoutMessage: "The request timed out!",
+  isFileUpload: false,
 };
 
 //Record: This behavior suggests that the index signature is meant to be generic in regards to keys, records must be SPECIFIC about the keys which are strings.
-type SpecificSalary = Record<'yearlySalary' | 'yearlyBonus', number>
+type SpecificSalary = Record<"yearlySalary" | "yearlyBonus", number>;
 
 const salary4: SpecificSalary = {
-  'yearlySalary': 120_000,
-  'yearlyBonus': 10_000
+  yearlySalary: 120_000,
+  yearlyBonus: 10_000,
 };
 
 interface IProgrammer {
-  [key: string]: string | number | boolean
+  [key: string]: string | number | boolean;
 }
 
 const programmer: IProgrammer = {
-  name: 'Programmer',
+  name: "Programmer",
   age: 30,
-  sex: 'male',
+  sex: "male",
   advanced: true,
-}
+};
 
 // Yes, you want to use specific keys, then keyof is useful.
 
 type INation = {
-  [key: string]: string | number
-}
+  [key: string]: string | number;
+};
 
 const nation: INation = {
   name: "Nigeria",
-  population: 1000000
-}
-
+  population: 1000000,
+};

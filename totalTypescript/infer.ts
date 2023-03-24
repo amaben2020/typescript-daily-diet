@@ -81,3 +81,14 @@ const bitcoinData = [
     activeAddresses: null,
   },
 ];
+
+const userCreds = {
+  name: "ddd",
+  email: "ss",
+};
+const user = {
+  user: {},
+};
+
+user.user = { ...userCreds };
+console.log(user);

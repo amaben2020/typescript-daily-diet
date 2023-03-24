@@ -67,7 +67,7 @@ const getCandidateInfo = <T, K extends keyof T>(user: T, key: K): T[K] => {
   return user[key];
 };
 
-console.log(getCandidateInfo<Users, "status">(UserAccount1, "status"));
+console.log(getCandidateInfo(UserAccount1, "status"));
 
 //Discriminated Unions
 interface EmailInformation {

@@ -10,7 +10,7 @@ type ApplicationConfig = {
   darkMode: boolean;
 };
 
-// typing it this way means we always have to update this file
+// typing it this way means we always have to update this file everytime we have a new app config
 type AppPermissions = {
   changeemail: boolean;
   changemainColor: boolean;

@@ -1,3 +1,10 @@
+//TODO: filter an advanced array based on criteria
+// i. findIndex : get me the user in the array that has "@april" in their email
+// ii. indexOf : test the best option
+// iii. includes
+// iv. map, filter, some, every
+//v. pass in a callback to the hoc
+
 type TUProp = {
   id: number;
   name: string;
@@ -9,6 +16,7 @@ type TUProp = {
 
 type IData = TUProp;
 
+//TODO: start contracts early for any data in your app for intellisense
 // always start your contract early to prevent complicated errors
 const DATA: Array<IData> = [
   {
@@ -238,3 +246,37 @@ const TO = {
     },
   ],
 };
+
+const addToFavorite = (data: IData[], id: number) => {
+  return data.map((user) => {
+    if (user.id === id) {
+      return {
+        ...user,
+        favorite: true,
+      };
+    } else {
+      return {
+        ...user,
+        favorite: false,
+      };
+    }
+  });
+};
+
+const updateFavoriteWebsite = (data: IData[], id: number) => {
+  const elementToUpdate = data.findIndex((elem) => elem.id === Number(id));
+
+  const result = (data[elementToUpdate] = {
+    ...data[elementToUpdate],
+    website: "www.algomachinedev.com",
+  });
+
+  return result;
+};
+
+console.log(addToFavorite(DATA, 1));
+console.log(updateFavoriteWebsite(DATA, 4));
+
+const days = ["Monday", "Tuesday", "Wednesday"];
+
+console.log(days.some((elem) => elem.includes("Wednesdays")));
