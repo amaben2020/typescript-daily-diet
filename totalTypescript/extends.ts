@@ -201,3 +201,13 @@ type TuserAndPost = {
   lastName: string;
   posts: Post[];
 };
+
+interface IProducts {
+  name: string;
+  price: number;
+  isShipped: boolean;
+}
+
+interface IPurchase extends IProducts {
+  user: string;
+}
