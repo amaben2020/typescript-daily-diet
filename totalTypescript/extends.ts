@@ -24,7 +24,7 @@ const cartItem: City = {
   city: "",
 };
 
-// Use 'extends' keyword to narrow the value of a generic]
+// Use 'extends' keyword to narrow the value of a generic
 
 const obj = {
   foo: {
@@ -68,8 +68,8 @@ interface ILocation {
 }
 
 interface IInterest {
-  hobbies: string[];
-  politics: string[];
+  hobbies: [string, string];
+  politics: [string, string];
 }
 
 interface IUser {
@@ -201,13 +201,3 @@ type TuserAndPost = {
   lastName: string;
   posts: Post[];
 };
-
-interface IProducts {
-  name: string;
-  price: number;
-  isShipped: boolean;
-}
-
-interface IPurchase extends IProducts {
-  user: string;
-}
