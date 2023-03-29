@@ -20,7 +20,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-// Generics : Generics are a fundamental feature of statically-typed languages, allowing developers to pass types as parameters to another type, function, or other structure.
+Object.defineProperty(exports, "__esModule", { value: true });
 function fetchTitles(count, onSuccess) { }
 //Higher order functions: They are functions that take other functions as arguments or return other functions.
 // closure
@@ -220,4 +220,14 @@ var getFriend = function (array, instruction) {
     return array.find(instruction);
 };
 console.log(getFriend(myPoliticians, extractFriends));
+var info = [
+    { name: "P1", price: 32322 },
+    { name: "P2", price: 32322 },
+    { name: "P3", price: 32322 },
+    { name: "P4", price: 32322 },
+];
+var handleInfo = function (data) {
+    return data.filter(function (object) { return object.name === 'P1'; });
+};
+console.log(handleInfo(info));
 //# sourceMappingURL=generics.js.map

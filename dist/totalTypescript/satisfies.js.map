@@ -1,0 +1,1 @@
+{"version":3,"file":"satisfies.js","sourceRoot":"","sources":["../../totalTypescript/satisfies.ts"],"names":[],"mappings":";AAAA,qFAAqF;AAMrF,IAAM,QAAQ,GAAG;IACf,IAAI,EAAE,QAAQ;IACd,UAAU,EAAE,CAAC,MAAM,EAAE,OAAO,CAAC;IAC7B,QAAQ,EAAE;QACR,IAAI,EAAE,QAAQ;QACd,GAAG,EAAE,OAAO;KACb;CACkB,CAAC;AAEtB,OAAO,CAAC,GAAG,CAAC,QAAQ,CAAC,QAAQ,CAAC,CAAC"}

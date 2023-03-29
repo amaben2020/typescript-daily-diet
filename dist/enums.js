@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CTA_TYPE = void 0;
 // Enumerations (a.k.a. enums) allow you to create limited sets of named constants that have something in common. Such constants can be numbers or strings.
 var Weekdays;
 (function (Weekdays) {
@@ -70,4 +72,23 @@ var getReward = function (grade) {
     }
 };
 console.log(getReward(Grade.fail));
+// Enumerations as objet keys
+//https://stackoverflow.com/questions/52296113/using-enum-as-object-keys
+var CTA_TYPE;
+(function (CTA_TYPE) {
+    CTA_TYPE["DEFAULT"] = "default";
+    CTA_TYPE["IMAGE"] = "withImage";
+    CTA_TYPE["HEADING"] = "withHeading";
+})(CTA_TYPE = exports.CTA_TYPE || (exports.CTA_TYPE = {}));
+// you have to first evaluate the value of the enum in the object to be used as a key i.e [Enum.Key]
+// const getCtaComponent = props => {
+//   const ctaComponent = {
+//     [CTA_TYPE.DEFAULT]: <Default {...props} />,
+//     [CTA_TYPE.IMAGE]: <WithButtonsCTA {...props} />,
+//     [CTA_TYPE.HEADING]: <HeadingWithCTA {...props} />,
+//   };
+//   const CtaComponent = ctaComponent[props.type];
+//   return CtaComponent;
+// };
+// This is much better than a switch statement and simpler to read
 //# sourceMappingURL=enums.js.map

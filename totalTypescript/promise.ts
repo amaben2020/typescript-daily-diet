@@ -1,3 +1,4 @@
+import { data } from "../data";
 // using the promise generics
 
 // how to type return type of async function: we can use the Awaited type to unwrap the promise and get the type of what the promise resolves to:
@@ -54,3 +55,20 @@ const renderInfo = async () => {
   }
 };
 console.log(renderInfo());
+
+const products = new Promise((res, rej) => {
+  if (data.length) {
+    res(data);
+  }
+  rej("Data not found");
+});
+
+const logProduct = async () => {
+  try {
+    const data = await products;
+    console.log("data", data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+console.log("product", logProduct());

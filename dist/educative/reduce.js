@@ -1,34 +1,24 @@
 "use strict";
 //What is reduce?#
 // Array.reduce is an extremely versatile function that lets you calculate results from all elements of an array. When calling reduce you specify a function that describes how to calculate the result for the next array element, given you already know the result for the previous array elements. It’s like a functional version of a foreach loop with an additional variable that you change in the loop and return at the end.
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var sum = [1, 2, 3, 4, 5].reduce(function (sum, el) { return sum + el; }, 0);
 console.log(sum);
 var persons = [
-    { name: 'John', age: 30 },
-    { name: 'Alice', age: 45 },
-    { name: 'Bob', age: 25 },
+    { name: "John", age: 30 },
+    { name: "Alice", age: 45 },
+    { name: "Bob", age: 25 },
 ];
 var newObjectWithNames = function (acc, elem) {
-    var _a;
-    return (__assign(__assign({}, acc), (_a = {}, _a[elem.name] = elem.age, _a)));
+    if (!acc[elem.name]) {
+        acc[elem.name] = elem.age;
+    }
+    return acc;
 };
-//@ts-ignore
 var humanBeingsWithName = persons.reduce(newObjectWithNames, {});
 console.log(humanBeingsWithName);
 // function reduce<TElement, TResult>(
-//     array: TElement[], 
-//     reducer: (result: TResult, el: TElement) => TResult, 
+//     array: TElement[],
+//     reducer: (result: TResult, el: TElement) => TResult,
 //     initialResult: TResult
 // ): TResult {
 //     let result = initialResult;
@@ -39,7 +29,7 @@ console.log(humanBeingsWithName);
 // }
 // const totalValue = reduce<number, number>([1, 2, 3, 4, 5], (accumulator, el) => accumulator + el, 0);
 // const ageByName = reduce<Huma, Record<string, number>>(
-//     persons, 
+//     persons,
 //     (result, person) => ({
 //         ...result,
 //         [person.name]: person.age
@@ -74,5 +64,17 @@ var reducerValue = function (array, instruction, initialValue) {
         }
     }
 };
-console.log('FINAL RESULT', reducerValue(functions, reduceInstruction, 5));
+console.log("FINAL RESULT", reducerValue(functions, reduceInstruction, 5));
+var numbs = [
+    21, 33, 21, 23, 56, 42, 3, 45, 56, 2, 3, 5545, 563, 34, 3,
+].reduce(function (acc, cv) {
+    if (!acc[cv]) {
+        acc[cv] = 1;
+    }
+    else {
+        acc[cv] += 1;
+    }
+    return acc;
+}, {});
+console.log("Numbers", numbs);
 //# sourceMappingURL=reduce.js.map
