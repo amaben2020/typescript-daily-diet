@@ -20,4 +20,9 @@ const getBookWithLabels = (books: TBooks[]) => {
   );
 };
 
+const getBookWithLabels2 = (books: TBooks[]) => {
+  return books.filter((book: TBooks) => book.labels?.includes("grant"));
+};
+
 console.log(getBookWithLabels(books));
+console.log(getBookWithLabels2(books));
