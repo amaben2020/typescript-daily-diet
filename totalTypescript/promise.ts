@@ -63,12 +63,12 @@ const products = new Promise((res, rej) => {
   rej("Data not found");
 });
 
-const logProduct = async () => {
-  try {
-    const data = await products;
-    console.log("data", data);
-  } catch (error) {
-    console.log(error);
-  }
-};
-console.log("product", logProduct());
+// const logProduct = async (): Promise<Record<string, string | number>> => {
+//   try {
+//     const data: Awaited<Record<string, string | number>> = await products;
+//     console.log("data", data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// console.log("USERS", logProduct());

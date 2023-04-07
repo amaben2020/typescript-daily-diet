@@ -1,5 +1,5 @@
 import { list } from "./data/list";
-const dataset = require("./data/complex-dataset.json");
+// const dataset = require("./data/complex-dataset.json");
 interface User {
   id: number;
   firstName: string;
@@ -75,16 +75,16 @@ const item: TList1 = list;
 
 console.dir(item, { depth: null });
 
-const info = new Promise((resolve, reject) => {
-  try {
-    setTimeout(() => {
-      return resolve(dataset);
-    }, 100);
-  } catch (error) {
-    reject(error);
-    console.log(error);
-  }
-});
+// const info = new Promise((resolve, reject) => {
+//   try {
+//     setTimeout(() => {
+//       return resolve(dataset);
+//     }, 100);
+//   } catch (error) {
+//     reject(error);
+//     console.log(error);
+//   }
+// });
 
 type TMenus = Record<string, string | boolean>[];
 
@@ -125,8 +125,8 @@ const toggleDisable = (menu: TMenus) => {
 };
 console.log("Toggle", toggleDisable(menus));
 
-var result = solution("apples, pears # and bananas\ngrapes\nbananas !apples", [
-  "#",
-  "!",
-]);
+// var result = solution("apples, pears # and bananas\ngrapes\nbananas !apples", [
+//   "#",
+//   "!",
+// ]);
 // result should == "apples, pears\ngrapes\nbananas"
