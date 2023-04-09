@@ -1,5 +1,7 @@
 // The keyof type operator returns a union of the keys of the type passed to it
 
+import { TBooks } from "./array-typing";
+
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key];
 }
@@ -114,3 +116,7 @@ const renderNestedDataValue = <T, U extends keyof T, V extends keyof T[U]>(
 ): T[U][V] => {
   return data[key][key2];
 };
+
+type TFilters = keyof TBooks;
+
+const Filters: TFilters = "_uid";
