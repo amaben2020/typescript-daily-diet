@@ -1,28 +1,16 @@
 //https://javascript.plainenglish.io/level-up-your-typescript-game-with-these-6-advanced-features-e5e9b232d990
 
-// Advanced: Mapped Types in Typescript help us not repeat ourselves when we need to base a type on another type. Significantly, when those types need to remain in sync, they can help us a lot.
-
-// Mapped types build on the syntax for index signatures, which are used to declare the types of properties which have not been declared ahead of time
-
 type ApplicationConfig = {
   email: string;
   mainColor: string;
   darkMode: boolean;
 };
 
-// typing it this way means we always have to update this file everytime we have a new app config
 type AppPermissions = {
   changeemail: boolean;
   changemainColor: boolean;
   changedarkMode: boolean;
 };
-
-// So, what's the problem here? We must adjust the permissions accordingly each time we add a new configuration.
-
-// we use index signatures because we do not know what values would be added to permissions
-
-//in: used to check whether a property belongs to a particular object i.e Copy
-// propertyName in objectVariable returns true or false depending on whether the property belongs to the object.
 
 type Contact = {
   firstName: string;
@@ -41,7 +29,10 @@ type TAppPermissions = {
 // filtering away darkmode permission, Exclude, Omit, Pick
 
 type AppPermissionsWithoutDarkmode = {
-  [Property in keyof AppConfig as Exclude<Property, "darkMode">]: boolean;
+  [Property in keyof ApplicationConfig as Exclude<
+    Property,
+    "darkMode"
+  >]: boolean;
 };
 const permission: TAppPermissions = {
   changeemail: false,
@@ -50,3 +41,76 @@ const permission: TAppPermissions = {
 };
 
 console.log(permission.changemainColor);
+
+// Mapped type: mapping modifier
+
+//Mapped type: Key remaping with as
+type UserInfo = {
+  name: string;
+  age: number;
+  userName: string;
+};
+
+type RenameKey<Type> = {
+  [Property in keyof Type as `canUpdate${string & Property}`]: Type[Property];
+};
+
+type UserCopy = RenameKey<UserInfo>;
+
+// We Get this 👇
+// type UserCopy = {
+//   canUpdatename: string;
+//   canUpdateage: number;
+//   canUpdateuserName: string;
+// };
+
+// Exam: i. create a mapped type, ii. use intersection, use generics
+
+type Owner = {
+  name: string;
+  age: number;
+  occupation: [string, string];
+};
+
+type Laptop<T> = {
+  screen: number;
+  model: string;
+  owner: T;
+};
+
+const owner: Owner = {
+  name: "Benneth",
+  age: 30,
+  occupation: ["Software Engineer", "Civil servant"],
+};
+
+const laptop: Laptop<Owner> = {
+  screen: 2166,
+  model: "Apple",
+  owner: owner,
+};
+
+type TUserLaptopAndOwnerInfo = Laptop<Owner> & Owner;
+
+//IN: The in operator can be used to help TypeScript narrow the type of an object variable by its property name. It is arguably more useful than instanceof because it can be applied to any object structure.
+
+type TNewUserLaptopAndOwnerInfo = {
+  [Property in keyof TUserLaptopAndOwnerInfo as `alpro${Property}`]: TUserLaptopAndOwnerInfo[Property];
+};
+
+const userLaptopAndOwnerInfo: TNewUserLaptopAndOwnerInfo = {
+  alproscreen: 2166,
+  alpromodel: "Apple",
+  alproowner: owner,
+  alproname: "Benneth",
+  alproage: 30,
+  alprooccupation: ["Software Engineer", "Civil servant"],
+};
+console.log(
+  "Occupation",
+  userLaptopAndOwnerInfo.alprooccupation.includes("Software Engineer"),
+);
+
+for (let key in userLaptopAndOwnerInfo) {
+  console.log("key", key);
+}

@@ -24,8 +24,23 @@ const getBookWithLabels2 = (books: TBooks[]) => {
   return books.filter((book: TBooks) => book.labels?.includes("grant"));
 };
 
-console.log(getBookWithLabels(books));
-console.log(getBookWithLabels2(books));
+// console.log(getBookWithLabels(books));
+// console.log(getBookWithLabels2(books));
+
+const addToCart = (id: string) => {
+  const cart: TBooks[] = [];
+
+  books.map((elem) => {
+    if (elem._uid === id) {
+      cart.push(elem);
+    }
+    return elem;
+  });
+
+  return cart;
+};
+
+console.log("cart", addToCart("e558394f-75df-4dc2-9949-6a6e4e2f2fc6"));
 
 // practice includes with advanced examples i.e active url
 const dataSource = [
@@ -43,8 +58,7 @@ const dataSource = [
   },
 ];
 
-const url = "/resources/infographics";
-const url2 = "/resources/videos";
+const url = "http://route/resources/infographics";
 
 const findActiveCategory = () => {
   return (
@@ -54,7 +68,7 @@ const findActiveCategory = () => {
   );
 };
 
-console.log("active", findActiveCategory());
+// console.log("active", findActiveCategory());
 
 const findActiveCategory2 = () => {
   let matches;
@@ -65,13 +79,20 @@ const findActiveCategory2 = () => {
   });
   return matches;
 };
-console.log("method 2", findActiveCategory2());
-// function findActiveCategory() {
-//   if (dataSource.length > 0) {
-//     const activeCategory = dataSource.find(({ value }) => url.includes(value));
-//     return activeCategory?.value || "all";
-//   }
-//   return "all";
-// }
+// console.log("method 2", findActiveCategory2());
 
 //includes is powerful for string manipulation. Stops us from always extrapolating stuff and does this recursively
+
+const findActiveCategory3 = (() => {
+  const route = new URL(url);
+
+  console.log(route);
+
+  const idx = dataSource.findIndex(
+    (elem) => elem.value === route.pathname.split("/")[2],
+  );
+
+  return (dataSource && dataSource[idx].value) ?? "all";
+})();
+
+console.log(findActiveCategory3);
