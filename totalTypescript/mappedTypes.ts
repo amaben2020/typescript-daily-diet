@@ -114,3 +114,29 @@ console.log(
 for (let key in userLaptopAndOwnerInfo) {
   console.log("key", key);
 }
+
+type SectionResources = {
+  "section-resources": {
+    page: string;
+  };
+};
+
+type StoryBlok<T> = {
+  [T in keyof SectionResources]: {
+    page: string;
+  };
+};
+
+const SB: StoryBlok<"section-resources"> = {
+  "section-resources": {
+    page: "",
+  },
+  // "section-home": {
+  //   page: "",
+  // },
+};
+
+// function useDataSource<
+//   T extends LabelType | CategoryType | ResourcesDataType
+// >(datasource: DataSourceSlug) {
+//   const [entries, setEntries] = useState<DataSourceEntry<T>[]>([]);

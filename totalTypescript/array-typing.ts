@@ -43,7 +43,14 @@ const addToCart = (id: string) => {
 console.log("cart", addToCart("e558394f-75df-4dc2-9949-6a6e4e2f2fc6"));
 
 // practice includes with advanced examples i.e active url
-const dataSource = [
+
+type DataSourceValues = "books" | "infographics" | "videos" | "all";
+type DataSourceSlug<T> = {
+  name: string;
+  value: T;
+};
+
+const dataSource: DataSourceSlug<DataSourceValues>[] = [
   {
     name: "Books",
     value: "books",
@@ -81,7 +88,7 @@ const findActiveCategory2 = () => {
 };
 // console.log("method 2", findActiveCategory2());
 
-//includes is powerful for string manipulation. Stops us from always extrapolating stuff and does this recursively
+//includes is very powerful for string manipulation. Stops us from always extrapolating stuff and does this recursively
 
 const findActiveCategory3 = (() => {
   const route = new URL(url);
@@ -96,3 +103,13 @@ const findActiveCategory3 = (() => {
 })();
 
 console.log(findActiveCategory3);
+
+const findActiveTopic = () => {
+  return dataSource.map((elem) => {
+    if (url.includes(elem.value)) {
+      return `active ${elem.value}`;
+    }
+    return elem.value;
+  });
+};
+console.log(findActiveTopic());
