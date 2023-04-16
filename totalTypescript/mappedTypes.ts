@@ -40,11 +40,7 @@ const permission: TAppPermissions = {
   changedarkMode: false,
 };
 
-console.log(permission.changemainColor);
-
-// Mapped type: mapping modifier
-
-//Mapped type: Key remaping with as
+//Mapped type: Key remapping with as
 type UserInfo = {
   name: string;
   age: number;
@@ -97,6 +93,15 @@ type TUserLaptopAndOwnerInfo = Laptop<Owner> & Owner;
 type TNewUserLaptopAndOwnerInfo = {
   [Property in keyof TUserLaptopAndOwnerInfo as `alpro${Property}`]: TUserLaptopAndOwnerInfo[Property];
 };
+
+type Keys = keyof TUserLaptopAndOwnerInfo;
+
+let keys: Keys = "age";
+
+//   Object.keys({ ...owner, laptop })
+//   .map((el) => el + " ")
+//   .join("| ");
+// console.log("keys", keys);
 
 const userLaptopAndOwnerInfo: TNewUserLaptopAndOwnerInfo = {
   alproscreen: 2166,
