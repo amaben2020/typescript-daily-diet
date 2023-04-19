@@ -47,9 +47,3 @@ const userResult = {
   userName: "",
 } satisfies TUserInfo;
 console.log(userResult.age);
-
-// convert an array into objects [{...}] ==> 1: {}, 2:{} ...
-
-const info = [{ a: 1 }, { b: 2 }, { c: 3 }];
-
-const convertArrayToObjects = () => {};
