@@ -1,0 +1,65 @@
+import axios from "axios";
+
+const ENDPOINT = "https://jsonplaceholder.typicode.com/todos";
+
+class Typicode {
+  id: number | undefined;
+  constructor(id?: number) {
+    this.id = id;
+  }
+
+  async getTodos(): Promise<Record<string, string | number | boolean>> {
+    try {
+      const {
+        data,
+      }: {
+        data: Awaited<{
+          userId: number;
+          id: number;
+          title: string;
+          completed: boolean;
+        }>;
+      } = await axios.get(ENDPOINT);
+      console.log(data);
+      return data;
+    } catch (error) {
+      if (error instanceof Error) console.log(error);
+      throw new SyntaxError();
+    } finally {
+      console.log("Function called");
+    }
+  }
+
+  async getTodo(id: number) {
+    try {
+      const data = await axios.get(`${ENDPOINT}/${id}`);
+      if (data.statusText === "OK") {
+        return data;
+      }
+    } catch (error) {
+      if (error instanceof Error) console.log(error);
+      throw new Error();
+    } finally {
+      console.log("Function called");
+    }
+  }
+
+  async deleteTodo(id: number) {
+    try {
+      const data = await axios.delete(`${ENDPOINT}/${id}`);
+
+      if (data.statusText === "OK") {
+        console.log("Data", data);
+        return data;
+      }
+    } catch (error) {
+      if (error instanceof Error) console.log(error);
+      throw new Error();
+    } finally {
+      console.log("Function called");
+    }
+  }
+}
+
+const typicode = new Typicode().deleteTodo(5);
+console.log("Typicode", typicode);
