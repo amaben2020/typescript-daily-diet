@@ -1,4 +1,4 @@
-import { TUser } from "../eincode/utility/pick";
+import type { TUser } from "../eincode/utility/pick";
 // I need to create a derived type from another type and keep both sync
 
 type Device = {
@@ -27,19 +27,29 @@ interface Person {
 type LazyPerson = Getters<Person>;
 
 // MAPPED TYPE: https://dev.to/codeoz/how-i-improve-my-skills-in-typescript-2-mapped-type-dag
-type TUser = {
-  name: string;
-  age: number;
-  userName: string;
-};
+// type TUser = {
+//   name: string;
+//   age: number;
+//   userName: string;
+// };
 
 // mapping over a type
 type TUserInfo = {
-  [Property in keyof TUser]: TUser[Property];
+  [Property in keyof TUser]?: TUser[Property];
+} & {
+  age: number;
+  userName: string;
 };
 // We will create a type from User type, to begin let's create the EXACT SAME type.
-const userResult: TUserInfo = {
+const userResult = {
   name: "Amaben",
   age: 31,
   userName: "",
-};
+} satisfies TUserInfo;
+console.log(userResult.age);
+
+// convert an array into objects [{...}] ==> 1: {}, 2:{} ...
+
+const info = [{ a: 1 }, { b: 2 }, { c: 3 }];
+
+const convertArrayToObjects = () => {};

@@ -98,6 +98,19 @@ const showYear = (key: AppsmithKey) => {
 
 console.log(showYear("year"));
 
+type TNestedData = {
+  foo: {
+    a: boolean;
+    b: number;
+  };
+  bar: {
+    c: string;
+    d: number;
+  };
+};
+
+type TNestedDataKeys = keyof TNestedData["bar"];
+
 const nestedData = {
   foo: {
     a: true,
@@ -108,6 +121,11 @@ const nestedData = {
     d: 2,
   },
 };
+// keyof usage for property accessors
+const getDerivedValues = (object: TNestedData, key: TNestedDataKeys) => {
+  return object["bar"][key];
+};
+console.log("getDerivedValues", getDerivedValues(nestedData, "d"));
 
 const renderNestedDataValue = <T, U extends keyof T, V extends keyof T[U]>(
   data: T,
@@ -120,3 +138,32 @@ const renderNestedDataValue = <T, U extends keyof T, V extends keyof T[U]>(
 type TFilters = keyof TBooks;
 
 const Filters: TFilters = "_uid";
+
+//Note:
+// a. extends keyof is used to constrain the type of a generic parameter <>.
+// b. in keyof is used to constrain the type of a generic parameter (index signatures).
+
+// A extends B means "some A that is a subtype of B" for both. If B is a keyof type, then A is one string from the set --- and the type checker can say more about code that uses this one string thanks to indexed access types.
+
+type GenericUserType<T> = {
+  [P in keyof T]: T[P];
+};
+
+type UserKeys = "first" | "second";
+
+type TUser = {
+  [key in UserKeys]: {
+    name: string;
+  };
+};
+
+const nestedUsers: GenericUserType<TUser> = {
+  first: {
+    name: "Benneth",
+  },
+  second: {
+    name: "Blessing",
+  },
+};
+
+nestedUsers.first.name;

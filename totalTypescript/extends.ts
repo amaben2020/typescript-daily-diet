@@ -4,7 +4,7 @@
 //TypeScript allows an interface to extend a class. In this case, the interface inherits the properties and methods of the class.
 
 // medium : https://uzochukwubenamara.medium.com/using-the-extends-keyword-to-narrow-a-generic-type-ec8fe5df392d
-
+// https://www.typescriptlang.org/docs/handbook/2/objects.html#extending-types
 // medium code formatter: cmd+option+6
 
 // https://blog.logrocket.com/understanding-infer-typescript/
@@ -200,4 +200,20 @@ type TuserAndPost = {
   firstName: string;
   lastName: string;
   posts: Post[];
+};
+
+interface Colorful {
+  color: string;
+}
+
+interface Circle {
+  radius: number;
+}
+
+// extending two interfaces at once
+interface ColorfulCircle extends Colorful, Circle {}
+
+const cc: ColorfulCircle = {
+  color: "red",
+  radius: 42,
 };

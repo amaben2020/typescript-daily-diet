@@ -48,7 +48,7 @@ type UserInfo = {
 };
 
 type RenameKey<Type> = {
-  [Property in keyof Type as `canUpdate${string & Property}`]: Type[Property];
+  [Property in keyof Type as `canUpdat${string & Property}`]: Type[Property];
 };
 
 type UserCopy = RenameKey<UserInfo>;
