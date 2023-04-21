@@ -1,5 +1,7 @@
 // Generic types receive other types as arguments and return a new type. This promotes reusability. They allow us to build data structures without needing to set a concrete time for them to execute at compile time.
 
+//Resources: a. https://devtrium.com/posts/react-typescript-using-generics-in-react
+
 function removeFirstEntryFromArray<T>(arr: T[]): T[] {
   return arr.splice(1);
 }
@@ -46,3 +48,25 @@ const box: Box<number> = {
 const box2: Box<string> = {
   content: "Amaben",
 };
+
+type TStatus<T, U, V> = {
+  name: string;
+  options: [T, U, V];
+};
+
+const statusOptions: TStatus<string, number, boolean> = {
+  name: "s",
+  options: ["", 1, false],
+};
+
+// type User = (StatusOption) => {
+//   return {
+//     name: string;
+//     status: StatusOptions;
+//   }
+// }
+
+function identity<ArgType>(arg: ArgType): ArgType {
+  return arg;
+}
+const greeting = identity<string>("Hello World!");

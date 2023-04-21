@@ -2,6 +2,8 @@ import axios from "axios";
 
 const ENDPOINT = "https://jsonplaceholder.typicode.com/todos";
 
+type T1 = Parameters<(id: number) => void>;
+
 class Typicode {
   id: number | undefined;
   constructor(id?: number) {
