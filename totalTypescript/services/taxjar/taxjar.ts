@@ -1,5 +1,7 @@
 import { cart } from "./cart";
 
+import axios from "axios";
+
 const TOKEN = "4434120e410908bcb3144d64a547780b";
 
 const taxjar = require("taxjar");
@@ -42,8 +44,6 @@ class Taxjar {
   async getCategories() {
     try {
       const data = await client.categories();
-
-      console.log("DATA", data);
     } catch (error) {
       console.log("ERROR", error);
     }
@@ -52,20 +52,62 @@ class Taxjar {
   async calculateTaxForOrder() {
     try {
       const data = await client.taxForOrder(mapToTaxjar);
-
-      console.log("tax_collectable", data.tax?.breakdown.tax_collectable);
-      console.log("tax ", data?.tax);
-      // console.log("amount to collect", data?.tax.amount_to_collect);
-      console.log("data", data);
-      // console.log("DATA", data);
-      return data;
+      return data.tax?.breakdown.tax_collectable;
     } catch (error) {
       console.log("ERROR ===> ", error);
     }
   }
+
+  // service creation pattern
+  async calculateTaxForOrderCurl() {
+    try {
+      return await axios.post("https://api.taxjar.com/v2/taxes", mapToTaxjar, {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      });
+      //@ts-ignore
+      // console.log("result", data);
+
+      //@ts-ignore
+      // return data.tax?.breakdown.tax_collectable;
+    } catch (error) {
+      console.log("ERROR ===> ", error);
+    }
+  }
+
+  async getOrderTransaction() {}
 }
-// const tax = new Taxjar().getCategories();
-// console.log("Tax", tax);
-const calculateTax = new Taxjar().calculateTaxForOrder();
+
+const calculateTax = new Taxjar()
+  .calculateTaxForOrderCurl()
+  .then((res) => {
+    console.log(
+      "res?.data.tax?.breakdown.tax_collectable",
+      res?.data.tax?.breakdown.tax_collectable,
+    );
+  })
+  .catch((err) => console.log("err", err));
 
 console.log("Tax", calculateTax);
+
+// const info = {
+//   from_city: "Abuja",
+//   from_country: "US",
+//   from_state: "AR",
+//   from_street: "No 2, House street, Keffi - Abuja express way",
+//   from_zip: "	72764",
+//   to_country: "US",
+//   to_zip: "90002",
+//   to_state: "CA",
+//   to_city: "Los Angeles",
+//   to_street: "1335 E 103rd St",
+//   amount: 299,
+//   shipping: 1.5,
+//   line_items: [{ id: "635c10f2954a480012b218e4", quantity: 1, unit_price: 299, discount: 0 }],
+// };
+
+const string = JSON.stringify(cart);
+
+console.log(string);
