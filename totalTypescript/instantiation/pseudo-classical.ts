@@ -15,13 +15,14 @@ class Plants {
   }
 
   water() {
-    console.log("Water the " + this.name);
+    return this.name;
   }
 
   repot() {
-    console.log("Repot the plant");
+    console.log("Repot the plant" + " " + this.size + " " + this.water());
   }
 }
 
 const daffodill = new Plants("daffodill", "medium", "yellow");
 console.log(daffodill.water()); // Water the daffodill
+console.log(daffodill.repot());
