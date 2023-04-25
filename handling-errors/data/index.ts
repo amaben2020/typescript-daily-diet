@@ -1,4 +1,4 @@
-let nestedData = [
+export const nestedData = [
   {
     testingNewValue: {
       "en-US": "hello",
