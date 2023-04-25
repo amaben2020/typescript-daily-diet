@@ -4,6 +4,10 @@ type TPlants = {
 };
 
 class Plants {
+  public name: string;
+  public size: string;
+  public flowerColor: string;
+
   constructor(name: string, size: string, flowerColor: "yellow" | "red") {
     this.size = size;
     this.flowerColor = flowerColor;
