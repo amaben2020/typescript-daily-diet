@@ -24,6 +24,7 @@ class Rectangle {
 // derived class
 class Square extends Rectangle {
   constructor(length: number, height: number, width: number) {
+    // Here, super() is called to avoid duplicating the constructor parts that are common between Rectangle and Square:
     super(height, width); // takes in the parent's arguments
     this.height;
 

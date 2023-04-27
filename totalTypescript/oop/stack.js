@@ -71,9 +71,9 @@ const stack = new Stack();
 
 // stack.isEmpty();
 // stack.push(200);
-stack.push(300);
+// stack.push(300);
 
-stack.peek();
+// stack.peek();
 // stack.push(400);
 
 // stack.pop();
