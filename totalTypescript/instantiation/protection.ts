@@ -35,3 +35,5 @@ class Derived extends Base {
     */
   }
 }
+
+const derived = new Derived();

@@ -10,15 +10,15 @@ class Rectangle {
     this.height = height;
     this.width = width;
   }
-  sayName() {
+  // use for things like tokens, apiKeys etc
+  protected apiKey() {
     console.log("Hi, I am a ", this.name + ".");
+
+    return this.name;
   }
   get area() {
-    return this.height * this.width;
+    return this.height * this.width + this.apiKey();
   }
-  // set area(value) {
-  //   this._area = value;
-  // }
 }
 
 // derived class
@@ -27,10 +27,11 @@ class Square extends Rectangle {
     super(height, width); // takes in the parent's arguments
     this.height;
 
-    super(length, length);
-
     this.name = "Square";
   }
 }
 
-const square = new Square(4, 4, 4).area;
+const square = new Square(4, 4, 4);
+const rectangle = new Rectangle(4, 4);
+console.log(square.sayName());
+console.log(rectangle.sayName());

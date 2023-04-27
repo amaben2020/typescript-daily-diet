@@ -19,3 +19,6 @@ class SpeechGiver implements Speaker {
     return this.speech;
   }
 }
+
+const speech = new SpeechGiver("I have a dream");
+console.log(speech.speak());
