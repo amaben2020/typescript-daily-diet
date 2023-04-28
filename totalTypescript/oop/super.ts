@@ -34,5 +34,27 @@ class Square extends Rectangle {
 
 const square = new Square(4, 4, 4);
 const rectangle = new Rectangle(4, 4);
-console.log(square.sayName());
-console.log(rectangle.sayName());
+// console.log(square.sayName());
+// console.log(rectangle.sayName());
+
+class UserInformation {
+  name: string;
+  age: number;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  sayAge() {
+    return `${this.name} ${this.age}`;
+  }
+}
+
+class JuniorUserInfo extends UserInformation {
+  constructor(name: string, age: number) {
+    super(name, age);
+  }
+}
+
+const juniorUserInfo = new JuniorUserInfo("ben", 30).sayAge();
+console.log("junior UserInfo", juniorUserInfo);

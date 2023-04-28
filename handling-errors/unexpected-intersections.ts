@@ -1,3 +1,4 @@
+// you mainly use as to solve this issue
 let human = {
   name: "Stefan",
   age: 39,
@@ -12,7 +13,7 @@ let anotherHuman: HumanBeing = {
 
 // extends: used to constrain the type of a generic parameter
 function update<T extends keyof HumanBeing>(key: T) {
-  human[key] = anotherHuman[key];
+  human[key] = anotherHuman[key] as HumanBeing[T];
 }
 
 update("age");

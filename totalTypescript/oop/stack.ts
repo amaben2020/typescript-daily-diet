@@ -1,4 +1,4 @@
-//LIFO
+//LIFO: This concept states that items that
 
 class Stack1 {
   items: number[];
