@@ -1,3 +1,5 @@
+// https://pokeapi.co/docs/v2#berries-section
+
 import { pokemonApi } from "./base";
 
 const fetchPokemon = async (name: string) => {
