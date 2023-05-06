@@ -82,3 +82,14 @@ console.log(stack1.isEmpty());
 console.log(stack1.size());
 console.log(stack1.print());
 console.log(stack1.clear());
+
+class Stack2 {
+  items: number[];
+  count: number;
+  constructor() {
+    this.items = [];
+    this.count = 0;
+  }
+
+  push() {}
+}

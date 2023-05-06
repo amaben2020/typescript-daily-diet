@@ -2,6 +2,26 @@
 
 import { TBooks } from "./array-typing";
 
+const getBookProp = <T, K extends keyof T>(
+  obj: T | T[],
+  key: K,
+): T[K] | string[] => {
+  // type guard
+  if (Array.isArray(obj)) {
+    return [""] as string[];
+  }
+  return obj[key];
+};
+
+console.log(
+  getBookProp(
+    {
+      title: "",
+    },
+    "title",
+  ),
+);
+
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
   return obj[key];
 }

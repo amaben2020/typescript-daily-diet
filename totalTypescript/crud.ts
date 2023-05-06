@@ -61,6 +61,43 @@ const DATA: Array<IData> = [
   },
 ];
 
+const userStore: { user: [] } = {
+  user: [],
+};
+
+// senior code
+const addAnotherUser = (userData: TUProp) => {
+  // check if user already exists
+  const isUserExists: boolean =
+    DATA.findIndex((elem) => elem.id === userData.id) >= 1;
+
+  // add the new user if it's not available
+  if (isUserExists) return "User already exists";
+
+  return [...DATA, userData];
+};
+
+const deleteAUser = (id: number) => {
+  const idx = DATA.findIndex((elem) => elem.id === id);
+  delete DATA[idx];
+
+  return DATA.filter(Boolean);
+};
+
+const dataAfterDeletion = deleteAUser(5);
+console.log("DELETE METHOD", dataAfterDeletion);
+// console.log(
+//   "Another User",
+//   addAnotherUser({
+//     name: "Enyinnaya",
+//     username: "enyi",
+//     email: "email",
+//     website: "website",
+//     id: 6,
+//     phone: "111",
+//   }),
+// );
+
 const addUser = (user: TUProp) => {
   return [...DATA, user];
 };
@@ -74,18 +111,18 @@ const result = addUser({
   website: "demarco.info",
 });
 
-const updateUser = (id: number, otherProps: Partial<TUProp>) => {
-  const userId = result.findIndex((u) => u.id === id);
+// const updateUser = (id: number, otherProps: Partial<TUProp>) => {
+//   const userId = result.findIndex((u) => u.id === id);
 
-  const updated = result[userId];
+//   const updated = result[userId];
 
-  return { ...updated, ...otherProps };
-};
+//   return { ...updated, ...otherProps };
+// };
 
-const updated = updateUser(6, {
-  username: "Amaben",
-  email: "amaben2020@gmail.com",
-});
+// const updated = updateUser(6, {
+//   username: "Amaben",
+//   email: "amaben2020@gmail.com",
+// });
 
 // console.log("UPDATED RESULT ARRAY", updated);
 
@@ -97,9 +134,9 @@ const checkPhoneProperty = (array: TUProp[]) => {
   }
 };
 
-console.log(checkPhoneProperty(DATA));
+// console.log(checkPhoneProperty(DATA));
 
-console.log(new Date().getMonth() + 1);
+// console.log(new Date().getMonth() + 1);
 
 class Users {
   users: IData[];
@@ -155,7 +192,7 @@ const imperative = () => {
   return DATA;
 };
 
-console.log("Imperative", imperative());
+// console.log("Imperative", imperative());
 
 const FROM = [
   {
@@ -215,7 +252,7 @@ const normalizeTestimonials = (array: Array<TArray>) => {
   };
 };
 
-console.log("isTransformed", normalizeTestimonials(FROM));
+// console.log("isTransformed", normalizeTestimonials(FROM));
 
 const TO = {
   count: 4,
