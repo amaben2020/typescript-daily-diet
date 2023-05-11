@@ -2,7 +2,8 @@ import { cart } from "./cart";
 
 import axios from "axios";
 
-const TOKEN = "4434120e410908bcb3144d64a547780b";
+// const TOKEN = "4434120e410908bcb3144d64a547780b";
+const TOKEN = "ab378c4737ef38cf3c7762c50c27c878";
 
 const taxjar = require("taxjar");
 

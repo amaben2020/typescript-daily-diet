@@ -14,3 +14,10 @@ const directionEnum = Object.freeze({
 });
 
 console.log(directionEnum); //{ UP: 'UP', DOWN: 'DOWN' }
+
+type TColor = "red" | "green";
+
+const logColor = (color: string) => {
+  return color;
+};
+console.log(logColor(Colors.black));
