@@ -1,11 +1,10 @@
 // Good resource: https://dev.to/nibble/higher-order-components-in-react-4c7h
 // https://www.smashingmagazine.com/2020/06/higher-order-components-react/
 
-// It is a higher order function because it returns a function.
 //They basically :  Take one or more functions as arguments
 // Returns a function
 
-//Higher Order Components must be pure: You shouldn't perform side effects in HOC and it shouldn't mutate the component passed to it. It should instead return a new component which renders the component passed as argument. A HOC is supposed to compose a component for code reuse. If you are writing a HOC, avoid the temptation to mutate the component passed as argument. This is because once mutated, the input argument's new behaviour will also be reflected outside the enhanced component which makes it non reusable. Instead of mutation, HOCs should use composition, by wrapping the input component in a container component. It is expected HOCs pass on props that are unrelated to its specific concern.
+//Higher Order Components must be pure: You shouldn't perform side effects in HOC and it shouldn't mutate the component passed to it. It should instead return a new component which renders the component passed as argument. A HOC is supposed to compose a component for code reuse. If you are writing a HOC, avoid the temptation to mutate the component passed as argument. This is because once mutated, the input argument's new behavior will also be reflected outside the enhanced component which makes it non reusable. Instead of mutation, HOCs should use composition, by wrapping the input component in a container component. It is expected HOCs pass on props that are unrelated to its specific concern.
 
 //higher order functions can help organize your code into smaller chunks, making it easier to maintain and extend.
 
