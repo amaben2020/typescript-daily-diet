@@ -86,3 +86,38 @@ const createUser = () => {
   }
 };
 console.log(createUser());
+
+const links: Array<Record<string, string>> = [
+  { url: "/", title: "Contact" },
+  { url: "/education", title: "Education" },
+  { title: "About", url: "/about" },
+  { title: "Confirm", url: "/confirm" },
+];
+
+type TActiveLinks = {
+  url: string;
+  title: string;
+  isActive?: boolean;
+}[];
+
+const urlPath = "https://path/education";
+
+const activeLink = (): ReturnType<TActiveLinks> => {
+  try {
+    const activePath = new URL(urlPath).pathname;
+    console.log("activePath", activePath);
+    return links.map((l) => {
+      if (l.url.includes(activePath)) {
+        return {
+          ...l,
+          isActive: true,
+        };
+      }
+
+      return { ...l };
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+console.log("activeLink", activeLink());
