@@ -23,3 +23,14 @@ const info2 = {
   ...{ age: 90 },
 };
 console.log(info2);
+
+const userInfo2 = {
+  ...(isMan(22)
+    ? {
+        name: "Ben",
+        age: 22,
+      }
+    : {}),
+};
+
+console.log("userInfo2", userInfo2);

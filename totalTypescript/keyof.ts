@@ -1,4 +1,4 @@
-// The keyof type operator returns a union of the keys of the type passed to it
+// The keyof type operator returns a union of the keys of the type passed to it.
 
 import { TBooks } from "./array-typing";
 
@@ -6,7 +6,6 @@ const getBookProp = <T, K extends keyof T>(
   obj: T | T[],
   key: K,
 ): T[K] | string[] => {
-  // type guard
   if (Array.isArray(obj)) {
     return [""] as string[];
   }
