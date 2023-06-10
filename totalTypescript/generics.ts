@@ -69,4 +69,44 @@ const statusOptions: TStatus<string, number, boolean> = {
 function identity<ArgType>(arg: ArgType): ArgType {
   return arg;
 }
-const greeting = identity<string>("Hello World!");
+const greeting: string = identity<string>("Hello World!");
+
+type TBooks = {
+  name: string;
+  booksWritten: number;
+};
+
+const books = [
+  {
+    name: "Ben",
+    booksWritten: 22,
+  },
+
+  {
+    name: "Jayke",
+    booksWritten: 2,
+  },
+];
+
+const getBookAuthor = (books: TBooks[], name: string) =>
+  books.find((book) => book.name === name);
+
+const filterAuthor = books.filter(
+  (elem) => elem.name === getBookAuthor(books, "Ben")?.name,
+);
+
+console.log(filterAuthor);
+
+type TAuthor = typeof filterAuthor;
+
+const books2 = [
+  {
+    name: "Ben",
+    booksWritten: 22,
+  },
+
+  {
+    name: "Jayke",
+    booksWritten: 2,
+  },
+] satisfies TAuthor;

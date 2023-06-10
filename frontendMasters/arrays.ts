@@ -40,16 +40,16 @@ const logActivePath = () => {
 
   return isActive ? "yeah" : "nope";
 };
-console.log(logActivePath());
+// console.log(logActivePath());
 
 // includes
 const str = "amaben is a great man";
 const res = "amaben";
 
-console.log(str.includes(res));
+// console.log(str.includes(res));
 
 const strin = "To be, or not to be, that is the question.";
-console.log(strin.includes("or"));
+// console.log(strin.includes("or"));
 
 const people = [
   { name: "Blessing", age: 26 },
@@ -66,10 +66,10 @@ const people = [
         isWife: false,
       },
 );
-console.log(people);
+// console.log(people);
 
 const someProp = people.every((person) => person.isWife);
-console.log(someProp);
+// console.log(someProp);
 
 const user = {
   isEmployer: false,
@@ -84,7 +84,7 @@ const createUser = () => {
     return "redirect to SE route";
   }
 };
-console.log(createUser());
+// console.log(createUser());
 
 const links: Array<Record<string, string>> = [
   { url: "/", title: "Contact" },
@@ -127,7 +127,7 @@ const activeLink = (): ReturnType<ActiveLinks2> => {
     console.log(error.message);
   }
 };
-console.log("activeLink", activeLink());
+// console.log("activeLink", activeLink());
 
 const AppSmith = {
   name: "string",
@@ -141,7 +141,7 @@ type TAppSmith = (typeof AppSmith)["age"];
 
 const year: TAppSmith = { year: "1992" };
 
-console.log(year);
+// console.log(year);
 
 const object = {
   id: "6455218886861700128c2b80",
@@ -352,7 +352,7 @@ const sortProducts = (data: any) => {
   );
 };
 
-console.log("sortProducts", sortProducts(object));
+// console.log("sortProducts", sortProducts(object));
 
 const data2 = [
   {
@@ -503,4 +503,21 @@ const data2 = [
   }
 });
 
-console.log("data2", data2);
+// console.log("data2", data2);
+
+const idsInChat = [1, 7, 17, 17];
+// dedupe: deduplicate
+const isUnique = (id) => {
+  return idsInChat.filter((element) => element !== id);
+};
+// console.log(isUnique(17));
+
+// check if user is not more than one
+const isUnique2 = (id: number) => {
+  const ids = new Set(idsInChat);
+  console.log("Before", ids.size);
+  ids.delete(id);
+  console.log("After", ids.size);
+};
+// https://www.youtube.com/watch?v=hubQQ3F337A
+console.log(isUnique2(17));

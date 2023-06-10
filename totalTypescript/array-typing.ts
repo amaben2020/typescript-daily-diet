@@ -113,3 +113,10 @@ const findActiveTopic = () => {
   });
 };
 console.log(findActiveTopic());
+
+const generateArray: string[] = Array(Math.trunc(4.5))
+  .fill("$")
+  .map((elem, i) => {
+    return elem + "" + i;
+  });
+console.log("generateArray", generateArray);

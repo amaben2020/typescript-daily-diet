@@ -25,4 +25,44 @@ const developer: Staff = {
   salary: 100,
 };
 
+const getProperty = <T, K extends keyof T>(obj: T, key: K): T[K] => {
+  return obj[key];
+};
+
 const nameType = getProperty(developer, "name");
+
+type TAdmin = {
+  name: string;
+  preferences: {
+    [key: string]: "en" | "fr";
+  };
+  accessLevel: {
+    level: [1];
+    payload: {
+      first: {
+        userInfo: {
+          name: string;
+        };
+      };
+    };
+  };
+};
+const admin = {
+  name: "Admin007",
+  preferences: {
+    lang: "en",
+  },
+  accessLevel: {
+    level: [1],
+    payload: {
+      first: {
+        userInfo: {
+          name: "Ben",
+        },
+      },
+    },
+  },
+} satisfies TAdmin;
+
+const accessInformation =
+  admin["accessLevel"]["payload"]["first"]["userInfo"]["name"];

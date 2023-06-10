@@ -19,7 +19,7 @@ const userInfo: TUserInfo = {
 console.log("userInfo", userInfo);
 
 const info2 = {
-  // spread means getting the property
+  // spread means getting the properties
   ...{ age: 90 },
 };
 console.log(info2);

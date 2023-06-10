@@ -1,5 +1,5 @@
 // just playing around records and mapped types
-
+// https://tc39.es/proposal-record-tuple/tutorial/
 type TKitchen = {
   [key: string]: [string, string, string] | number | boolean | "white";
 };

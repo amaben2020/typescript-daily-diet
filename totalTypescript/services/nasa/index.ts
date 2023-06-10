@@ -24,7 +24,7 @@ class Nasa extends Logger {
     this.token = TOKEN;
   }
 
-  public async getApod() {
+  public async getApod(): Promise<void> {
     const { data: info } = await axios.get(
       `https://api.nasa.gov/planetary/apod?api_key=${this.token}`,
     );
