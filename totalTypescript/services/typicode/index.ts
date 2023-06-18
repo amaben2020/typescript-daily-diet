@@ -6,6 +6,7 @@ type T1 = Parameters<(id: number) => void>;
 
 class Typicode {
   id: number | undefined;
+
   constructor(id?: number) {
     this.id = id;
   }
@@ -46,9 +47,9 @@ class Typicode {
     }
   }
 
-  async deleteTodo(id: number) {
+  async deleteTodo() {
     try {
-      const data = await axios.delete(`${ENDPOINT}/${id}`);
+      const data = await axios.delete(`${ENDPOINT}/${this.id}`);
 
       if (data.statusText === "OK") {
         console.log("Data", data);
@@ -63,5 +64,6 @@ class Typicode {
   }
 }
 
-const typicode = new Typicode().deleteTodo(5);
+// not so cool because
+const typicode = new Typicode(5).deleteTodo();
 console.log("Typicode", typicode);
