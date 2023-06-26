@@ -34,3 +34,30 @@ const update = (info: string) => {
 };
 console.log(update("o"));
 console.log(update("a"));
+
+type TOrdinalSuffix = "th" | "st" | "nd" | "th" | "rd";
+
+export const computeAndFormatDate = (date: number) => {
+  const dateObj = new Date(date as number);
+  const day = dateObj.getDate();
+  const month = dateObj.toLocaleString("default", { month: "long" });
+  const year = dateObj.getFullYear();
+
+  const ordinalSuffixFormatter = (number: number): TOrdinalSuffix => {
+    if (number > 3 && number < 21) return "th";
+    switch (number % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+
+  return `${day}${ordinalSuffixFormatter(day)} ${month}, ${year}`;
+};
+
+// understand the switch
