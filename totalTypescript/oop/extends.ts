@@ -42,7 +42,14 @@ class Me {
   }
 }
 
-class You extends Me {
+interface TYou {
+  computeNameAndAge: () => void;
+  logName: () => void;
+  age: number;
+  name: string;
+}
+
+class You extends Me implements TYou {
   age: number;
   constructor(age: number, name: string) {
     super(name);

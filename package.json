@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
     "@types/node": "^18.16.18",
     "tslint": "^6.1.3",
     "typescript": "4.9"
@@ -10,6 +11,8 @@
     "run": "npx ts-node src/"
   },
   "dependencies": {
+    "@builder.io/sdk": "^2.0.4",
+    "algoliasearch": "^4.18.0",
     "axios": "^1.3.2",
     "date-fns": "^2.29.3",
     "jsonwebtoken": "^9.0.0",
