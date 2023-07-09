@@ -20,6 +20,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "pokedex-promise-v2": "^4.1.1",
+    "smartystreets-javascript-sdk": "^2.1.2",
     "storyblok-js-client": "^5.10.6",
     "taxjar": "^4.0.1"
   }

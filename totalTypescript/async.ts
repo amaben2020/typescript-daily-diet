@@ -50,3 +50,39 @@ const layout = async (getNavbar: Promise<unknown>) => {
 };
 
 console.log(layout(getNavigation));
+
+const createThenGetUser2 = async (
+  createUser: () => Promise<string>,
+  getUser: (userId: string) => Promise<User>,
+): Promise<User> => {
+  const userId: string = await createUser();
+
+  const user = await getUser(userId);
+
+  return user;
+};
+
+// Good
+type APIResponse<T> = {
+  items?: T[];
+  item: T;
+};
+
+type User = {
+  id: string;
+};
+enum HttpMethod {
+  GET = "get",
+}
+
+const fetchCall = <T>(method: string, url: string): Promise<APIResponse<T>> => {
+  return new Promise((res, rej) => {
+    res;
+  });
+};
+
+export const getUser = (id: string): Promise<User> => {
+  return fetchCall<User>(HttpMethod.GET, `/v1/user/${id}`).then(
+    ({ item }) => item,
+  );
+};

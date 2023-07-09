@@ -66,3 +66,21 @@ type TExpiryDate = typeof expiryDate;
 
 // here, we are using the typeof a variable to infer another value
 const values: typeof cardMonthAndYearValue = ["a", "b"];
+
+enum UserDetail {
+  good = "success",
+  bad = "failed",
+}
+enum ENVIRONMENT {
+  DEVELOPMENT = "development",
+  TEST = "test",
+  PRODUCTION = "production",
+}
+
+type GetUserDetail = keyof typeof UserDetail;
+
+let isSuccess: GetUserDetail;
+
+isSuccess = "bad";
+
+console.log(process.env.NODE_ENV === ENVIRONMENT.DEVELOPMENT);

@@ -67,11 +67,19 @@ console.log(groupBy(people, "length"));
 console.log(groupBy(people, (p) => p.length));
 
 const humans = [
-  { name: "Adam", age: 21 },
-  { name: "Brian", age: 10 },
-  { name: "Carla", age: 19 },
-  { name: "Daniel", age: 14 },
-  { name: "Ellie", age: 42 },
+  { name: "Adam", age: 21, category: { gender: "male", maturity: "adult" } },
+  { name: "Brian", age: 10, category: { gender: "male", maturity: "boy" } },
+  {
+    name: "Carla",
+    age: 19,
+    category: { gender: "female", maturity: "teenager" },
+  },
+  {
+    name: "Daniel",
+    age: 14,
+    category: { gender: "male", maturity: "teenager" },
+  },
+  { name: "Ellie", age: 42, category: { gender: "female", maturity: "adult" } },
 ];
 
 const result = groupBy(humans, (e) => {
@@ -80,3 +88,20 @@ const result = groupBy(humans, (e) => {
   return "adult";
 });
 console.log(result);
+
+const groupByMaturity = groupBy(humans, "category.maturity");
+
+const groupedItems = Object.entries(groupByMaturity).map(([key, value]) => {
+  if (key == value[0].category.maturity) {
+    return {
+      maturity: value[0].category.maturity,
+      people: value.map((v) => ({
+        name: v.name,
+        age: v.age,
+      })),
+    };
+  }
+});
+console.log("groupedItems", groupedItems);
+
+// [{gender: category, maturity: '', people: []}]

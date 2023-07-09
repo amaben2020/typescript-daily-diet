@@ -114,6 +114,7 @@ const findActiveTopic = () => {
 };
 console.log(findActiveTopic());
 
+// https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n
 const generateArray: string[] = Array(Math.trunc(4.5))
   .fill("$")
   .map((elem, i) => {
