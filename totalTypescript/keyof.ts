@@ -186,20 +186,3 @@ const nestedUsers: GenericUserType<TUser> = {
 };
 
 nestedUsers.first.name;
-
-type ExpiryDateTime<T> = {
-  days: T;
-  hours: T;
-  minutes: T;
-};
-
-const expiryDate: ExpiryDateTime<number> = {
-  days: 12,
-  hours: 33,
-  minutes: 13,
-};
-
-const onChange = <T, U extends keyof T>(object: T, key: U, number: number) => {
-  return object[key] ?? number;
-};
-console.log(onChange(expiryDate, "hours", 1));

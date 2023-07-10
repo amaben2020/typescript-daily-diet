@@ -145,3 +145,20 @@ const SB: StoryBlok<"section-resources"> = {
 //   T extends LabelType | CategoryType | ResourcesDataType
 // >(datasource: DataSourceSlug) {
 //   const [entries, setEntries] = useState<DataSourceEntry<T>[]>([]);
+
+type TForce = {
+  darkness: "dark";
+  light: "light";
+};
+const force: TForce = {
+  darkness: "dark",
+  light: "light",
+};
+
+type ExcludedLight = {
+  [Property in keyof TForce as Exclude<Property, "light">]: TForce[Property];
+};
+
+const forcesOfDark = {
+  darkness: "dark",
+} satisfies ExcludedLight;

@@ -1,6 +1,6 @@
 // Typeof is used to refer to the type of a value
 // https://www.typescriptlang.org/docs/handbook/2/typeof-types.html
-
+// typeof allows you to extract the type from a variable. Unlike JavaScript’s typeof TypeScript’s typeof allows to use in a type to refer it as a type
 enum ColorsEnum {
   white = "#ffffff",
   black = "#000000",
@@ -84,3 +84,28 @@ let isSuccess: GetUserDetail;
 isSuccess = "bad";
 
 console.log(process.env.NODE_ENV === ENVIRONMENT.DEVELOPMENT);
+
+// function return typeof
+const getHisOrHer = (val: number): "his" | "her" => {
+  return "his" || "her";
+};
+
+type HisOrHer = ReturnType<typeof getHisOrHer>; // "his" | "her"
+
+// OR
+
+// type GetHisOrHerFunc = (val: number) => "his" | "her"
+
+// const getHisOrHer: GetHisOrHerFunc = (val) => {
+//   // ...
+// }
+
+// type HisOrHer = ReturnType<GetHisOrHerFunc> // "his" | "her"
+
+const getUser = (user: { name: "Ben" }) => {
+  return user;
+};
+
+type TUser = ReturnType<typeof getUser>;
+
+const informate: TUser = { name: "Ben" };
