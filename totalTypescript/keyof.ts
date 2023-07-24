@@ -186,3 +186,16 @@ const nestedUsers: GenericUserType<TUser> = {
 };
 
 nestedUsers.first.name;
+
+type TUsers = {
+  name: string;
+  age: number;
+};
+const users = {
+  name: "Ben",
+  age: 31,
+};
+const getUser = <T extends TUsers, U extends keyof T>(obj: T, key: U): T[U] => {
+  return obj[key];
+};
+console.log(getUser(users, "age"));

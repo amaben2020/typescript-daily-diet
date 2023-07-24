@@ -53,3 +53,93 @@ emp.display(); //James
 let emp2: PersonInfo = emp.find("Steve");
 
 // class BuilderTest extends AbstractBuilderComponent {}
+
+// import { ValidationErrorItem } from "joi";
+
+// import { NnoxxError } from "./nnoxx-error";
+
+// interface IInvalidField {
+//   field: ValidationErrorItem["path"][number];
+//   message: ValidationErrorItem["message"];
+// }
+
+// export class ValidationError extends NnoxxError {
+//   public invalidFields: IInvalidField[];
+
+//   constructor(invalidFields: ValidationErrorItem[]) {
+//     super("Validation Error", 422);
+//     this.invalidFields = this.getErrors(invalidFields);
+//   }
+
+//   private getErrors = (invalidFields: ValidationErrorItem[]) =>
+//     invalidFields.map((err) => ({
+//       field: err.path.join("."),
+//       message: err.message,
+//     }));
+// }
+
+abstract class ValidationService {
+  protected validate<T = Record<string, string>>(schema: any, command: T) {
+    const { error } = schema.validate(command);
+
+    if (error) {
+      throw new ValidationError(error.details);
+    }
+  }
+}
+
+// class Supabase2 extends ValidationService {
+//   async log() {
+//     this.validate
+//   }
+// }
+
+// const supabase2 = new Supabase2();
+
+abstract class logUser {
+  username: string;
+  constructor(name: string) {
+    this.username = name;
+  }
+  logger() {
+    return this.username;
+  }
+}
+
+class ShowLogger extends logUser {
+  constructor(name: string) {
+    super(name);
+    this.logger = () => "";
+  }
+  display() {
+    this.logger;
+  }
+}
+
+type TError = {
+  message: string;
+};
+const error = {
+  message: "Hi",
+};
+interface ISupabase {
+  displayMessage: () => void;
+}
+abstract class SupabaseValidation {
+  protected validate(error: TError) {
+    if (error.message) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
+class Supabase extends SupabaseValidation implements ISupabase {
+  displayMessage() {
+    return this.validate;
+  }
+}
+
+const supa = new Supabase();
+console.log(supa.displayMessage()(error));

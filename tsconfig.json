@@ -6,7 +6,9 @@
     "outDir": "dist",
     "sourceMap": true,
     "lib": ["dom", "dom.iterable", "ES2015.Iterable", "ES2015.Promise"],
-    "types": ["vitest/importMeta"]
+    "typeRoots": ["./node_modules/@types", "./global.d.ts"]
   },
+  "files": ["./global.d.ts"],
+  "include": ["**/*.d.ts"],
   "exclude": ["node_modules"]
 }

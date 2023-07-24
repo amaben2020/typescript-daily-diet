@@ -3,12 +3,13 @@ import dotenv from "dotenv";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
 dotenv.config();
+
 const supabaseUrl = process.env.SUPABASE_URL ?? "";
 const supabaseKey = process.env.SUPABASE_ADMIN_SECRET_KEY ?? "";
 
 const email = "someone1@email.com";
 const password = "xvmnVuQmFZp1LVcvDLLxD";
-class SupabaseService {
+abstract class SupabaseService {
   private client: SupabaseClient;
   constructor() {
     this.client = createClient(supabaseUrl, supabaseKey);
@@ -20,9 +21,7 @@ class SupabaseService {
       password,
     });
 
-    console.log("Data", data);
-    console.log(error);
-
+    // do something with data or error
     try {
     } catch (error) {
       if (error instanceof Error) {
@@ -32,6 +31,29 @@ class SupabaseService {
   }
 }
 
-const supabase = new SupabaseService();
+// abstract classes cannot be instantiated but extended by another class
+class Supabase extends SupabaseService {}
 
-supabase.signin(email, password);
+const supabase = new Supabase();
+
+// supabase.signin(email, password);
+// supabase2
+
+const breakStuff = (name: string) => {
+  switch (name) {
+    case "ben":
+      console.log("Yeah");
+
+      break;
+
+    case "not-ben":
+      {
+        console.log("ok");
+      }
+
+      break;
+    default:
+      break;
+  }
+};
+console.log(breakStuff("not-ben"));
