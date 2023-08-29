@@ -57,3 +57,15 @@ const formatCurrency = function (
 };
 const getLabel = formatCurrency("$", ".");
 console.log("converted:", getLabel(400));
+
+const localeUrl = "https://localhost:3000/en";
+
+let hasLocale = false;
+
+if (localeUrl.includes("en")) {
+  hasLocale = true;
+} else {
+  hasLocale = false;
+}
+
+console.log(hasLocale);

@@ -29,3 +29,30 @@ const searchResult = (
   searchTerm: string,
 ) => array.filter((elem) => elem.name.includes(searchTerm));
 console.log("searchResult", searchResult(fruits, "grape"));
+
+// write a function that returns the current path
+
+const currentPath = "https://localhost:3000/education";
+
+const routePaths = [
+  { url: "education", title: "Education" },
+  { url: "economics", title: "Economics" },
+  { url: "studies", title: "Studies" },
+];
+
+const renderActivePath = () => {
+  return routePaths.map((r) => {
+    if (currentPath.includes(r.url)) {
+      return {
+        ...r,
+        current: true,
+      };
+    } else {
+      return {
+        ...r,
+      };
+    }
+  });
+};
+console.log(renderActivePath());
+console.log(currentPath.includes("educati"));

@@ -1,5 +1,9 @@
 import algoliasearch from "algoliasearch";
 
+// const usageClient = algoliasearch(
+//   "U0GPCIA4WP",
+//   "802e706019b445a6d3e6a5040035624d",
+// );
 const usageClient = algoliasearch(
   "U0GPCIA4WP",
   "802e706019b445a6d3e6a5040035624d",

@@ -1,4 +1,4 @@
-import { list } from "./data/list";
+import { list, officers } from "./data/list";
 // const dataset = require("./data/complex-dataset.json");
 interface User {
   id: number;
@@ -130,3 +130,61 @@ console.log("Toggle", toggleDisable(menus));
 //   "!",
 // ]);
 // result should == "apples, pears\ngrapes\nbananas"
+
+type TOfficers = Array<Record<string, string | number>>;
+
+const renamer = (
+  elem: Record<string, string | number>,
+  itemToReplace: string,
+  stuffToReplaceWith: string,
+) => {
+  if (
+    String(elem.username).includes(itemToReplace) ||
+    elem.username === itemToReplace
+  ) {
+    elem.username = stuffToReplaceWith;
+  }
+  return elem;
+};
+
+const renderAndRenameOfficers = (officers: TOfficers) => {
+  return officers.map((elem) =>
+    renamer(elem, "Samantha", "Benneth the algo God"),
+  );
+};
+
+console.log(
+  renderAndRenameOfficers(officers).map((elem) => {
+    if (elem.username.toString().includes("algo")) {
+      return {
+        ...elem,
+        username: "Benneth is really an algo God ",
+      };
+    } else {
+      return { ...elem };
+    }
+  }),
+);
+
+function cacher() {
+  const cache: Record<string, string | number> = {};
+
+  const add = (key: string, value: string | number) => {
+    console.log("cache in add", cache);
+    cache[key] = value;
+  };
+  const deleter = (key: string) => delete cache[key];
+  console.log("cache in", cache);
+  return {
+    cache: cache,
+    add,
+    deleter,
+  };
+}
+
+// { a: value,  } delete cache[key]
+cacher().add("a", "first cache");
+// console.log("2nd", cacher().add("a", "first cache"));
+console.log("1st", cacher().cache);
+// console.log("2nd", cacher().add("b", "second cache"));
+// console.log("3rd", cacher().deleter("b"));
