@@ -110,3 +110,48 @@ const books2 = [
     booksWritten: 2,
   },
 ] satisfies TAuthor;
+
+// make a Promise
+const dataFromServer: Promise<Array<Record<string, string | number>>> =
+  new Promise((res, rej) => {
+    if (
+      [
+        {
+          name: "Ben",
+          booksWritten: 22,
+        },
+
+        {
+          name: "Jayke",
+          booksWritten: 2,
+        },
+      ]
+    ) {
+      res([
+        {
+          name: "Ben",
+          booksWritten: 22,
+        },
+
+        {
+          name: "Jayke",
+          booksWritten: 2,
+        },
+      ]);
+    } else {
+      rej("Something went wrong");
+    }
+  });
+
+// make a function that returns an awaited
+
+const logDataFromServer = async () => {
+  try {
+    const data: Awaited<Array<Record<string, string | number>>> =
+      await dataFromServer;
+
+    console.log("DATA", data);
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,0 +1,9 @@
+https://blog.logrocket.com/schema-validation-typescript-zod/
+
+Zod provides you with runtime type safety and is primarily for validating things you don’t control such as API input and form input validation.
+
+Object literal validation are called Static checks while Api inputs validation and form input validations are runtime.
+
+https://egghead.io/blog/zod-vs-yup-vs-joi-vs-io-ts-for-creating-runtime-typescript-validation-schemas
+
+https://codedamn.com/news/javascript/zod-getting-started

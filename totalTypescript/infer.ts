@@ -92,3 +92,18 @@ const user = {
 
 user.user = { ...userCreds };
 console.log(user);
+
+// A way to create a type from a conditional type
+interface ApiData {
+  "maps:longitude": string;
+  "maps:latitude": string;
+  awesome: boolean;
+}
+
+type RemoveMapsFromObj<T> = {
+  [K in keyof T as RemoveMaps<K>]: T[K];
+};
+
+type RemoveMaps<T> = T extends `maps:${infer U}` ? "blah" : T;
+
+type Result = true extends boolean ? 1 : 0;
