@@ -53,6 +53,21 @@ let shoppingCart = [
   },
 ];
 
+const shoppingKeys = shoppingCart.reduce((acc, cv) => {
+  const keys = {
+    [cv.product]: cv.product,
+  };
+
+  return {
+    ...acc,
+    ...keys,
+  };
+}, {});
+
+console.log("shoppingKeys", shoppingKeys);
+
+// intended result {'Screen Protector' : "Screen Protector"}
+
 const shopper = shoppingCart.reduce((a, b) => {
   const newProducts = {
     [b.product]: b.product,
@@ -104,3 +119,21 @@ const posts = [
 //   let { id, category } = post;
 //   return { ...acc, [category]: [...(acc[category] || []), id] };
 // }, {});
+
+const mapPosts = posts.map((post) => {
+  if (post.category === "frontend") {
+    return {
+      [post.category]: {
+        ...post,
+      },
+    };
+  } else {
+    return {
+      ["Doesnt meet requirement"]: {
+        ...post,
+      },
+    };
+  }
+});
+
+console.log("mapPosts", mapPosts);

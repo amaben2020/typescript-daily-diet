@@ -1,23 +1,21 @@
 // intersection: this feature enables us compose several types. Only used by interfaces not types.
 
-
-
 // ✅
 
 interface IUserInformation {
-  id: string
-  firstName: string
-  lastName: string
+  id: string;
+  firstName: string;
+  lastName: string;
 }
 
 interface IPosts {
-  id: string
-  title: string
-  body: string
+  id: string;
+  title: string;
+  body: string;
 }
 
 // posts property is inside an object and not a standalone stuff, hence the need to insert in an object.
-type CombinedPostAndUser = IUserInformation & {posts: IPosts[]}   
+type CombinedPostAndUser = IUserInformation & { posts: IPosts[] };
 
 const getDefaultUserAndPostArray = (): CombinedPostAndUser => {
   return {
@@ -34,22 +32,19 @@ const getDefaultUserAndPostArray = (): CombinedPostAndUser => {
   };
 };
 
-
-
-
 // ❌
 interface U {
-  id: string
-  firstName: string
-  lastName: string
+  id: string;
+  firstName: string;
+  lastName: string;
 
   // its better you separate this for easier debugging
 
   posts: {
-    id: string
-    title: string
-    body: string
-  }[]
+    id: string;
+    title: string;
+    body: string;
+  }[];
 }
 
 // interface Posts {
@@ -73,8 +68,6 @@ const getDefaultUserAndPosts = (): U => {
   };
 };
 
-
 const userAndPosts = getDefaultUserAndPosts();
 
 console.log(userAndPosts.posts[0]);
-

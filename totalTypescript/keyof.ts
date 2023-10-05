@@ -199,3 +199,31 @@ const getUser = <T extends TUsers, U extends keyof T>(obj: T, key: U): T[U] => {
   return obj[key];
 };
 console.log(getUser(users, "age"));
+
+interface ILocale {
+  en: {
+    name: string;
+    locale: string;
+  };
+}
+
+// type MappedLocale = {
+//   [Key in keyof ILocale as `${Key}-US`]: ILocale[Key];
+// };
+
+// const locales: MappedLocale = {
+//   "en-US": {
+//     name: "USA",
+//     locale: "en-US",
+//   },
+//   "en-UK": {
+//     name: "Uk",
+//     locale: "en-UK",
+//   },
+//   "fr-FR": {
+//     name: "France",
+//     locale: "fr-FR",
+//   },
+// };
+
+// console.log("LOCALES", locales);

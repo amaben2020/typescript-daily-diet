@@ -217,3 +217,31 @@ const cc: ColorfulCircle = {
   color: "red",
   radius: 42,
 };
+
+interface ISlugAndTitle {
+  slug: string;
+  title: string;
+}
+
+interface IAccordionObject extends ISlugAndTitle {
+  id: string;
+  questions: Record<string, string>[];
+}
+
+const accordionObject = {
+  id: "76e59c1138d14317845c8799d3374b19",
+  title: "FAQ Category 1",
+  slug: "faq-category-1",
+  questions: [
+    {
+      id: "d3857ebd29ac4c6081fb5e481fe2147e",
+      question: "FAQ Question 2",
+      answer: "<h1>Title</h1> ",
+    },
+    {
+      id: "10f96636f4864fc0aa20570cd0b6b115",
+      question: "FAQ Question 1",
+      answer: "<h1>Title</h1>",
+    },
+  ],
+} satisfies IAccordionObject;

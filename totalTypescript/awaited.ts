@@ -9,10 +9,23 @@ type TUser = {
 
 const URL = "https://jsonplaceholder.typicode.com/todos/1";
 
+const getPlaceholderData = async (): Promise<TUser | undefined> => {
+  try {
+    const { data }: Awaited<{ data: TUser }> = await axios.get(URL);
+    console.log(data);
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.stack);
+    }
+  }
+};
+
+console.log("getPlaceholderData", getPlaceholderData());
+
 const fetchData = async (): Promise<TUser | undefined> => {
   try {
     const { data }: Awaited<{ data: TUser }> = await axios.get(URL);
-
     return data;
   } catch (error) {
     console.log(error);

@@ -1,14 +1,23 @@
-// conditional object property
+// conditional object property: This allows you to dynamically declare an object based on a certain condition
 
 type TUserInfo = {
   name: string;
   isMale: boolean;
-  sex: string;
+  sex: "male" | "female";
+  age?: number;
 };
 
 const isMan = (age: number) => {
   return age > 29;
 };
+
+const person: TUserInfo = {
+  name: "Ben",
+  isMale: true,
+  sex: "male",
+  ...(isMan(31) ? { age: 31 } : null),
+};
+console.log("person", person);
 
 const userInfo: TUserInfo = {
   name: "Benneth",
