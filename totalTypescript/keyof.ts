@@ -227,3 +227,22 @@ interface ILocale {
 // };
 
 // console.log("LOCALES", locales);
+
+const locales = {
+  "en-US": {
+    name: "USA",
+    locale: "en-US",
+  },
+  "en-UK": {
+    name: "Uk",
+    locale: "en-UK",
+  },
+  "fr-FR": {
+    name: "France",
+    locale: "fr-FR",
+  },
+};
+const getLocale = <T, U extends keyof T>(data: T, key: U): T[U] => {
+  return data[key];
+};
+console.log(getLocale(locales, "en-UK"));

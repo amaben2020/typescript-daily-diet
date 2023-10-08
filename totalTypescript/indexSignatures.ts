@@ -1,5 +1,7 @@
 // Index signatures are handy for cases when the actual names of the type’s properties are not known, but the type of data they will reference is known
 
+// caveat: no intellisense for the index signature
+
 type User = {
   name: string;
   preferences: {
@@ -66,3 +68,15 @@ const admin = {
 
 const accessInformation =
   admin["accessLevel"]["payload"]["first"]["userInfo"]["name"];
+
+type TSoldierData = {
+  [key: string]: string | number | string[];
+};
+
+const soldierData: TSoldierData = {
+  name: "Benoski",
+  departments: ["Marine Seal", "Green Beret"],
+  height: 180,
+};
+
+
