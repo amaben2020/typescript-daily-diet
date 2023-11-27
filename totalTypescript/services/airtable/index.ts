@@ -9,8 +9,15 @@ const fetchRecords = async () => {
     const baseRecords = await base("Customers").create([
       {
         fields: {
-          Name: "Ben",
-          Email: "amaben@gmail.com",
+          Name: "Ben1",
+          Email: "amaben1@gmail.com",
+        },
+      },
+
+      {
+        fields: {
+          Name: "Ben2",
+          Email: "amaben2@gmail.com",
         },
       },
     ]);
@@ -27,4 +34,19 @@ const fetchRecords = async () => {
   }
 };
 
-console.log(fetchRecords());
+// console.log(fetchRecords());
+
+const users = [
+  { email: "amaben@gmail.com", name: "Benneth" },
+  { email: "second@gmail.com", name: "Tobias" },
+];
+const appendThird = (users: Array<{ email: string; name: string }>) => {
+  return users.reduce((acc, cv) => {
+    return {
+      ...acc,
+      ...cv,
+    };
+  }, {});
+};
+
+console.log(appendThird(users));

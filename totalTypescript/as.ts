@@ -27,3 +27,10 @@ class UserData {
 const userData = new UserData("Ben", ["Typescript", 1234, "JS", 33323]);
 
 console.log("User data", userData.logSkills(userData.skills as string[]));
+
+const userInput: unknown = "Hello World";
+const strLength = (userInput as string).length;
+console.log(strLength); // Output: 11
+
+const words = "words";
+console.log((<string>words).length);

@@ -53,3 +53,32 @@ function isDog(creature: Human | Dog): creature is Dog {
 }
 
 console.log(isDog(creature));
+
+const human = {
+  name: "Ben",
+  speaks: "talks",
+};
+
+const dog = {
+  name: "Ben",
+  speaks: "barks",
+};
+
+type THumDog = {
+  name: string;
+  speaks: string;
+};
+
+const retrieveLivingThing = (specie: THumDog) => {
+  if ("speaks" in specie) {
+    if (specie.speaks === "talks") {
+      return "This is a human";
+    } else {
+      return "This is a dog";
+    }
+  } else {
+    return "Non living";
+  }
+};
+
+console.log(retrieveLivingThing(dog));

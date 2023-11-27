@@ -95,6 +95,21 @@ const menus: TMenus = [
   { key: "secure", label: "Secure", disabled: true },
 ];
 
+const updateMenuName = (array: TMenus, key: "home" | "product") => {
+  return array.map((elem) => {
+    if (elem.key === key) {
+      return {
+        key: `I changed the ${elem.key} to jdvnsjdks`,
+        label: elem.label,
+      };
+    } else {
+      return {
+        ...elem,
+      };
+    }
+  });
+};
+
 const toggleDisable = (menu: TMenus) => {
   return menu
     .map((elem) => {
@@ -278,3 +293,45 @@ const alphabets = ["a", "b", "c"].every((elem) => {
 });
 console.log("Alphabets", alphabets);
 console.log(filterItemByTag());
+
+let result = 0;
+
+foodStuff.forEach((item) => {
+  if (item.price > result) {
+    result = item.price;
+  }
+});
+
+console.log(result);
+
+type TShopData = {
+  id: string;
+  title: string;
+  price: number;
+};
+
+const shopData: Array<TShopData> = [
+  { id: "1", title: "Iphone", price: 300 },
+  { id: "2", title: "Oraimo watch", price: 800 },
+  { id: "3", title: "Megido", price: 1300 },
+];
+
+let rivers = ["Nile", "Ganges", "Yangte"];
+let moreRivers = ["Danube", "Amazon"];
+
+const mergeRivers = (base: string[], args: string[]) => {
+  return base.concat(args);
+};
+
+console.log(mergeRivers(rivers, moreRivers));
+
+const englishParams = [{ slug: "cities" }, { slug: "experiences" }];
+const deutscheParams = [{ slug: "stadea" }, { slug: "enfrhugen" }];
+
+console.log(englishParams.concat(deutscheParams));
+
+const setter = (prop: string) => ({ firstName: prop });
+
+const setName = (name: string) => setter(name);
+
+console.log(setName("Benneth Uzor"));

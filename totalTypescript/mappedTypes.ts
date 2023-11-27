@@ -162,3 +162,48 @@ type ExcludedLight = {
 const forcesOfDark = {
   darkness: "dark",
 } satisfies ExcludedLight;
+
+type TUserInfo4 = {
+  name: string;
+  sex: string;
+  email: string;
+};
+
+type TPartialUser4 = {
+  [K in keyof TUserInfo4]?: TUserInfo4[K];
+};
+
+const userInfo4: TPartialUser4 = {
+  name: "John Doe",
+  email: "john@example.com",
+};
+
+//grid
+// <div className="grid auto-rows-[192px] grid-cols-3 gap-4">
+//   {[...Array(7)].map((_, i) => (
+//     <div
+//       key={i}
+//       className={`row-span-1 rounded-xl border-2 border-slate-400/10 bg-neutral-100 p-4 dark:bg-neutral-900 ${
+//         i === 3 || i === 6 ? "col-span-2" : ""
+//       }`}
+//     ></div>
+//   ))}
+// </div>
+
+//flex
+// <div className="flex gap-4">
+//   {[
+//     [24, 32, 32, 16, 16],
+//     [32, 40, 56],
+//     [64, 32, 32],
+//   ].map((card, index) => (
+//     <div className="flex-1" key={index}>
+//       {card.map((height, index) => (
+//         <div
+//           className={`mb-4 h-${height} rounded-xl border-2 border-slate-400/10 bg-neutral-100 p-4 dark:bg-neutral-900`}
+//           key={index}
+//         ></div>
+//       ))}
+//     </div>
+//   ))}
+// </div>

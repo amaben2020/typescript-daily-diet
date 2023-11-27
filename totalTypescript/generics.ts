@@ -155,3 +155,8 @@ const logDataFromServer = async () => {
     console.log(error);
   }
 };
+
+const reverser = <T>(array: T[]): T[] => {
+  return array.reverse();
+};
+console.log(reverser([3, 32]));
