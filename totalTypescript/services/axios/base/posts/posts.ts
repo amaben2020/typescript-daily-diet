@@ -15,8 +15,15 @@ if (token && userId) {
   ] = `Bearer ${token} ${userId}`;
 }
 
+type TPost = {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+};
+
 class Posts {
-  posts: Array<any>;
+  posts: Array<TPost>;
   constructor() {
     this.posts = [];
   }
@@ -34,11 +41,12 @@ class Posts {
     }
   }
 
-  async createPost(data: any) {
+  async createPost(data: Partial<TPost>) {
     try {
       const response = await postsApi.post("/posts", data);
 
       if (response.status === 200 || response.status === 201) {
+        console.log(response.data);
         return response.data;
       }
     } catch (error) {
@@ -50,6 +58,10 @@ class Posts {
 const postApi = new Posts();
 
 const info = (async () => {
-  await postApi.getPosts();
+  await postApi.createPost({
+    userId: 101,
+    title: "hey i am here",
+    body: "The body",
+  });
 })();
 console.log(info);

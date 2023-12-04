@@ -33,7 +33,8 @@ console.log(str);
 //     }[];
 //   };
 
-type Box<T> = {
+// extends is used when we want to constrain a generic type
+type Box<T extends string | number> = {
   content?: T;
   diff?: T;
 };
