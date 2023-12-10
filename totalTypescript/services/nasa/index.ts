@@ -16,16 +16,25 @@ class Logger {
   }
 }
 
+type TNasaData = {
+  copyright: string;
+  date: string;
+  explanation: string;
+  hdurl: string;
+  media_type: string;
+  service_version: "v1";
+  title: string;
+  url: string;
+};
+
 class Nasa extends Logger {
   token: string;
-
   constructor(name: string) {
     super(name); // must be called to use derived props
     this.token = TOKEN;
   }
-
   public async getApod(): Promise<void> {
-    const { data: info } = await axios.get(
+    const { data: info }: Awaited<{ data: TNasaData }> = await axios.get(
       `https://api.nasa.gov/planetary/apod?api_key=${this.token}`,
     );
 
@@ -38,11 +47,33 @@ class Nasa extends Logger {
 
 const nasa = new Nasa("Amalachukwu");
 
-console.log("APOD", nasa.getApod());
+// console.log("APOD", nasa.getApod());
 
-const items = [
-  {
-    line_id: "{{line_id}}",
-    // "qty_fulfilled": {{"qty_shipped": ""}}
-  },
-];
+class RenderData {
+  key: keyof TNasaData;
+  constructor(keyToDisplay: keyof TNasaData) {
+    this.key = keyToDisplay;
+  }
+}
+class NasaFetcher extends RenderData {
+  token: string;
+  constructor(token: string) {
+    super("title");
+    this.token = token;
+  }
+
+  async displayData() {
+    try {
+      const { data }: Awaited<{ data: TNasaData }> = await axios.get(
+        `https://api.nasa.gov/planetary/apod?api_key=${this.token}`,
+      );
+
+      console.log(data[this.key]);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+const nasa2 = new NasaFetcher(TOKEN);
+console.log(nasa2.displayData());

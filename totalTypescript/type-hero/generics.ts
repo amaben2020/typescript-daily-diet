@@ -20,7 +20,12 @@ type GroceryItem<Name, Price, InStock> = {
 };
 
 type AvocadoToast = GroceryItem<"Avocado Toast", 12.99, true>;
-
+// what it literally entails
+const aToast: AvocadoToast = {
+  name: "Avocado Toast",
+  price: 12.99,
+  inStock: true,
+};
 // same as
 // type AvocadoToast = {
 //   name: 'Avocado Toast';

@@ -28,3 +28,13 @@ const mapArray = <T, U>(arr: T[], fn: (val: T) => U) => arr.map(fn);
 
 console.log(mapArray<string, number>(strings, parseInt));
 console.log(strings.map(parseInt));
+
+type TUserReq<T> = {
+  name: T;
+  age: number;
+};
+
+const logUserReq = <T>(info: T): TUserReq<T> => {
+  return { name: info, age: 1 };
+};
+const responseReq = logUserReq<string>("Ben");
