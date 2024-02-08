@@ -3,7 +3,7 @@
 // This simply takes in type arg with the angle <> and returns a new type
 
 // single generic args
-interface Row<T> {
+interface Row<T extends number | string> {
   label: string;
   value: T;
   disabled: boolean;
@@ -40,4 +40,49 @@ type RowData<T extends RowConstraints> = {
   value: T;
   label: string;
   orientation: "vertical" | "horizontal";
+};
+
+const rowData: RowData<number> = {
+  value: 0,
+  label: "",
+  orientation: "vertical",
+};
+
+const render = <T extends string, U>(data: T[]): U[] =>
+  data.map((elem) => parseInt(elem as T)) as U[];
+
+console.log(render<string, number>(["12", "34"]));
+
+// conditional generic
+type TSex<T> = {
+  m: T extends "male" ? T : never;
+};
+type TMale = "male";
+const alphaMale: TSex<TMale> = { m: "male" };
+
+interface Item {
+  id: number;
+  name: string;
+}
+
+type CheckType<T> = T extends Item ? Item : never;
+
+const result2: CheckType<Item> = {
+  id: 0,
+  name: "Jess",
+};
+
+// ❌ Error: Type 'string' is not assignable to type 'never'.
+const result3: CheckType<string> = "hello world";
+
+type TAvocadoGeneric<T extends string, U, V> = {
+  name: T;
+  price: U;
+  inStock: V;
+};
+
+const aToast2: TAvocadoGeneric<string, 12.99, boolean> = {
+  name: "Avocado Toast",
+  price: 12.99,
+  inStock: true,
 };

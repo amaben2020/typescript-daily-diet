@@ -62,3 +62,13 @@ const d3ChartConfig = {
     fill: "rebeccapurple",
   },
 };
+
+const loggerData = () => ({
+  name: "Ben",
+  location: {
+    long: 21323.23323,
+    lat: 21323.23323,
+  },
+});
+
+type TLoggerData = typeof loggerData;

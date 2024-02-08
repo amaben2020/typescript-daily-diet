@@ -38,3 +38,11 @@ const logUserReq = <T>(info: T): TUserReq<T> => {
   return { name: info, age: 1 };
 };
 const responseReq = logUserReq<string>("Ben");
+
+type TCol<T extends number | string> = T;
+
+const getNumberOfCols = <T>(no: T) => {
+  return no;
+};
+
+console.log(getNumberOfCols<TCol<number>>(4));

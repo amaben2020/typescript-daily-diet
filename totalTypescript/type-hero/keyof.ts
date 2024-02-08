@@ -55,3 +55,27 @@ const getArtiste = (obj: typeof casettesByArtist, key: Artist) => {
   return obj[key];
 };
 console.log(getArtiste(casettesByArtist, "Britney Spears"));
+
+const casettesByArtist3 = {
+  "Alanis Morissette": 2,
+  "Mariah Carey": 8,
+  Nirvana: 3,
+  Oasis: 2,
+  Radiohead: 3,
+  "No Doubt": 3,
+  "Backstreet Boys": 3,
+  "Spice Girls": 2,
+  "Green Day": 2,
+  "Pearl Jam": 5,
+  Metallica: 5,
+  "Guns N' Roses": 2,
+  U2: 3,
+  Aerosmith: 4,
+  "R.E.M.": 4,
+  Blur: 3,
+  "The Smashing Pumpkins": 5,
+  "Britney Spears": 3,
+  "Whitney Houston": 3,
+};
+
+type TCassetteKeys = keyof typeof casettesByArtist;
