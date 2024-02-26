@@ -1,7 +1,7 @@
 // understanding Set in JS Array<Manipulation>
 // The JavaScript Set() constructor represents a set that is the collection of unique values. https://linuxhint.com/get-unique-values-from-array-in-javascript/
 
-const REQUIRED_ENVS: string[] = [
+const REQUIRED_ENVS = [
   "NEXT_PUBLIC_BUILDER_API_KEY",
   "BUILDER_ADMIN_API_ENDPOINT",
   "BUILDER_PRIVATE_KEY_DEV",
@@ -25,7 +25,7 @@ const REQUIRED_ENVS: string[] = [
   "ALGOLIA_SEARCH_ADMIN_KEY",
   "NEXT_PUBLIC_NNOXX_STARTER_ID",
   "ENVIRONMENT",
-];
+] satisfies string[];
 
 const processEnv = {
   TERM: "xterm-256color",

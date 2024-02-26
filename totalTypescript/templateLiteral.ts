@@ -16,3 +16,11 @@ const logEvent = (
 };
 
 console.log(logEvent("Message", "Deleted"));
+
+type Evt = "Create" | "Update" | "Delete";
+
+type EvtResult = `on${Evt}`;
+
+const renderEventType = (event: Evt): EvtResult => `on${event}`;
+
+const val: EvtResult = renderEventType("Create");

@@ -20,7 +20,7 @@ type LatLong = [number, number]; // Note that we're not using number[] here.
 
 const loc: LatLong = [48.85837, 2.294481];
 
-console.log(loc[2]);
+console.log(loc[1]);
 // Error: Tuple type 'LatLong' of length '2' has no element at index '2'.
 
 const drivingLicence = {
