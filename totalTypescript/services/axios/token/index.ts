@@ -6,15 +6,15 @@ const api = axios.create({
 
 api.interceptors.request.use((config: any) => {
   const token = "Benoski";
-  config.headers.Authorization = token;
+  config.headers.Authorization = `Bearer ${token}`;
 
   return config;
 });
 
 const getPlaceholders = async () => {
   try {
-    const response = await api.get("/todo/1");
-    console.log(response);
+    const response = await api.get("");
+    console.log(response.request);
     return response;
   } catch (error) {
     console.log(error);
