@@ -1,10 +1,8 @@
 import axios from "axios";
+import { TTodosAdapter } from "../adapter";
 
 export class TodosService {
-  async getTodos() {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/todos",
-    );
-    console.log(response);
+  async getTodos(): Promise<TTodosAdapter[]> {
+    return await axios.get("https://jsonplaceholder.typicode.com/todos");
   }
 }

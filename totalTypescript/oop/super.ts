@@ -13,7 +13,6 @@ class Rectangle {
   // use for things like tokens, apiKeys etc
   protected apiKey() {
     console.log("Hi, I am a ", this.name + ".");
-
     return this.name;
   }
   get area() {

@@ -7,7 +7,7 @@ function sum(a: number, b: number): number {
 // 👇️ type SumReturnType = number
 type SumReturnType = ReturnType<typeof sum>;
 
-const adder1 = (a: number, b: number) => a + b;
+const adder1 = (a: number, b: number): SumReturnType => a + b;
 
 type TAdder = ReturnType<typeof adder1>;
 

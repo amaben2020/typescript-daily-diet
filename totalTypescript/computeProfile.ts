@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 const profile = {
   _id: "65486e5a579e0d73fdbe07bf",
   user_id: "6547e9259c196ffd5c5fbde7",

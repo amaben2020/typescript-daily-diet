@@ -86,3 +86,5 @@ const aToast2: TAvocadoGeneric<string, 12.99, boolean> = {
   price: 12.99,
   inStock: true,
 };
+
+const getUserData = <T>(data: T) => {};

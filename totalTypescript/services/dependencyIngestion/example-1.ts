@@ -1,8 +1,8 @@
 //DIP works based on the principle that a class depends on another classes's method
 
 class ViewMe {
-  viewOtherClass;
-  constructor(otherClass: any) {
+  private viewOtherClass;
+  constructor(otherClass: (a: number, b: number) => number) {
     this.viewOtherClass = otherClass;
   }
 
