@@ -21,7 +21,9 @@ baseURI.interceptors.response.use(
   (response: AxiosResponse<any, any>) => {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    console.log("LESP", response);
+
+    // changing the generic status text
+    response.statusText = "EVERYTHING WENT WELL";
     return response;
   },
   (error) => {
@@ -31,30 +33,13 @@ baseURI.interceptors.response.use(
   },
 );
 
-const fetcher = async (): Promise<
-  | {
-      userId: number;
-      id: number;
-      title: string;
-      completed: boolean;
-    }
-  | undefined
-> => {
+const fetcher = async (): Promise<any> => {
   try {
-    const {
-      data,
-    }: Awaited<{
-      data: {
-        userId: number;
-        id: number;
-        title: string;
-        completed: boolean;
-      };
-    }> = await baseURI.get("/todos");
-    console.log("DATA", data);
-    return data;
+    const response: Awaited<any> = await baseURI.get("/todos/1");
+    console.log("DATA", response.statusText);
+    return response;
   } catch (error) {
-    console.log(error);
+    console.log("ELLOR", error);
   }
 };
 fetcher();
