@@ -1,15 +1,21 @@
 import axios from "axios";
+// interceptors are just
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com",
 });
 
-api.interceptors.request.use((config: any) => {
-  const token = "Benoski";
-  config.headers.Authorization = `Bearer ${token}`;
+// request: i need only results tailored towards this.
+// setting token the interceptors way
+api.interceptors.request.use(
+  (config: any) => {
+    const token = "Benoski";
+    config.headers.Authorization = `Bearer ${token}`;
 
-  return config;
-});
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
 
 const getPlaceholders = async () => {
   try {
@@ -22,3 +28,11 @@ const getPlaceholders = async () => {
 };
 
 console.log(getPlaceholders());
+
+// setting token the authorization way
+export function setToken(token: string) {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  if (typeof window !== "undefined") {
+    localStorage.setItem("TOKEN_KEY", token);
+  }
+}
