@@ -9,7 +9,7 @@ baseURI.interceptors.request.use(
     const universalTokenFromLocalStorage = "Benzuggy";
 
     config.headers.Authorization = `Bearer ${universalTokenFromLocalStorage}`;
-
+    config.headers.Accept = "application/json";
     return config;
   },
   (error) => {
@@ -17,10 +17,29 @@ baseURI.interceptors.request.use(
   },
 );
 
-const fetcher = async (): Promise<any> => {
+const fetcher = async (): Promise<
+  | {
+      userId: number;
+      id: number;
+      title: string;
+      completed: boolean;
+    }
+  | undefined
+> => {
   try {
-    const response = await baseURI.get("");
-    console.log(response);
+    const {
+      data,
+    }: Awaited<{
+      data: {
+        userId: number;
+        id: number;
+        title: string;
+        completed: boolean;
+      };
+    }> = await baseURI.get("/todos");
+    console.log("DATA", data);
+
+    return data;
   } catch (error) {
     console.log(error);
   }
