@@ -14,3 +14,15 @@ const config: TSConfig = {
 type TUnique<T = "Amaben"> = T;
 
 const personal: TUnique = "Amaben";
+
+type TUserData2<T> = {
+  age: number;
+  name: T;
+}[];
+
+const userData2 = [
+  {
+    name: "Benneth",
+    age: 32,
+  },
+] satisfies TUserData2<string>;
