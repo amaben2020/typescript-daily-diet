@@ -12,6 +12,25 @@ model Profile {
 
 model Post {
   id Int @id @default(autoincrement())
+  title String
   author User @relation(fields: [authorId], references: [id])
   authorId Int
+  categories CategoriesOnPost[]
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+  posts CategoriesOnPost[]
+}
+
+model CategoriesOnPost{
+ post Post @relation(fields: [postId], references: [id])
+ postId Int @unique
+
+ category Category @relation(fields: [categoryId], references: [id])
+ categoryId Int
+
+ assignedAt DateTime @default(now())
+ assignedBy String
 }
