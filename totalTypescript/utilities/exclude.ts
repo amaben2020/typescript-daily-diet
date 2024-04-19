@@ -16,3 +16,7 @@ const userI: TUi = {
   age: 1,
   role: "admin", // you could only be an "owner or admin"
 };
+
+type TNewDatum = Exclude<"admin" | "super-admin", "admin">;
+
+const newData: TNewDatum = "super-admin";

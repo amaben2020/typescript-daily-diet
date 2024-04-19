@@ -311,9 +311,166 @@ const updateFavoriteWebsite = (data: IData[], id: number) => {
   return result;
 };
 
-console.log(addToFavorite(DATA, 1));
-console.log(updateFavoriteWebsite(DATA, 4));
+// console.log(addToFavorite(DATA, 1));
+// console.log(updateFavoriteWebsite(DATA, 4));
 
 const days = ["Monday", "Tuesday", "Wednesday"];
 
-console.log(days.some((elem) => elem.includes("Wednesdays")));
+// console.log(days.some((elem) => elem.includes("Wednesdays")));
+
+type TDB = {
+  id: string;
+  data: {
+    author: string;
+    avatar: string;
+    position: string;
+    testimonial: string | ObjectConstructor[];
+  };
+};
+
+const DB: TDB[] = [
+  {
+    id: "78a99eb43abc4df59adab951fc23980f",
+    data: {
+      author: "Michael Jordan",
+      avatar:
+        "https://cdn.builder.io/api/v1/image/assets%2Fc0e24be8e3a3478fa0eb69a6f61964eb%2F5bebc9590f3147af9bd3c48c0e77ecd9",
+      position: "Basketball player",
+      testimonial: "Excellent Player",
+    },
+  },
+  {
+    id: "b37277d0432244bfa3fedffe181118ec",
+    data: {
+      author: "Barney Stinson",
+      avatar:
+        "https://cdn.builder.io/api/v1/image/assets%2Fc0e24be8e3a3478fa0eb69a6f61964eb%2F3a7ba7a1d5ce48cbb1259272ace9ae84",
+      position: "CEO",
+      testimonial: [Object],
+    },
+  },
+];
+
+const createPlayer = (data: TDB) => {
+  if (data.id) return [...DB, data];
+};
+
+const updatePlayer = (id: string, data: TDB) => {
+  const indexOfItem = DB.findIndex((item) => item.id === id);
+  DB[indexOfItem] = data;
+  return DB;
+};
+const deletePlayer = (id: string) => {
+  return DB.filter((item) => item.id !== id);
+};
+
+console.log(
+  "Create: ",
+  createPlayer({
+    id: "b37277d0432244bfa3fedffsakl1118ec",
+    data: {
+      author: "Ugonna Junior",
+      avatar:
+        "https://cdn.builder.io/api/v1/image/assets%2Fc0e24be8e3a3478fa0eb69a6f61964eb%2F3a7ba7a1d5ce48cbb1259272ace9ae84",
+      position: "CEO",
+      testimonial: [Object],
+    },
+  }),
+);
+console.log(
+  "Update: ",
+  updatePlayer("b37277d0432244bfa3fedffe181118ec", {
+    id: "b37277d0432244bfa3fedffe181118ec",
+    data: {
+      author: "Barney Stinson Junior",
+      avatar:
+        "https://cdn.builder.io/api/v1/image/assets%2Fc0e24be8e3a3478fa0eb69a6f61964eb%2F3a7ba7a1d5ce48cbb1259272ace9ae84",
+      position: "CEO",
+      testimonial: [Object],
+    },
+  }),
+);
+console.log("Delete: ", deletePlayer("b37277d0432244bfa3fedffe181118ec"));
+// Promises are JavaScript objects that represent the eventual result of an asynchronous operation.
+
+// Promises can be in one of three states: pending, resolved, or rejected.
+
+// A promise is settled if it is either resolved or rejected.
+const M_S = 1000;
+
+const dataInDB = new Promise((resolve, reject) => {
+  try {
+    if (DB.length) {
+      setTimeout(() => {
+        resolve(DB);
+      }, M_S);
+    }
+  } catch (error) {
+    reject(error);
+  }
+});
+
+const slowDataInDB = new Promise((resolve, reject) => {
+  try {
+    if (DB.length) {
+      setTimeout(() => {
+        // resolve(DB);
+        reject("error");
+      }, M_S + 1000);
+    }
+  } catch (error) {
+    reject(error);
+  }
+});
+
+const logDbData = async () => {
+  try {
+    // always coerce Promise for intellisense
+    // const response = (await dataInDB) as TDB[];
+
+    const responses = (await Promise.allSettled([
+      dataInDB,
+      slowDataInDB,
+    ])) as unknown;
+
+    console.log(
+      Array.isArray(responses)
+        ? responses.filter((item) => item.reason !== "error")
+        : [],
+    );
+    return Array.isArray(responses)
+      ? responses.filter((item) => item.reason !== "error")
+      : [];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+console.log(logDbData());
+
+function countingDuplicates(text: string): number {
+  const words = text.toLowerCase().split("");
+  let hash: Record<string, number> = {};
+  let result = 0;
+
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+
+    if (hash[word] === undefined) {
+      hash[word] = 1;
+    } else {
+      hash[word] = hash[word] + 1;
+    }
+  }
+
+  Object.entries(hash).forEach(([key, value]) => {
+    if (value > 1) {
+      result++;
+    }
+  });
+
+  return result;
+}
+
+console.log(countingDuplicates("Indivisibilities")); // 2
+console.log(countingDuplicates("aabBcde")); // 2

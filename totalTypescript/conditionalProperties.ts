@@ -43,3 +43,19 @@ const userInfo2 = {
 };
 
 console.log("userInfo2", userInfo2);
+
+const planets = {
+  earth: "Small",
+  mars: "Medium",
+};
+
+const updatedPlanets = {
+  ...planets,
+  ...(false
+    ? {
+        jupiter: "Large",
+      }
+    : null),
+};
+
+console.log(updatedPlanets);

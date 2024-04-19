@@ -1,0 +1,2 @@
+npx prisma db push  (creates a table)
+npx prisma generate (syncs models with table)

@@ -22,6 +22,14 @@ const casettesByArtist = {
   "Britney Spears": 3,
   "Whitney Houston": 3,
 };
+type TArtistPlays = keyof typeof casettesByArtist;
+
+const getSingleArtisteCasette = (
+  obj: typeof casettesByArtist,
+  key: TArtistPlays,
+) => {
+  return obj[key];
+};
 
 // But that's pretty Rough. You certainly would not want to retype all those artist names. What if you forget one? What if you misspell one?
 

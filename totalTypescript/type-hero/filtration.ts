@@ -1,9 +1,7 @@
 import { books } from "../data/books";
 
-// return items based on label input
-// return those with image property
-
-const getBooksWithLabel = (label: "infographics" | "grants") => {
+type TLabels = "infographics" | "grant" | "books";
+const getBooksWithLabel = (label: TLabels) => {
   // get the books with a label
   const booksData = [...books];
   if (!Array.isArray(booksData)) {
@@ -17,4 +15,18 @@ const getBooksWithLabel = (label: "infographics" | "grants") => {
   return booksWithLabel;
 };
 
-console.log("getBooksWithLabel", getBooksWithLabel("infographics").length);
+console.log("getBooksWithLabel", getBooksWithLabel("grant").length);
+
+class AppWrite {
+  token: string;
+  constructor(token: string) {
+    this.token = token;
+  }
+
+  logAppInstance() {
+    return this.token;
+  }
+}
+
+const client = new AppWrite("dckdsni90b4094bj");
+console.log("Client", client.logAppInstance());
