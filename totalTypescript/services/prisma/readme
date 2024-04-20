@@ -1,2 +1,10 @@
 npx prisma db push  (creates a table)
 npx prisma generate (syncs models with table)
+
+
+
+Relation Queries
+https://www.prisma.io/docs/orm/prisma-client/queries/relation-queries
+
+Nice Tutorial
+https://dev.to/this-is-learning/its-prisma-time-insert-fc2
