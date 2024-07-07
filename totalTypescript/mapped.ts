@@ -1,4 +1,4 @@
-import type { TUser } from "../eincode/utility/pick";
+import type { TUser } from '../eincode/utility/pick';
 // I need to create a derived type from another type and keep both sync
 
 type Device = {
@@ -8,7 +8,7 @@ type Device = {
 
 type DeviceFormatter = {
   [Key in keyof Device as `format${Capitalize<Key>}`]: (
-    value: Device[Key],
+    value: Device[Key]
   ) => string;
 };
 
@@ -42,8 +42,23 @@ type TUserInfo = {
 };
 // We will create a type from User type, to begin let's create the EXACT SAME type.
 const userResult = {
-  name: "Amaben",
+  name: 'Amaben',
   age: 31,
-  userName: "",
+  userName: '',
 } satisfies TUserInfo;
 console.log(userResult.age);
+
+type TPoints = {
+  x: number;
+  y: number;
+};
+
+type TReadonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+const point: TReadonly<TPoints> = {
+  x: 20,
+  y: 30,
+};
+console.log(point.x);

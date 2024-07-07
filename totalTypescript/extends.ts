@@ -19,9 +19,9 @@ interface City extends CartItem {
 }
 
 const cartItem: City = {
-  name: "",
-  person: "",
-  city: "",
+  name: '',
+  person: '',
+  city: '',
 };
 
 // Use 'extends' keyword to narrow the value of a generic
@@ -32,7 +32,7 @@ const obj = {
     b: 2,
   },
   bar: {
-    c: "cool",
+    c: 'cool',
     d: 2,
   },
 };
@@ -40,25 +40,25 @@ const obj = {
 export const getDeepValue = <
   Obj,
   FirstKey extends keyof Obj,
-  SecondKey extends keyof Obj[FirstKey],
+  SecondKey extends keyof Obj[FirstKey]
 >(
   obj: Obj,
   firstKey: FirstKey,
-  secondKey: SecondKey,
+  secondKey: SecondKey
 ): Obj[FirstKey][SecondKey] => {
   return {} as any;
 };
 
-const result = getDeepValue(obj, "bar", "d");
+const result = getDeepValue(obj, 'bar', 'd');
 
 const nestedObj = <Obj, Info extends keyof Obj, TInfo extends keyof Obj[Info]>(
   obj: Obj,
   a: Info,
-  b: TInfo,
+  b: TInfo
 ): Obj[Info][TInfo] => {
   return obj[a][b] as Obj[Info][TInfo];
 };
-console.log("value", nestedObj(obj, "bar", "d"));
+console.log('value', nestedObj(obj, 'bar', 'd'));
 
 // keys are vital in objects which are extremely dynamic
 
@@ -80,15 +80,15 @@ interface IUser {
 }
 
 const user: IUser = {
-  name: "Benneth",
+  name: 'Benneth',
   phone: 123456789,
   location: {
-    city: "Abuja",
-    country: "Nigeria",
+    city: 'Abuja',
+    country: 'Nigeria',
   },
   interests: {
-    hobbies: ["Cycling", "Reading"],
-    politics: ["Ancient Civilization", "Roman empire"],
+    hobbies: ['Cycling', 'Reading'],
+    politics: ['Ancient Civilization', 'Roman empire'],
   },
 };
 
@@ -103,25 +103,25 @@ const user: IUser = {
 const getCountry = <
   UserType,
   LocationType extends keyof UserType,
-  CountryType extends keyof UserType[LocationType],
+  CountryType extends keyof UserType[LocationType]
 >(
   user: UserType,
   a: LocationType,
-  b: CountryType,
+  b: CountryType
 ) => user[a][b];
 
-console.log(getCountry(user, "location", "country"));
+console.log(getCountry(user, 'location', 'country'));
 
 const userInfo = {
-  name: "Benny",
+  name: 'Benny',
   phone: 123456789,
   location: {
-    city: "Abuja",
-    country: "Nigeria",
+    city: 'Abuja',
+    country: 'Nigeria',
   },
   interests: {
-    hobbies: ["Cycling", "Reading"],
-    politics: ["Ancient Civilization", "Roman empire"],
+    hobbies: ['Cycling', 'Reading'],
+    politics: ['Ancient Civilization', 'Roman empire'],
   },
 };
 type TLocation = {
@@ -143,18 +143,18 @@ type TUser = {
 const recreateGetCountry = <
   TUser,
   K extends keyof TUser,
-  U extends keyof TUser[K],
+  U extends keyof TUser[K]
 >(
   object: TUser,
   key: K,
-  value: U,
+  value: U
 ) => {
   return object[key][value];
 };
 
-console.log(recreateGetCountry(userInfo, "location", "country"));
+console.log(recreateGetCountry(userInfo, 'location', 'country'));
 
-console.log(userInfo["location"]["country"]);
+console.log(userInfo['location']['country']);
 
 // compose User, Base
 
@@ -214,7 +214,7 @@ interface Circle {
 interface ColorfulCircle extends Colorful, Circle {}
 
 const cc: ColorfulCircle = {
-  color: "red",
+  color: 'red',
   radius: 42,
 };
 
@@ -229,19 +229,19 @@ interface IAccordionObject extends ISlugAndTitle {
 }
 
 const accordionObject = {
-  id: "76e59c1138d14317845c8799d3374b19",
-  title: "FAQ Category 1",
-  slug: "faq-category-1",
+  id: '76e59c1138d14317845c8799d3374b19',
+  title: 'FAQ Category 1',
+  slug: 'faq-category-1',
   questions: [
     {
-      id: "d3857ebd29ac4c6081fb5e481fe2147e",
-      question: "FAQ Question 2",
-      answer: "<h1>Title</h1> ",
+      id: 'd3857ebd29ac4c6081fb5e481fe2147e',
+      question: 'FAQ Question 2',
+      answer: '<h1>Title</h1> ',
     },
     {
-      id: "10f96636f4864fc0aa20570cd0b6b115",
-      question: "FAQ Question 1",
-      answer: "<h1>Title</h1>",
+      id: '10f96636f4864fc0aa20570cd0b6b115',
+      question: 'FAQ Question 1',
+      answer: '<h1>Title</h1>',
     },
   ],
 } satisfies IAccordionObject;

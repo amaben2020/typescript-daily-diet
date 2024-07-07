@@ -1,0 +1,1 @@
+ALTER TABLE "userInfo" ALTER COLUMN "id" SET DATA TYPE uuid;
