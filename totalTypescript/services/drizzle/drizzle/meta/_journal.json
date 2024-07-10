@@ -78,6 +78,48 @@
       "when": 1720381757450,
       "tag": "0010_abandoned_machine_man",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1720555477573,
+      "tag": "0011_giant_nehzno",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1720555842385,
+      "tag": "0012_abnormal_psynapse",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1720556203757,
+      "tag": "0013_secret_true_believers",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1720560832816,
+      "tag": "0014_massive_punisher",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1720560870408,
+      "tag": "0015_square_unicorn",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1720609471264,
+      "tag": "0016_overjoyed_stature",
+      "breakpoints": true
     }
   ]
 }
