@@ -3,7 +3,7 @@ type TSkills = {
   skill: string;
   yearsOfExperience: number;
 };
-type TAvailability = "full time" | "contract" | "part time";
+type TAvailabilityi = "full time" | "contract" | "part time";
 
 type TJob = {
   _id: string;

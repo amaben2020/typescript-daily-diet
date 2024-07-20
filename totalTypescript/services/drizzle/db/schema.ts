@@ -1,8 +1,6 @@
 import { relations } from 'drizzle-orm';
 
 import {
-  serial,
-  text,
   timestamp,
   pgTable,
   uuid,
@@ -13,6 +11,7 @@ import {
   real,
   integer,
   primaryKey,
+  serial,
 } from 'drizzle-orm/pg-core';
 
 export const UserRole = pgEnum('user_role', ['ADMIN', 'BASIC']);
@@ -33,7 +32,6 @@ export const UsersTable = pgTable(
   }
 );
 // create UserTableRelation that is a 1 to 1 relation with UserPreferenceTable and 1 to many with PostsTable
-
 export const UserPreferenceTable = pgTable('user_preference', {
   id: uuid('id').primaryKey().defaultRandom(),
   email_updates: boolean('email_updates').default(false),
@@ -65,6 +63,7 @@ export const PostTable = pgTable('posts', {
   updated_at: timestamp('updated_at').defaultNow(),
 });
 
+// one to MANY START
 export const PostTableRelation = relations(PostTable, ({ one }) => ({
   author: one(UsersTable, {
     fields: [PostTable.author_id],
@@ -76,6 +75,8 @@ export const UserToPostsRelation = relations(UsersTable, ({ many }) => ({
   posts: many(PostTable),
 }));
 
+// ONE TO MANY END
+
 // create CategoryTableRelation that is many to many with PostTable
 // create PostCategoryTableRelation that is many to many with PostTable and CategoryTable
 
@@ -84,14 +85,15 @@ export const CategoryTable = pgTable('categories', {
   name: varchar('name', { length: 255 }).notNull(),
 });
 
-export const PostCategoryTable = pgTable('post_category', {
-  post_id: uuid('post_id')
-    .references(() => PostTable.id)
-    .notNull(),
-  category_id: uuid('category_id')
-    .references(() => CategoryTable.id)
-    .notNull(),
-});
+// another way to handle many to many
+// export const PostCategoryTable = pgTable('post_category', {
+//   post_id: uuid('post_id')
+//     .references(() => PostTable.id)
+//     .notNull(),
+//   category_id: uuid('category_id')
+//     .references(() => CategoryTable.id)
+//     .notNull(),
+// });
 
 export const postsRelations = relations(PostTable, ({ many }) => ({
   postToCategories: many(postToCategory),
@@ -124,3 +126,9 @@ export const postToCategoryRelations = relations(postToCategory, ({ one }) => ({
     references: [PostTable.id],
   }),
 }));
+
+// Start: Provider,  Jobs, JobRequests logic
+
+const providerTable = pgTable('provider', {
+  id: serial('id'),
+});

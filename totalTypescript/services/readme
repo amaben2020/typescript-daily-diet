@@ -1,1 +1,685 @@
 In APIs, to have better type safety, use Awaited<> AND Promise<> generics
+
+
+
+
+// /* eslint-disable @typescript-eslint/no-loop-func */
+// /* eslint-disable no-restricted-syntax */
+// //@ts-nocheck
+
+// import { DateTime } from 'luxon';
+
+// const formatTimeToHHMM = (time: string) => time?.slice(0, 5);
+
+// function addTimeToISODateWithZone(time: string) {
+//   const currentDateTime = DateTime.now();
+//   const [hours, minutes] = time?.split(':').map(Number) ?? [];
+
+//   const newDateTime = currentDateTime.set({
+//     hour: hours,
+//     minute: minutes,
+//     second: 0,
+//     millisecond: 0,
+//   });
+
+//   return newDateTime.toISO();
+// }
+
+// function currentTimeFn(timezone: string) {
+//   const now = DateTime.now().setZone(timezone);
+
+//   const formatWithLeadingZero = (num: number) => (num < 10 ? `0${num}` : num);
+
+//   const hours = formatWithLeadingZero(now.hour);
+//   const minutes = formatWithLeadingZero(now.minute);
+
+//   return `${hours}:${minutes}`;
+// }
+
+// type TComputeCurrentAndNextAvailability = {
+//   timezone?: string;
+//   start_timestamp: string | null;
+//   end_timestamp: string | null;
+//   id?: number;
+// } | null;
+
+// type TAvailability = {
+//   id: number;
+//   createdBy: string;
+//   createdAt: string;
+//   updatedBy: string | null;
+//   updatedAt: string | null;
+//   day?: number | null;
+//   date?: string | null;
+//   startTime: string;
+//   endTime: string;
+//   isOverride: boolean;
+//   timezone?: string;
+//   providerId: number;
+// };
+
+// const computeCurrentAndNextAvailability = (
+//   availabilities: TAvailability[],
+//   providerId: number
+// ) => {
+//   const now = DateTime.now();
+//   const weekdayIndex = now.weekday % 7;
+//   const providerTimezone = availabilities.find(
+//     (availability) => availability.timezone
+//   )?.timezone;
+//   const currentTime = currentTimeFn(String(providerTimezone));
+//   const todayDate = now.setZone(providerTimezone).toISODate();
+
+//   const formattedAvailabilities = formatAvailabilities(availabilities);
+
+//   let currentAvailability = findCurrentAvailability(
+//     formattedAvailabilities,
+//     todayDate,
+//     currentTime,
+//     weekdayIndex
+//   );
+
+//   let nextAvailability = findNextAvailability(
+//     formattedAvailabilities,
+//     currentAvailability,
+//     todayDate
+//   );
+
+//   return {
+//     providerId,
+//     timezone: providerTimezone,
+//     current: currentAvailability,
+//     next: nextAvailability,
+//   };
+// };
+
+// const formatAvailabilities = (
+//   availabilities: TAvailability[]
+// ): TAvailability[] => {
+//   return availabilities
+//     .map((availability) => ({
+//       ...availability,
+//       startTime: formatTimeToHHMM(availability.startTime),
+//       endTime: formatTimeToHHMM(availability.endTime),
+//     }))
+//     .sort((a, b) => a.startTime.localeCompare(b.startTime));
+// };
+
+// const findCurrentAvailability = (
+//   availabilities: TAvailability[],
+//   todayDate: string,
+//   currentTime: string,
+//   weekdayIndex: number
+// ): TComputeCurrentAndNextAvailability => {
+//   for (const availability of availabilities) {
+//     const { startTime, endTime, date, isOverride, day } = availability;
+//     const startTimestamp = date ? addTimeToISODateWithZone(startTime) : '';
+//     const endTimestamp = date ? addTimeToISODateWithZone(endTime) : '';
+
+//     if (
+//       isOverride &&
+//       todayDate === date &&
+//       isTimeInRange(currentTime, startTime, endTime)
+//     ) {
+//       return {
+//         start_timestamp: startTimestamp,
+//         end_timestamp: endTimestamp,
+//         id: availability.id,
+//       };
+//     }
+
+//     if (
+//       !isOverride &&
+//       weekdayIndex >= Number(day) &&
+//       isTimeInRange(currentTime, startTime, endTime)
+//     ) {
+//       return {
+//         start_timestamp: startTimestamp,
+//         end_timestamp: endTimestamp,
+//         id: availability.id,
+//       };
+//     }
+//   }
+//   return null;
+// };
+
+// const findNextAvailability = (
+//   availabilities: TAvailability[],
+//   currentAvailability: TComputeCurrentAndNextAvailability,
+//   todayDate: string
+// ): TComputeCurrentAndNextAvailability => {
+//   if (!currentAvailability) return null;
+
+//   const currentAvailabilityIndex = availabilities.findIndex(
+//     (avail) => avail.id === currentAvailability.id
+//   );
+
+//   const nextAvailabilityDataIndex = currentAvailabilityIndex + 1;
+//   const nextAvailabilityData =
+//     availabilities[nextAvailabilityDataIndex] ?? null;
+
+//   if (nextAvailabilityData) {
+//     const nextStartTimestamp = addTimeToISODateWithZone(
+//       nextAvailabilityData.startTime
+//     );
+//     const nextEndTimestamp = computeNextEndTimestamp(
+//       availabilities,
+//       nextAvailabilityDataIndex,
+//       todayDate
+//     );
+
+//     return {
+//       start_timestamp: nextStartTimestamp,
+//       end_timestamp: nextEndTimestamp,
+//       id: nextAvailabilityData.id,
+//     };
+//   }
+
+//   return null;
+// };
+
+// const computeNextEndTimestamp = (
+//   availabilities: TAvailability[],
+//   nextAvailabilityDataIndex: number,
+//   todayDate: string
+// ): string => {
+//   const midnightAvailabilityData = availabilities.find(
+//     (av) => av.date! > todayDate && av.startTime === '00:00:00'
+//   );
+
+//   if (midnightAvailabilityData) {
+//     return addTimeToISODateWithZone(midnightAvailabilityData.endTime);
+//   }
+
+//   return addTimeToISODateWithZone(
+//     availabilities[nextAvailabilityDataIndex].endTime
+//   );
+// };
+
+// const isTimeInRange = (
+//   currentTime: string,
+//   startTime: string,
+//   endTime: string
+// ): boolean => {
+//   return currentTime >= startTime && currentTime <= endTime;
+// };
+
+// const computeProviderAvailabilityPerProvider = (providerData: any[]) => {
+//   return (
+//     Array.isArray(providerData) &&
+//     providerData.map((provider) => {
+//       return computeCurrentAndNextAvailability(
+//         provider.availability,
+//         provider.id
+//       );
+//     })
+//   );
+// };
+
+// const mock = [
+//   {
+//     id: 138,
+//     firstname: 'Mobile',
+//     lastname: 'UAT',
+//     email: null,
+//     rating: '0',
+//     phone: '11111111111',
+//     distance: 1.1210646618872298,
+//     latitude: 38.93592274180123,
+//     longitude: -94.35870889009857,
+//     is_onjob: false,
+//     is_blocked: false,
+//     is_online: true,
+//     location_updated_at: '2024-02-24T17:41:04.867Z',
+//     job_request: null,
+//     availability: [
+//       {
+//         id: 56,
+//         createdBy: 'admin',
+//         createdAt: '2024-07-14T21:34:58.355Z',
+//         updatedBy: null,
+//         updatedAt: null,
+//         providerId: 138,
+//         day: null,
+//         startTime: '00:00:00',
+//         endTime: '20:33:00',
+//         timezone: 'America/Los_Angeles',
+//         date: '2024-07-14',
+//         isOverride: true,
+//       },
+//       {
+//         id: 57,
+//         createdBy: 'admin',
+//         createdAt: '2024-07-14T21:34:58.355Z',
+//         updatedBy: null,
+//         updatedAt: null,
+//         providerId: 138,
+//         day: null,
+//         startTime: '21:00:00',
+//         endTime: '21:09:00',
+//         timezone: 'America/Los_Angeles',
+//         date: '2024-07-14',
+//         isOverride: true,
+//       },
+//     ],
+//   },
+//   {
+//     id: 400,
+//     firstname: 'Caleb',
+//     lastname: 'Markovich',
+//     email: 'calebmarkovich@gmail.com',
+//     rating: '4.7',
+//     phone: '18168774952',
+//     distance: 4.067316322298682,
+//     latitude: 38.99631248237696,
+//     longitude: -94.36141859581052,
+//     is_onjob: false,
+//     is_blocked: false,
+//     is_online: false,
+//     location_updated_at: '2024-02-24T17:41:04.867Z',
+//     job_request: {
+//       id: 10173,
+//       created_by: 'admin',
+//       created_at: '2023-07-11T21:53:13.120Z',
+//       updated_by: 'admin',
+//       updated_at: '2023-07-11T21:53:37.295Z',
+//       dispatcher_id: null,
+//       provider_id: 400,
+//       service_area_id: 2,
+//       location_address: "1460 NE Douglas St, Lee's Summit, MO 64086, USA",
+//       location_state: 'MO',
+//       location_city: "Lee's Summit",
+//       location_details: 'Parking lot',
+//       location_notes: '@ Whataburger',
+//       location_latitude: 38.99871165548076,
+//       location_longitude: -94.34112558453809,
+//       response_time: null,
+//       job_id: 4555,
+//       status: 'CANCELED',
+//       distance: 33077.42888,
+//       duration: 8.083866666666667,
+//     },
+//     availability: [
+//       {
+//         id: 56,
+//         createdBy: 'admin',
+//         createdAt: '2024-07-14T21:34:58.355Z',
+//         updatedBy: null,
+//         updatedAt: null,
+//         providerId: 138,
+//         day: null,
+//         startTime: '00:00:00',
+//         endTime: '20:33:00',
+//         timezone: 'America/Los_Angeles',
+//         date: '2024-07-14',
+//         isOverride: true,
+//       },
+//       {
+//         id: 57,
+//         createdBy: 'admin',
+//         createdAt: '2024-07-14T21:34:58.355Z',
+//         updatedBy: null,
+//         updatedAt: null,
+//         providerId: 138,
+//         day: null,
+//         startTime: '21:00:00',
+//         endTime: '21:09:00',
+//         timezone: 'America/Los_Angeles',
+//         date: '2024-07-14',
+//         isOverride: true,
+//       },
+//     ],
+//   },
+//   {
+//     id: 135,
+//     firstname: 'Jarel',
+//     lastname: 'Sage',
+//     email: 'jarelsage@gmail.com',
+//     rating: '4.8',
+//     phone: '18169822729',
+//     distance: 9.08787125608104,
+//     latitude: 39.0510227,
+//     longitude: -94.4680361,
+//     is_onjob: false,
+//     is_blocked: false,
+//     is_online: false,
+//     location_updated_at: '2024-02-24T17:41:04.867Z',
+//     job_request: null,
+//     availability: [],
+//   },
+//   {
+//     id: 134,
+//     firstname: 'Derrick',
+//     lastname: 'Northrup',
+//     email: 'derrick.m.northrup@outlook.com',
+//     rating: '5.0',
+//     phone: '19402244718',
+//     distance: 10.97476832871932,
+//     latitude: 38.84792709,
+//     longitude: -94.54629516,
+//     is_onjob: false,
+//     is_blocked: false,
+//     is_online: false,
+//     location_updated_at: '2024-02-24T17:41:04.867Z',
+//     job_request: {
+//       id: 10180,
+//       created_by: 'admin',
+//       created_at: '2023-07-13T18:13:12.945Z',
+//       updated_by: 'system',
+//       updated_at: '2023-07-13T18:23:13.181Z',
+//       dispatcher_id: null,
+//       provider_id: 134,
+//       service_area_id: 2,
+//       location_address: "1460 NE Douglas St, Lee's Summit, MO 64086, USA",
+//       location_state: 'MO',
+//       location_city: "Lee's Summit",
+//       location_details: 'Parking lot',
+//       location_notes: '@ Whataburger',
+//       location_latitude: 38.969240327565956,
+//       location_longitude: -94.31612799860417,
+//       response_time: null,
+//       job_id: 4555,
+//       status: 'NO_RESPONSE',
+//       distance: 80387.14168,
+//       duration: 16.0225,
+//     },
+//     availability: [],
+//   },
+// ];
+
+// console.log(computeProviderAvailabilityPerProvider(mock));
+
+import { DateTime } from 'luxon';
+
+const formatTimeToHHMM = (time: string) => time?.slice(0, 5);
+
+function addTimeToISODateWithZone(time: string, date: DateTime) {
+  const [hours, minutes] = time?.split(':').map(Number) ?? [];
+  const newDateTime = date.set({
+    hour: hours,
+    minute: minutes,
+    second: 0,
+    millisecond: 0,
+  });
+  return newDateTime.toISO();
+}
+
+function currentTimeFn(timezone: string) {
+  const now = DateTime.now().setZone(timezone);
+  const formatWithLeadingZero = (num: number) => (num < 10 ? `0${num}` : num);
+  const hours = formatWithLeadingZero(now.hour);
+  const minutes = formatWithLeadingZero(now.minute);
+  const time = `${hours}:${minutes}`;
+  return time;
+}
+
+const mock = [
+  {
+    id: 138,
+    firstname: 'Mobile',
+    lastname: 'UAT',
+    email: null,
+    rating: '0',
+    phone: '11111111111',
+    distance: 1.1210646618872298,
+    latitude: 38.93592274180123,
+    longitude: -94.35870889009857,
+    is_onjob: false,
+    is_blocked: false,
+    is_online: true,
+    location_updated_at: '2024-02-24T17:41:04.867Z',
+    job_request: null,
+    availability: [
+      {
+        id: 56,
+        createdBy: 'admin',
+        createdAt: '2024-07-14T21:34:58.355Z',
+        updatedBy: null,
+        updatedAt: null,
+        providerId: 138,
+        day: null,
+        startTime: '00:00:00',
+        endTime: '20:33:00',
+        timezone: 'America/Los_Angeles',
+        date: '2024-07-14',
+        isOverride: true,
+      },
+      {
+        id: 57,
+        createdBy: 'admin',
+        createdAt: '2024-07-14T21:34:58.355Z',
+        updatedBy: null,
+        updatedAt: null,
+        providerId: 138,
+        day: null,
+        startTime: '21:00:00',
+        endTime: '23:59:00',
+        timezone: 'America/Los_Angeles',
+        date: '2024-07-14',
+        isOverride: true,
+      },
+      {
+        id: 58,
+        createdBy: 'admin',
+        createdAt: '2024-07-14T21:34:58.355Z',
+        updatedBy: null,
+        updatedAt: null,
+        providerId: 138,
+        day: null,
+        startTime: '00:00:00',
+        endTime: '05:59:00',
+        timezone: 'America/Los_Angeles',
+        date: '2024-07-15',
+        isOverride: true,
+      },
+    ],
+  },
+  {
+    id: 400,
+    firstname: 'Mobile',
+    lastname: 'UAT',
+    email: null,
+    rating: '0',
+    phone: '11111111111',
+    distance: 1.1210646618872298,
+    latitude: 38.93592274180123,
+    longitude: -94.35870889009857,
+    is_onjob: false,
+    is_blocked: false,
+    is_online: true,
+    location_updated_at: '2024-02-24T17:41:04.867Z',
+    job_request: null,
+    availability: [
+      {
+        id: 56,
+        createdBy: 'admin',
+        createdAt: '2024-07-14T21:34:58.355Z',
+        updatedBy: null,
+        updatedAt: null,
+        providerId: 400,
+        day: null,
+        startTime: '00:00:00',
+        endTime: '20:33:00',
+        timezone: 'America/Los_Angeles',
+        date: '2024-07-14',
+        isOverride: true,
+      },
+      {
+        id: 57,
+        createdBy: 'admin',
+        createdAt: '2024-07-14T21:34:58.355Z',
+        updatedBy: null,
+        updatedAt: null,
+        providerId: 400,
+        day: null,
+        startTime: '21:00:00',
+        endTime: '23:59:00',
+        timezone: 'America/Los_Angeles',
+        date: '2024-07-14',
+        isOverride: true,
+      },
+      {
+        id: 58,
+        createdBy: 'admin',
+        createdAt: '2024-07-14T21:34:58.355Z',
+        updatedBy: null,
+        updatedAt: null,
+        providerId: 400,
+        day: null,
+        startTime: '00:00:00',
+        endTime: '05:59:00',
+        timezone: 'America/Los_Angeles',
+        date: '2024-07-15',
+        isOverride: true,
+      },
+
+      {
+        id: 58,
+        createdBy: 'admin',
+        createdAt: '2024-07-14T21:34:58.355Z',
+        updatedBy: null,
+        updatedAt: null,
+        providerId: 400,
+        day: 0,
+        startTime: '00:00:00',
+        endTime: '05:59:00',
+        timezone: 'America/Los_Angeles',
+        date: '2024-07-15',
+        isOverride: true,
+      },
+    ],
+  },
+];
+
+type TComputeCurrentAndNextAvailability = {
+  timezone?: string;
+  start_timestamp: string | null;
+  end_timestamp: string | null;
+  id?: number;
+} | null;
+
+type TAvailability = {
+  id: number;
+  createdBy: string;
+  createdAt: string;
+  updatedBy: string | null;
+  updatedAt: string | null;
+  day?: number | null;
+  date?: string | null;
+  startTime: string;
+  endTime: string;
+  isOverride: boolean;
+  timezone?: string;
+  providerId: number;
+};
+
+const computeCurrentAndNextAvailability = (
+  availabilities: TAvailability[],
+  providerId: number
+) => {
+  let timezone;
+  let currentAvailability: TComputeCurrentAndNextAvailability = null;
+  let nextAvailability: TComputeCurrentAndNextAvailability = null;
+
+  const now = DateTime.now();
+  const providerTimezone = availabilities.find(
+    (availability) => availability.timezone
+  )?.timezone;
+  const currentTime = currentTimeFn(String(providerTimezone));
+  const todayDate = now.setZone(providerTimezone).toISODate();
+
+  const formattedAvailabilitiesTime = availabilities
+    .map((availability) => {
+      return {
+        ...availability,
+        startTime: formatTimeToHHMM(availability.startTime),
+        endTime: formatTimeToHHMM(availability.endTime),
+      };
+    })
+    .sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+  for (const availability of formattedAvailabilitiesTime) {
+    timezone = availability.timezone;
+    const { startTime, endTime, date } = availability;
+
+    const startTimestamp = date ? addTimeToISODateWithZone(startTime, now) : '';
+    const endTimestamp = date && addTimeToISODateWithZone(endTime, now);
+
+    if (todayDate === date && availability?.isOverride) {
+      if (currentTime >= startTime && currentTime <= endTime) {
+        currentAvailability = {
+          start_timestamp: String(startTimestamp),
+          end_timestamp: String(endTimestamp),
+          id: availability.id,
+        };
+      }
+    }
+  }
+
+  if (currentAvailability) {
+    const currentAvailabilityIndex = availabilities.findIndex(
+      (avail) => avail.id === currentAvailability?.id
+    );
+
+    const nextAvailabilityDataIndex = currentAvailabilityIndex + 1;
+    const nextAvailabilityData =
+      availabilities[nextAvailabilityDataIndex] ?? null;
+
+    if (nextAvailabilityData) {
+      const { startTime, endTime, date } = nextAvailabilityData;
+      const startTimestamp = date
+        ? addTimeToISODateWithZone(startTime, now)
+        : '';
+
+      let endTimestamp = date && addTimeToISODateWithZone(endTime, now);
+
+      // Handle the special case for midnight override
+      if (
+        endTime === '23:59:00' &&
+        nextAvailabilityDataIndex + 1 < availabilities.length
+      ) {
+        const nextNextAvailability =
+          availabilities[nextAvailabilityDataIndex + 1];
+
+        if (nextNextAvailability.startTime === '00:00:00') {
+          endTimestamp = addTimeToISODateWithZone(
+            nextNextAvailability.endTime,
+            now
+          );
+        }
+      }
+
+      nextAvailability = {
+        start_timestamp: String(startTimestamp),
+        end_timestamp: String(endTimestamp),
+        id: nextAvailabilityData.id,
+      };
+    }
+  }
+
+  return {
+    providerId,
+    timezone,
+    ...(currentAvailability?.end_timestamp &&
+    currentAvailability?.start_timestamp
+      ? { current: currentAvailability }
+      : { current: null }),
+    ...(nextAvailability?.end_timestamp && nextAvailability?.start_timestamp
+      ? { next: nextAvailability }
+      : { next: null }),
+  };
+};
+
+const computeProviderAvailabilityPerProvider = (providerData: any[]) => {
+  return (
+    Array.isArray(providerData) &&
+    providerData.map((provider) => {
+      return computeCurrentAndNextAvailability(
+        provider.availability,
+        provider.id
+      );
+    })
+  );
+};
+
+console.log(computeProviderAvailabilityPerProvider(mock));
