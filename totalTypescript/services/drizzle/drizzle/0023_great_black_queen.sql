@@ -1,0 +1,1 @@
+ALTER TABLE "job" ALTER COLUMN "job_status" SET DATA TYPE job_status;

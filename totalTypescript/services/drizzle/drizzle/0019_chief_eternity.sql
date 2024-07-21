@@ -1,0 +1,1 @@
+ALTER TABLE "job" ALTER COLUMN "job_statuses" SET DEFAULT 'NOTIFYING';

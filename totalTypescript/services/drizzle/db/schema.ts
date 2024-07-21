@@ -12,6 +12,9 @@ import {
   integer,
   primaryKey,
   serial,
+  text,
+  numeric,
+  doublePrecision,
 } from 'drizzle-orm/pg-core';
 
 export const UserRole = pgEnum('user_role', ['ADMIN', 'BASIC']);
@@ -129,6 +132,83 @@ export const postToCategoryRelations = relations(postToCategory, ({ one }) => ({
 
 // Start: Provider,  Jobs, JobRequests logic
 
-const providerTable = pgTable('provider', {
-  id: serial('id'),
+// providerLocations
+export const providerTable = pgTable('provider', {
+  id: serial('id').primaryKey(),
+  firstName: text('first_name').notNull(),
+  lastName: text('last_name').notNull(),
+  email: text('email').unique().notNull(),
+  city: text('city').unique().notNull(),
+  state: text('state').unique().notNull(),
+  notifications: boolean('notifications').default(false),
+  phone: numeric('phone_number').notNull(),
+  acceptedRate: real('accepted_rate'),
+  stripeAccountId: varchar('stripe_account_id', { length: 255 })
+    .unique()
+    .notNull(),
+  // ensure that one provider could be assigned many jobs
 });
+
+export const jobStatus = pgEnum('job_status', [
+  'NOTIFYING',
+  'ACCEPTED',
+  'REJECTED',
+]);
+
+export const jobRequestStatus = pgEnum('job_request_status', [
+  'ACCEPT',
+  'DECLINE',
+  'UNREAD',
+]);
+
+export const jobTable = pgTable('job', {
+  id: serial('id').primaryKey(),
+  providerId: integer('provider_id').references(() => providerTable.id),
+  payment_sum: numeric('payment_sum').default('0'),
+  payment_sum_cents: integer('payment_sum_cents').notNull().default(0),
+  balance_cents: integer('balance_cents').notNull().default(0),
+  is_abandoned: boolean('is_abandoned').default(false),
+  customer_ref: varchar('customer_ref', { length: 256 }),
+  provider_callout_cents: integer('provider_callout_cents')
+    .notNull()
+    .default(0),
+  provider_rate_cents: integer('provider_rate_cents').notNull().default(0),
+  charge_callout_cents: integer('charge_callout_cents').notNull(),
+  charge_rate_cents: integer('charge_rate_cents').notNull(),
+  charge_fuel_surcharge_cents: integer('charge_fuel_surcharge_cents').notNull(),
+  status_id: jobStatus('job_status').default('NOTIFYING').notNull(),
+});
+
+// a job request with the provider and job, could be accepted or declined by provider
+export const jobRequestTable = pgTable('job_request', {
+  id: serial('id').primaryKey(),
+  providerId: integer('provider_id').references(() => providerTable.id),
+  jobId: integer('job_id').references(() => jobTable.id),
+  status_id: jobRequestStatus('job_request_status').default('UNREAD').notNull(),
+  distance: doublePrecision('distance'),
+  duration: doublePrecision('duration'),
+});
+
+// one provider can do many jobs
+export const AllProviderRelations = relations(providerTable, ({ many }) => ({
+  jobs: many(jobTable),
+}));
+
+// one job can be done by a provider
+export const JobProviderRelations = relations(jobTable, ({ one, many }) => ({
+  provider: one(providerTable, {
+    fields: [jobTable.providerId],
+    references: [providerTable.id],
+  }),
+}));
+
+export const JobRequestRelations = relations(jobRequestTable, ({ one }) => ({
+  provider: one(providerTable, {
+    fields: [jobRequestTable.providerId],
+    references: [providerTable.id],
+  }),
+  job: one(jobTable, {
+    fields: [jobRequestTable.jobId],
+    references: [jobTable.id],
+  }),
+}));
