@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-
+import { createInsertSchema } from 'drizzle-zod/pg';
 import {
   timestamp,
   pgTable,
@@ -212,3 +212,9 @@ export const JobRequestRelations = relations(jobRequestTable, ({ one }) => ({
     references: [jobTable.id],
   }),
 }));
+
+//https://www.npmjs.com/package/drizzle-zod/v/0.1.3-df47cf6
+// this converts the schema to zod
+const updateProviderSchema = createInsertSchema(providerTable, 'snake').pick({
+  city: true,
+});

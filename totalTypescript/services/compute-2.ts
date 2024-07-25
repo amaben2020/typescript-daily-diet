@@ -1,65 +1,105 @@
 //@ts-nocheck
 import { DateTime } from 'luxon';
-
 const formatTimeToHHMM = (time: string) => time?.slice(0, 5);
+const getDateTimeForWeekday = (weekday: number, timezone: string): DateTime => {
+  const now = DateTime.utc().setZone(timezone);
+  const today = now.weekday;
 
-function addTimeToISODateWithZone(time: string, date: DateTime) {
-  const [hours, minutes] = time?.split(':').map(Number) ?? [];
-  const newDateTime = date.set({
-    hour: hours,
-    minute: minutes,
-    second: 0,
-    millisecond: 0,
+  const daysToAdd = (weekday + 7 - today) % 7;
+
+  const targetDateTime = now.plus({ days: daysToAdd });
+
+  return targetDateTime;
+};
+
+const getAvailabilityWithHighestDay = (
+  availabilities: TAvailability[]
+): TAvailability | null => {
+  if (availabilities.length === 0) {
+    return null;
+  }
+
+  return availabilities.reduce((acc, availability) => {
+    return acc.day! > availability.day! ? acc : availability;
   });
-  return newDateTime.toISO();
-}
-// function sortAvailabilityById(providers) {
-//   return providers.map((provider) => {
-//     const sortedAvailability = provider.availability.sort(
-//       (a, b) => a.id - b.id
-//     );
-//     return {
-//       ...provider,
-//       availability: sortedAvailability,
-//     };
-//   });
-// }
+};
 
-// function sortAvailabilityById(providers) {
-//   return providers.map((provider) => {
-//     const sortedAvailability = provider.availability.sort((a, b) => {
-//       if (a.date === b.date) {
-//         return a.id - b.id;
-//       }
-//       return new Date(a.date) - new Date(b.date);
-//     });
-//     return {
-//       ...provider,
-//       availability: sortedAvailability,
-//     };
-//   });
-// }
+const computeNextWeekTime = (weekday: number, timezone: string): DateTime => {
+  const now = DateTime.utc().setZone(timezone);
+  const today = now.weekday;
 
-function sortAvailabilityById(provider) {
-  return provider.map((p) => {
-    p.availability.sort((a, b) => {
-      if (a.date === b.date) {
-        return a.id - b.id;
+  const daysToAdd = (weekday + 7 - today) % 7 || 7;
+  const targetDateTime = now.plus({ days: daysToAdd });
+
+  return targetDateTime;
+};
+
+export const finalAvailabilityData = (
+  availability: TComputeProviderAvailabilityPerProvider[]
+) => {
+  const availabilities = computeProviderAvailabilityPerProvider(
+    availability
+  ) as TComputedAvailability[];
+
+  return availability.map((provider) => {
+    const providerAvailability = availabilities.find(
+      (avail: TComputedAvailability) => avail.providerId === provider.id
+    );
+
+    return {
+      ...provider,
+      availability: {
+        timezone: providerAvailability?.timezone ?? '',
+        current: providerAvailability?.current,
+        next: providerAvailability?.next,
+      },
+    };
+  });
+};
+
+export const transformProviders = (
+  allProvidersAvailability: TTransformProvidersData
+) => {
+  const providerMap = new Map();
+
+  allProvidersAvailability.forEach((entry) => {
+    if (!providerMap.has(entry.id)) {
+      providerMap.set(entry.id, {
+        ...entry,
+        availability: entry.availability ? [entry.availability] : [],
+      });
+    } else {
+      const existingProvider = providerMap.get(entry.id);
+      if (entry.availability) {
+        existingProvider.availability.push(entry.availability);
       }
-      return new Date(a.date) - new Date(b.date);
-    });
-    return p;
+    }
   });
-}
 
-function currentTimeFn(timezone: string) {
+  return Array.from(providerMap.values());
+};
+
+const addTimeToISODateWithZone = (
+  time: string,
+  date: DateTime,
+  timezone?: string
+) => {
+  const [hours, minutes] = time.split(':').map(Number);
+  const dt = date
+    .set({ hour: hours, minute: minutes, second: 0, millisecond: 0 })
+    .setZone(timezone, { keepLocalTime: true });
+
+  return dt.toISO({ includeOffset: true });
+};
+
+const currentTimeFn = (timezone: string) => {
   const now = DateTime.now().setZone(timezone);
   const formatWithLeadingZero = (num: number) => (num < 10 ? `0${num}` : num);
   const hours = formatWithLeadingZero(now.hour);
   const minutes = formatWithLeadingZero(now.minute);
   const time = `${hours}:${minutes}`;
   return time;
-}
+};
 
 const mock = [
   {
@@ -80,61 +120,61 @@ const mock = [
 
     availability: [
       {
-        id: 97,
+        id: 58,
         createdBy: 'admin',
-        createdAt: '2024-07-14T10:46:30.209Z',
+        createdAt: '2024-07-22T18:20:45.492Z',
         updatedBy: null,
         updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '21:00:00',
-        endTime: '23:59:00',
+        providerId: 400,
+        day: 0,
+        startTime: '09:00:00',
+        endTime: '23:00:00',
         timezone: 'America/Los_Angeles',
-        date: '2024-07-14',
-        isOverride: true,
+        date: null,
+        isOverride: false,
       },
       {
-        id: 96,
+        id: 59,
         createdBy: 'admin',
-        createdAt: '2024-07-14T10:46:30.209Z',
+        createdAt: '2024-07-22T18:20:45.492Z',
         updatedBy: null,
         updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '00:00:00',
-        endTime: '20:33:00',
+        providerId: 400,
+        day: 2,
+        startTime: '01:00:00',
+        endTime: '19:00:00',
         timezone: 'America/Los_Angeles',
-        date: '2024-07-14',
-        isOverride: true,
+        date: null,
+        isOverride: false,
       },
-      {
-        id: 98,
-        createdBy: 'admin',
-        createdAt: '2024-07-14T10:46:30.209Z',
-        updatedBy: null,
-        updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '00:00:00',
-        endTime: '02:39:00',
-        timezone: 'America/Los_Angeles',
-        date: '2024-07-15',
-        isOverride: true,
-      },
-      {
-        id: 99,
-        createdBy: 'admin',
-        createdAt: '2024-07-14T10:46:30.209Z',
-        updatedBy: null,
-        updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '21:00:00',
-        endTime: '21:09:00',
-        timezone: 'America/Los_Angeles',
-        date: '2024-07-15',
-        isOverride: true,
-      },
+      // {
+      //   id: 60,
+      //   createdBy: 'admin',
+      //   createdAt: '2024-07-22T18:20:45.492Z',
+      //   updatedBy: null,
+      //   updatedAt: null,
+      //   providerId: 400,
+      //   day: null,
+      //   startTime: '07:00:00',
+      //   endTime: '23:59:00',
+      //   timezone: 'America/Los_Angeles',
+      //   date: '2024-07-25',
+      //   isOverride: true,
+      // },
+      // {
+      //   id: 61,
+      //   createdBy: 'admin',
+      //   createdAt: '2024-07-22T18:20:45.492Z',
+      //   updatedBy: null,
+      //   updatedAt: null,
+      //   providerId: 400,
+      //   day: null,
+      //   startTime: '07:00:00',
+      //   endTime: '23:59:00',
+      //   timezone: 'America/Los_Angeles',
+      //   date: '2024-07-24',
+      //   isOverride: true,
+      // },
     ],
   },
 
@@ -154,123 +194,7 @@ const mock = [
     location_updated_at: '2024-02-24T17:41:04.867Z',
     job_request: null,
 
-    // availability: [
-    //   {
-    //     id: 102,
-    //     createdBy: 'admin',
-    //     createdAt: '2024-07-14T10:46:30.209Z',
-    //     updatedBy: null,
-    //     updatedAt: null,
-    //     providerId: 400,
-    //     day: null,
-    //     startTime: '21:00:00',
-    //     endTime: '23:59:00',
-    //     timezone: 'America/Los_Angeles',
-    //     date: '2024-07-14',
-    //     isOverride: true,
-    //   },
-    //   {
-    //     id: 100,
-    //     createdBy: 'admin',
-    //     createdAt: '2024-07-14T10:46:30.209Z',
-    //     updatedBy: null,
-    //     updatedAt: null,
-    //     providerId: 400,
-    //     day: null,
-    //     startTime: '00:00:00',
-    //     endTime: '20:33:00',
-    //     timezone: 'America/Los_Angeles',
-    //     date: '2024-07-14',
-    //     isOverride: true,
-    //   },
-    //   {
-    //     id: 103,
-    //     createdBy: 'admin',
-    //     createdAt: '2024-07-14T10:46:30.209Z',
-    //     updatedBy: null,
-    //     updatedAt: null,
-    //     providerId: 400,
-    //     day: null,
-    //     startTime: '00:00:00',
-    //     endTime: '02:39:00',
-    //     timezone: 'America/Los_Angeles',
-    //     date: '2024-07-15',
-    //     isOverride: true,
-    //   },
-    //   {
-    //     id: 101,
-    //     createdBy: 'admin',
-    //     createdAt: '2024-07-14T10:46:30.209Z',
-    //     updatedBy: null,
-    //     updatedAt: null,
-    //     providerId: 400,
-    //     day: null,
-    //     startTime: '21:00:00',
-    //     endTime: '21:09:00',
-    //     timezone: 'America/Los_Angeles',
-    //     date: '2024-07-15',
-    //     isOverride: true,
-    //   },
-    // ],
-
-    availability: [
-      {
-        id: 54,
-        createdBy: 'admin',
-        createdAt: '2024-07-12T12:51:15.575Z',
-        updatedBy: null,
-        updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '00:00:00',
-        endTime: '02:33:00',
-        timezone: 'America/Los_Angeles',
-        date: '2024-07-15',
-        isOverride: true,
-      },
-      {
-        id: 53,
-        createdBy: 'admin',
-        createdAt: '2024-07-12T12:51:15.575Z',
-        updatedBy: null,
-        updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '22:01:00',
-        endTime: '23:59:00',
-        timezone: 'America/Los_Angeles',
-        date: '2024-07-14',
-        isOverride: true,
-      },
-      {
-        id: 52,
-        createdBy: 'admin',
-        createdAt: '2024-07-12T12:51:15.575Z',
-        updatedBy: null,
-        updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '05:01:00',
-        endTime: '19:59:00',
-        timezone: 'America/Los_Angeles',
-        date: '2024-07-14',
-        isOverride: true,
-      },
-      {
-        id: 54,
-        createdBy: 'admin',
-        createdAt: '2024-07-12T12:51:15.575Z',
-        updatedBy: null,
-        updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '22:01:00',
-        endTime: '23:59:00',
-        timezone: 'America/Los_Angeles',
-        date: '2024-07-15',
-        isOverride: true,
-      },
-    ],
+    availability: [],
   },
 ];
 
@@ -295,8 +219,10 @@ type TAvailability = {
   timezone?: string;
   providerId: number;
 };
-
-const computeCurrentAndNextAvailability = (
+function getLowerDate(dateA: DateTime, dateB: DateTime): DateTime {
+  return dateA <= dateB ? dateA : dateB;
+}
+export const computeCurrentAndNextAvailability = (
   availabilities: TAvailability[],
   providerId: number
 ) => {
@@ -305,8 +231,6 @@ const computeCurrentAndNextAvailability = (
   let nextAvailability: TComputeCurrentAndNextAvailability = null;
   const now = DateTime.now();
   const weekdayIndex = now.weekday % 7;
-
-  console.log('now!!!!!!!', now);
 
   const providerTimezone = availabilities.find(
     (availability) => availability.timezone
@@ -324,34 +248,26 @@ const computeCurrentAndNextAvailability = (
     })
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
-  console.log('formattedAvailabilitiesTime', formattedAvailabilitiesTime);
-
   for (const availability of formattedAvailabilitiesTime) {
     timezone = availability.timezone;
+
     const { startTime, endTime, date } = availability;
 
-    // const startTimestamp = date ? addTimeToISODateWithZone(startTime, now) : '';
-    // const endTimestamp = date && addTimeToISODateWithZone(endTime, now);
-    console.log('todayDate ======> ', todayDate);
-    const startTimestamp =
-      date! > todayDate!
-        ? addTimeToISODateWithZone(startTime, now.plus({ day: 1 }))
-        : addTimeToISODateWithZone(startTime, now);
+    const startTimestamp = addTimeToISODateWithZone(
+      startTime,
+      date! > todayDate! || availability.day! > weekdayIndex
+        ? now.plus({ day: 1 })
+        : now,
+      timezone
+    );
 
-    const currentDay = date?.split('-')[0];
-    const currentMonth = date?.split('-')[1];
-    const currentYear = date?.split('-')[2];
-    console.log('currentDate ===>', currentDay, currentMonth, currentYear);
-    const desiredDate = DateTime.fromISO(String(date), { zone: timezone });
-    console.log('DesiredDate', desiredDate);
-    console.log('date', date);
-    let endTimestamp =
-      date! > todayDate!
-        ? addTimeToISODateWithZone(
-            endTime,
-            DateTime.fromISO(String(date), { zone: timezone })
-          )
-        : addTimeToISODateWithZone(endTime, now);
+    const endTimestamp = addTimeToISODateWithZone(
+      endTime,
+      date! > todayDate! || availability.day! > weekdayIndex
+        ? now.plus({ day: 1 })
+        : now,
+      timezone
+    );
 
     if (todayDate === date && availability?.isOverride) {
       if (currentTime >= startTime && currentTime <= endTime) {
@@ -361,6 +277,15 @@ const computeCurrentAndNextAvailability = (
           id: availability.id,
         };
       }
+
+      if (currentTime < startTime && !currentAvailability) {
+        nextAvailability = {
+          start_timestamp: String(startTimestamp),
+          end_timestamp: String(endTimestamp),
+          id: availability.id,
+        };
+        break;
+      }
     }
 
     if (weekdayIndex === availability.day && !availability.isOverride) {
@@ -368,6 +293,155 @@ const computeCurrentAndNextAvailability = (
         currentAvailability = {
           start_timestamp: String(startTimestamp),
           end_timestamp: String(endTimestamp),
+          id: availability.id,
+        };
+      }
+
+      if (currentTime < startTime && !currentAvailability) {
+        nextAvailability = {
+          start_timestamp: String(startTimestamp),
+          end_timestamp: String(endTimestamp),
+          id: availability.id,
+        };
+        break;
+      }
+    }
+
+    // if for a given day the endtime has passed, compute the next week availability correctly
+    if (
+      weekdayIndex === availability.day! &&
+      !currentAvailability?.id &&
+      availability.endTime < currentTime &&
+      !nextAvailability?.id
+    ) {
+      const nextWeekDay = availabilities.find(
+        (avail) => avail.day === availability.day!
+      );
+      const getNextWeekDay = getDateTimeForWeekday(
+        availability.day!,
+        timezone
+      ).plus({ days: 7 });
+
+      const nextWeekDate = DateTime.fromISO(
+        availabilities.find((avail) => avail.date)?.date
+      );
+
+      const nextAvailableTimeSlot = getLowerDate(nextWeekDate, getNextWeekDay);
+      const dateString = nextAvailableTimeSlot
+        .toLocaleString(DateTime.DATETIME_FULL)
+        .replace('PDT', String(timezone));
+
+      const dateTime = DateTime.fromFormat(
+        dateString,
+        "MMMM d, yyyy 'at' h:mm a z",
+        { zone: timezone }
+      );
+
+      const updatedDateTime = dateTime.set({
+        hour: Number(
+          availability?.startTime
+            ? availability.startTime.split(':')[0]
+            : availability.startTime.split(':')[0]
+        ),
+        minute: Number(
+          availability?.startTime
+            ? availability.startTime.split(':')[1]
+            : availability.startTime.split(':')[1]
+        ),
+      });
+
+      const nextAvailabilityEndtime = dateTime.set({
+        hour: Number(
+          availability?.endTime
+            ? availability.endTime.split(':')[0]
+            : availability.endTime.split(':')[0]
+        ),
+        minute: Number(
+          availability?.endTime
+            ? availability.endTime.split(':')[1]
+            : availability.endTime.split(':')[1]
+        ),
+      });
+
+      const updatedIsoString = updatedDateTime.toISO();
+      const nextAvailabilityEndtimeIso = nextAvailabilityEndtime.toISO();
+
+      nextAvailability = {
+        start_timestamp: updatedIsoString,
+        end_timestamp: nextAvailabilityEndtimeIso,
+        id: availability.id,
+      };
+    }
+
+    // properly computing availability
+    if (weekdayIndex === availability.day && currentAvailability?.id) {
+      const sortedAvailabilities = availabilities.sort((a, b) =>
+        a.id > b.id ? 1 : -1
+      );
+      console.log('Availabilities', sortedAvailabilities);
+      const currentDay = sortedAvailabilities.find(
+        (av) => av.day === weekdayIndex
+      );
+      const previousDay = sortedAvailabilities.find(
+        (av) => av.day < weekdayIndex
+      );
+
+      if (currentDay && previousDay?.day < weekdayIndex) {
+        currentAvailability.end_timestamp = addTimeToISODateWithZone(
+          currentDay.endTime,
+          now,
+          timezone
+        );
+
+        const convertPreviousDayToNextWeek = getDateTimeForWeekday(
+          previousDay.day!,
+          timezone
+        ).plus({ days: 7 });
+
+        const dateString = convertPreviousDayToNextWeek
+          .toLocaleString(DateTime.DATETIME_FULL)
+          .replace('PDT', String(timezone));
+
+        console.log('DSS', dateString);
+
+        const dateTime = DateTime.fromFormat(
+          dateString,
+          "MMMM d, yyyy 'at' h:mm a z",
+          { zone: timezone }
+        );
+
+        const updatedDateTime = dateTime.set({
+          hour: Number(
+            previousDay?.startTime
+              ? previousDay.startTime.split(':')[0]
+              : previousDay.startTime.split(':')[0]
+          ),
+          minute: Number(
+            previousDay?.startTime
+              ? previousDay.startTime.split(':')[1]
+              : previousDay.startTime.split(':')[1]
+          ),
+        });
+
+        const previousDayEndtime = dateTime.set({
+          hour: Number(
+            previousDay?.endTime
+              ? previousDay.endTime.split(':')[0]
+              : previousDay.endTime.split(':')[0]
+          ),
+          minute: Number(
+            previousDay?.endTime
+              ? previousDay.endTime.split(':')[1]
+              : previousDay.endTime.split(':')[1]
+          ),
+        });
+
+        const updatedIsoString = updatedDateTime.toISO();
+        const nextAvailabilityEndtimeIso = previousDayEndtime.toISO();
+
+        nextAvailability = {
+          start_timestamp: updatedIsoString,
+          end_timestamp: nextAvailabilityEndtimeIso,
           id: availability.id,
         };
       }
@@ -383,23 +457,47 @@ const computeCurrentAndNextAvailability = (
     const nextAvailabilityData =
       availabilities[nextAvailabilityDataIndex] ?? null;
 
+    if (nextAvailabilityData?.startTime === '00:00:00') {
+      const nextNextAvailability =
+        availabilities[nextAvailabilityDataIndex + 1];
+
+      currentAvailability.end_timestamp = addTimeToISODateWithZone(
+        nextAvailabilityData.endTime,
+        now.plus({ day: 1 }),
+        timezone
+      );
+      nextAvailability = nextNextAvailability?.startTime
+        ? {
+            start_timestamp: addTimeToISODateWithZone(
+              nextNextAvailability.startTime,
+              now.plus({ day: 1 }),
+              timezone
+            ),
+            end_timestamp: addTimeToISODateWithZone(
+              nextNextAvailability.endTime,
+              now.plus({ day: 1 }),
+              timezone
+            ),
+          }
+        : null;
+    }
+
     if (nextAvailabilityData) {
-      console.log('nextAvailabilityData for id 97', nextAvailabilityData);
       const { startTime, endTime, date } = nextAvailabilityData;
 
-      let startTimestamp =
+      const startTimestamp = addTimeToISODateWithZone(
+        startTime,
         date! > todayDate!
-          ? addTimeToISODateWithZone(
-              startTime,
-              DateTime.fromISO(String(date), { zone: timezone })
-            )
-          : addTimeToISODateWithZone(startTime, now);
+          ? DateTime.fromISO(String(date), { zone: timezone })
+          : now,
+        timezone
+      );
 
-      // let endTimestamp = date && addTimeToISODateWithZone(endTime, now);
-      let endTimestamp =
-        date! > todayDate!
-          ? addTimeToISODateWithZone(endTime, now.plus({ day: 1 }))
-          : addTimeToISODateWithZone(endTime, now);
+      let endTimestamp = addTimeToISODateWithZone(
+        endTime,
+        date! > todayDate! ? now.plus({ day: 1 }) : now,
+        timezone
+      );
 
       // Handle the special case for midnight override
       if (
@@ -409,12 +507,11 @@ const computeCurrentAndNextAvailability = (
         const nextNextAvailability =
           availabilities[nextAvailabilityDataIndex + 1];
 
-        console.log('nextNextAvailability.endTime', nextNextAvailability);
-        console.log('now', now);
         if (nextNextAvailability.startTime === '00:00:00') {
           endTimestamp = addTimeToISODateWithZone(
             nextNextAvailability.endTime,
-            now.plus({ day: 1 })
+            now.plus({ day: 1 }),
+            timezone
           );
         }
       }
@@ -452,4 +549,30 @@ const computeProviderAvailabilityPerProvider = (providerData: any[]) => {
   );
 };
 
+const sortAvailabilityById = (providers: TProvider[]) =>
+  providers.map((provider) => {
+    const sortedAvailability =
+      provider.availability!.sort((a, b) => a.id - b.id) ?? [];
+    return {
+      ...provider,
+      availability: sortedAvailability,
+    };
+  });
+
 console.log(computeProviderAvailabilityPerProvider(sortAvailabilityById(mock)));
+
+import { DateTime } from 'luxon';
+
+function getNextOccurrenceOfDay(dayIndex: number, timezone: string): DateTime {
+  const now = DateTime.now().setZone(timezone);
+  const todayIndex = now.weekday % 7; // Convert Luxon weekday (1=Monday, ..., 7=Sunday) to 0=Sunday, ..., 6=Saturday
+  const daysToAdd = (dayIndex - todayIndex + 7) % 7 || 7; // Ensure we move to the next occurrence of the day
+  return now.plus({ days: daysToAdd }).startOf('day');
+}
+
+// Example usage:
+const nextSunday = getNextOccurrenceOfDay(0, 'America/Los_Angeles');
+console.log('Next Sunday:', nextSunday.toISODate()); // Expected output: '2024-07-28' if today is before 2024-07-28
+
+const nextMonday = getNextOccurrenceOfDay(1, 'America/Los_Angeles');
+console.log('Next Monday:', nextMonday.toISODate()); // Expected output: '2024-07-29' if today is before 2024-07-29

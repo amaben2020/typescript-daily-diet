@@ -1,9 +1,9 @@
-import { z } from "zod";
+import { z } from 'zod';
 // merge and extend: https://zod.dev/?id=extend
 const appUserInfo = {
-  name: "Amala",
-  email: "amaben@bejamas.io",
-  password: "12345",
+  name: 'Amala',
+  email: 'amaben@bejamas.io',
+  password: '12345',
 };
 const appUserPermission = {
   authLevel: 3,
@@ -29,7 +29,7 @@ const mergedSchemas = AppUserInfoSchema.merge(
   z.object({
     authLevel: z.number(),
     isAdmin: z.boolean(),
-  }),
+  })
 );
 
 const logInfo = () => {
