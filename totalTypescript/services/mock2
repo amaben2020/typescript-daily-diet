@@ -1,304 +1,104 @@
-const mock = [
+const sortedAvailabilities = [
   {
-    id: 138,
-    firstname: 'Mobile',
-    lastname: 'UAT',
-    email: null,
-    rating: '0',
-    phone: '11111111111',
-    distance: 1.1210646618872298,
-    latitude: 38.93592274180123,
-    longitude: -94.35870889009857,
-    is_onjob: false,
-    is_blocked: false,
-    is_online: true,
-    location_updated_at: '2024-02-24T17:41:04.867Z',
-    job_request: null,
-    // availability: [
-    //   {
-    //     id: 56,
-    //     createdBy: 'admin',
-    //     createdAt: '2024-07-14T21:34:58.355Z',
-    //     updatedBy: null,
-    //     updatedAt: null,
-    //     providerId: 138,
-    //     day: null,
-    //     startTime: '00:00:00',
-    //     endTime: '20:33:00',
-    //     timezone: 'America/Los_Angeles',
-    //     date: '2024-07-14',
-    //     isOverride: true,
-    //   },
-    //   {
-    //     id: 57,
-    //     createdBy: 'admin',
-    //     createdAt: '2024-07-14T21:34:58.355Z',
-    //     updatedBy: null,
-    //     updatedAt: null,
-    //     providerId: 138,
-    //     day: null,
-    //     startTime: '21:00:00',
-    //     endTime: '23:59:00',
-    //     timezone: 'America/Los_Angeles',
-    //     date: '2024-07-15',
-    //     isOverride: true,
-    //   },
-    //   {
-    //     id: 58,
-    //     createdBy: 'admin',
-    //     createdAt: '2024-07-15T21:34:58.355Z',
-    //     updatedBy: null,
-    //     updatedAt: null,
-    //     providerId: 138,
-    //     day: null,
-    //     startTime: '00:00:00',
-    //     endTime: '05:59:00',
-    //     timezone: 'America/Los_Angeles',
-    //     date: '2024-07-15',
-    //     isOverride: true,
-    //   },
-    // ],
-
-    availability: [
-      {
-        id: 97,
-        createdBy: 'admin',
-        createdAt: '2024-07-14T10:46:30.209Z',
-        updatedBy: null,
-        updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '21:00:00',
-        endTime: '23:59:00',
-        timezone: 'America/Los_Angeles',
-        date: '2024-07-14',
-        isOverride: true,
-      },
-      {
-        id: 96,
-        createdBy: 'admin',
-        createdAt: '2024-07-14T10:46:30.209Z',
-        updatedBy: null,
-        updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '00:00:00',
-        endTime: '20:33:00',
-        timezone: 'America/Los_Angeles',
-        date: '2024-07-14',
-        isOverride: true,
-      },
-      {
-        id: 98,
-        createdBy: 'admin',
-        createdAt: '2024-07-14T10:46:30.209Z',
-        updatedBy: null,
-        updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '00:00:00',
-        endTime: '02:39:00',
-        timezone: 'America/Los_Angeles',
-        date: '2024-07-15',
-        isOverride: true,
-      },
-      {
-        id: 99,
-        createdBy: 'admin',
-        createdAt: '2024-07-14T10:46:30.209Z',
-        updatedBy: null,
-        updatedAt: null,
-        providerId: 138,
-        day: null,
-        startTime: '21:00:00',
-        endTime: '21:09:00',
-        timezone: 'America/Los_Angeles',
-        date: '2024-07-15',
-        isOverride: true,
-      },
-    ],
+    id: 34,
+    createdBy: 'admin',
+    createdAt: '2024-07-28T11:17:03.975Z',
+    updatedBy: null,
+    updatedAt: null,
+    providerId: 138,
+    day: 1, // monday
+    startTime: '06:00:00',
+    endTime: '23:58:00',
+    timezone: 'America/Los_Angeles',
+    date: null,
+    isOverride: false,
   },
-  // {
-  //   id: 400,
-  //   firstname: 'Mobile',
-  //   lastname: 'UAT',
-  //   email: null,
-  //   rating: '0',
-  //   phone: '11111111111',
-  //   distance: 1.1210646618872298,
-  //   latitude: 38.93592274180123,
-  //   longitude: -94.35870889009857,
-  //   is_onjob: false,
-  //   is_blocked: false,
-  //   is_online: true,
-  //   location_updated_at: '2024-02-24T17:41:04.867Z',
-  //   job_request: null,
-  //   availability: [
-  //     {
-  //       id: 56,
-  //       createdBy: 'admin',
-  //       createdAt: '2024-07-14T21:34:58.355Z',
-  //       updatedBy: null,
-  //       updatedAt: null,
-  //       providerId: 400,
-  //       day: null,
-  //       startTime: '00:00:00',
-  //       endTime: '20:33:00',
-  //       timezone: 'America/Los_Angeles',
-  //       date: '2024-07-14',
-  //       isOverride: true,
-  //     },
-  //     {
-  //       id: 57,
-  //       createdBy: 'admin',
-  //       createdAt: '2024-07-14T21:34:58.355Z',
-  //       updatedBy: null,
-  //       updatedAt: null,
-  //       providerId: 400,
-  //       day: null,
-  //       startTime: '21:00:00',
-  //       endTime: '23:59:00',
-  //       timezone: 'America/Los_Angeles',
-  //       date: '2024-07-14',
-  //       isOverride: true,
-  //     },
-  //     {
-  //       id: 58,
-  //       createdBy: 'admin',
-  //       createdAt: '2024-07-14T21:34:58.355Z',
-  //       updatedBy: null,
-  //       updatedAt: null,
-  //       providerId: 400,
-  //       day: null,
-  //       startTime: '00:00:00',
-  //       endTime: '05:59:00',
-  //       timezone: 'America/Los_Angeles',
-  //       date: '2024-07-15',
-  //       isOverride: true,
-  //     },
-  //   ],
-  // },
-
-  // {
-  //   id: 134,
-  //   firstname: 'Mobile',
-  //   lastname: 'UAT',
-  //   email: null,
-  //   rating: '0',
-  //   phone: '11111111111',
-  //   distance: 1.1210646618872298,
-  //   latitude: 38.93592274180123,
-  //   longitude: -94.35870889009857,
-  //   is_onjob: false,
-  //   is_blocked: false,
-  //   is_online: true,
-  //   location_updated_at: '2024-02-24T17:41:04.867Z',
-  //   job_request: null,
-  //   availability: [
-  //     {
-  //       id: 56,
-  //       createdBy: 'admin',
-  //       createdAt: '2024-07-14T21:34:58.355Z',
-  //       updatedBy: null,
-  //       updatedAt: null,
-  //       providerId: 134,
-  //       day: null,
-  //       startTime: '00:00:00',
-  //       endTime: '20:33:00',
-  //       timezone: 'America/Los_Angeles',
-  //       date: '2024-07-14',
-  //       isOverride: true,
-  //     },
-  //     {
-  //       id: 57,
-  //       createdBy: 'admin',
-  //       createdAt: '2024-07-14T21:34:58.355Z',
-  //       updatedBy: null,
-  //       updatedAt: null,
-  //       providerId: 134,
-  //       day: 0,
-  //       startTime: '21:00:00',
-  //       endTime: '23:59:00',
-  //       timezone: 'America/Los_Angeles',
-  //       date: '2024-07-14',
-  //       isOverride: false,
-  //     },
-  //     {
-  //       id: 58,
-  //       createdBy: 'admin',
-  //       createdAt: '2024-07-14T21:34:58.355Z',
-  //       updatedBy: null,
-  //       updatedAt: null,
-  //       providerId: 134,
-  //       day: 1,
-  //       startTime: '00:00:00',
-  //       endTime: '05:59:00',
-  //       timezone: 'America/Los_Angeles',
-  //       date: '2024-07-15',
-  //       isOverride: false,
-  //     },
-
-  //     {
-  //       id: 58,
-  //       createdBy: 'admin',
-  //       createdAt: '2024-07-14T21:34:58.355Z',
-  //       updatedBy: null,
-  //       updatedAt: null,
-  //       providerId: 400,
-  //       day: 0,
-  //       startTime: '00:00:00',
-  //       endTime: '05:59:00',
-  //       timezone: 'America/Los_Angeles',
-  //       date: '2024-07-15',
-  //       isOverride: true,
-  //     },
-  //   ],
-  // },
-
-  // {
-  //   id: 135,
-  //   firstname: 'Mobile',
-  //   lastname: 'UAT',
-  //   email: null,
-  //   rating: '0',
-  //   phone: '11111111111',
-  //   distance: 1.1210646618872298,
-  //   latitude: 38.93592274180123,
-  //   longitude: -94.35870889009857,
-  //   is_onjob: false,
-  //   is_blocked: false,
-  //   is_online: true,
-  //   location_updated_at: '2024-02-24T17:41:04.867Z',
-  //   job_request: null,
-  //   availability: [
-  //     {
-  //       id: 56,
-  //       createdBy: 'admin',
-  //       createdAt: '2024-07-14T21:34:58.355Z',
-  //       updatedBy: null,
-  //       updatedAt: null,
-  //       providerId: 135,
-  //       day: 0,
-  //       startTime: '00:00:00',
-  //       endTime: '20:33:00',
-  //       timezone: 'America/Los_Angeles',
-  //       date: '2024-07-14',
-  //       isOverride: false,
-  //     },
-  //     {
-  //       id: 57,
-  //       createdBy: 'admin',
-  //       createdAt: '2024-07-14T21:34:58.355Z',
-  //       updatedBy: null,
-  //       updatedAt: null,
-  //       providerId: 135,
-  //       day: 0,
-  //       startTime: '21:00:00',
-  //       endTime: '23:59:00',
-  //       timezone: 'America/Los_Angeles',
-  //       date: '2024-07-14',
-  //       isOverride: false,
-  //     },
-  //   ],
-  // },
+  {
+    id: 36,
+    createdBy: 'admin',
+    createdAt: '2024-07-28T11:17:03.975Z',
+    updatedBy: null,
+    updatedAt: null,
+    providerId: 138,
+    day: 2, // tuesday
+    startTime: '01:00:00',
+    endTime: '22:00:00',
+    timezone: 'America/Los_Angeles',
+    date: null,
+    isOverride: false,
+  },
+  {
+    id: 37,
+    createdBy: 'admin',
+    createdAt: '2024-07-28T11:17:03.975Z',
+    updatedBy: null,
+    updatedAt: null,
+    providerId: 138,
+    day: 2, // tuesday
+    startTime: '22:01:00',
+    endTime: '23:00:00',
+    timezone: 'America/Los_Angeles',
+    date: null,
+    isOverride: false,
+  },
 ];
+
+// Assume computeWeekDate is defined and returns an object with start_timestamp and end_timestamp properties
+function computeWeekDate(av) {
+  // Dummy implementation
+  return {
+    start_timestamp: new Date(`2024-07-28T${av.startTime}`).getTime(),
+    end_timestamp: new Date(`2024-07-28T${av.endTime}`).getTime(),
+  };
+}
+
+const weekdayIndex = 2; // Example: current day is Tuesday
+let currentAvailability = null;
+let nextAvailability = null;
+
+for (const [index, av] of sortedAvailabilities.entries()) {
+  if (av.day === weekdayIndex) {
+    currentAvailability = {
+      start_timestamp: computeWeekDate(av).start_timestamp,
+      end_timestamp: computeWeekDate(av).end_timestamp,
+      id: av.id,
+    };
+
+    // Find the next availability
+    const nextDayIndex = (weekdayIndex + 1) % 7;
+    for (let i = index + 1; i < sortedAvailabilities.length; i++) {
+      if (sortedAvailabilities[i].day === nextDayIndex) {
+        nextAvailability = {
+          start_timestamp: computeWeekDate(sortedAvailabilities[i])
+            .start_timestamp,
+          end_timestamp: computeWeekDate(sortedAvailabilities[i]).end_timestamp,
+          id: sortedAvailabilities[i].id,
+        };
+        break;
+      }
+    }
+
+    // If no next availability found in the loop, look from the beginning
+    if (!nextAvailability) {
+      for (let i = 0; i < index; i++) {
+        if (sortedAvailabilities[i].day === nextDayIndex) {
+          nextAvailability = {
+            start_timestamp: computeWeekDate(sortedAvailabilities[i])
+              .start_timestamp,
+            end_timestamp: computeWeekDate(sortedAvailabilities[i])
+              .end_timestamp,
+            id: sortedAvailabilities[i].id,
+          };
+          break;
+        }
+      }
+    }
+
+    if (currentAvailability && nextAvailability) {
+      break;
+    }
+  }
+}
+
+console.log('Current Availability:', currentAvailability);
+console.log('Next Availability:', nextAvailability);

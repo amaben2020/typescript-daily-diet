@@ -214,7 +214,12 @@ export const JobRequestRelations = relations(jobRequestTable, ({ one }) => ({
 }));
 
 //https://www.npmjs.com/package/drizzle-zod/v/0.1.3-df47cf6
-// this converts the schema to zod
-const updateProviderSchema = createInsertSchema(providerTable, 'snake').pick({
+// this converts the schema to zod i.e when you wanna update
+export const updateProviderSchema = createInsertSchema(
+  providerTable,
+  'snake'
+).pick({
   city: true,
+  firstName: true,
+  lastName: true,
 });
